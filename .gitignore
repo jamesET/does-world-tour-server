@@ -1,0 +1,13 @@
+server/target
+client/www
+client/node_modules
+client/platforms
+client/plugins
+client/bower_components
+client/.idea
+client/.temp
+client/.sass-cache
+*.swp
+*.swo
+*.log
+*.DS_Store

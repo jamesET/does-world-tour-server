@@ -1,0 +1,55 @@
+package com.justjames.beertour.security;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter;
+
+public class SecurityFilter extends PassThruAuthenticationFilter {
+
+	private Log log = LogFactory.getLog(SecurityFilter.class);
+
+	@Override
+	protected boolean isAccessAllowed(ServletRequest request,
+			ServletResponse response, Object mappedValue) {
+		
+		boolean allowed = false;
+		
+		HttpServletRequest httpReq = null;
+		if (request instanceof HttpServletRequest) {
+			httpReq = (HttpServletRequest) request;
+		}
+
+		// OPTIONS calls are always allowed
+		String method = httpReq.getMethod();
+		if ( StringUtils.equalsIgnoreCase(method, "OPTIONS") ) { 
+			return true;
+		}
+		
+		String tokenValue = httpReq.getHeader("x-security-token");
+		log.debug("x-security-token=" + tokenValue);
+		
+		SecurityToken token = new SecurityToken(tokenValue);
+
+		try {
+			Subject subject = SecurityUtils.getSubject();
+			subject.login(token);
+			allowed = true;
+			ActiveUser au = (ActiveUser) subject.getPrincipal();
+			log.debug("Token passes filter: user=" + au.getEmail());
+		} catch (AuthenticationException a) {
+			log.warn("Filter rejects token: " + tokenValue + a.getMessage());
+			allowed = false;
+		}
+
+		return allowed;
+	}
+
+}

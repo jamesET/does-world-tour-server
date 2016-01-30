@@ -1,0 +1,16 @@
+<ion-view view-title="Confirm Beers Drank">
+  <ion-content>
+
+      <ion-list>
+        <ion-item ng-repeat="item in drinksToVerify" ng-click="verifyBeer(item.beerListId,item.beer.id)">
+          <div class="row">
+              <div class="col">{{item.beer.orderedDate}}</div>
+              <div class="col">{{item.user.name}}</div>
+              <div class="col">{{item.beer.beer.name}}</div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beer Tour - Login</title>
+    <!-- Bootstrap core CSS -->
+    <link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQWidgets CSS -->
+    <link href="webjars/jqwidgets/3.9.1/styles/jqx.base.css" rel="stylesheet">
+    <link href="webjars/jqwidgets/3.9.1/styles/jqx.bootstrap.css" rel="stylesheet">
+</head>
+<body class='default'>
+	<!-- wrap all page content here -->
+	<div id="wrap">
+		<!-- Begin page content -->
+		<div class="container">
+			<div class="page-header">
+				<h1>Beer Tour - Login</h1>
+			</div>
+			
+		   <div id="messageNotification" style="margin-top: 25px;">
+		      <div id="errorMsg" class="alert alert-warning">
+		      </div>
+		   </div>
+
+			<form role="form" id='loginForm'>
+				<div class="form-group">
+					<label for="name">Email:</label> 
+					<input type="email" name="name" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label> 
+					<input type="password" class="form-control" name="password">
+				</div>
+				<button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+				<button type="button" class="btn" id="signUpBtn">Sign Up</button>
+			</form>
+			
+			<form role="form" id='addForm'>
+				<div class="form-group">
+					<label for="email">Email:</label> 
+					<input type="email" class="form-control" name="email">
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label> 
+					<input type="password" class="form-control" name="password">
+				</div>
+				<div class="form-group">
+					<label for="name">Name:</label> 
+					<input type="text" name="name" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="nickName">Nickname:</label> 
+					<input type="text" class="form-control" name="nickName">
+				</div>
+				<button type="submit" class="btn btn-primary" id="addBtn">Add</button>
+				<button type="button" class="btn" id="cancelBtn">Cancel</button>
+			</form>
+
+		</div>
+	</div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/jqwidgets/3.9.1/jqxcore.js"></script>
+    <script type="text/javascript" src="webjars/jqwidgets/3.9.1/jqxdata.js"></script>
+    <script type="text/javascript" src="webjars/jqwidgets/3.9.1/jqxbuttons.js"></script>
+    <script type="text/javascript" src="webjars/jqwidgets/3.9.1/jqxnotification.js"></script>
+    <!-- ================================================== -->
+    <!-- Add addition JavaScript files here -->
+    <script type="text/javascript" src="loginCtrl.js"></script>
+    
+</body>
+</html>    
