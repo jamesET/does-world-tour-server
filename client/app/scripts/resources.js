@@ -3,8 +3,25 @@
 angular.module('resources',['ngResource'])
 
 .constant('cfg',{
-    baseUrl: 'http://localhost:8080/'
+    baseUrl: 'http://jamess-air:8080/'
 })
+
+.factory('UserSvc', ['$http','$q','cfg',
+  function($http,$q,$cfg) {
+    var service = {};
+
+    service.signup = function(newUser) {
+      var signupUrl = $cfg.baseUrl + 'users/signup/';
+      var def = $q.defer();
+      $http.post(signupUrl,newUser)
+        .then(function(response) {
+          def.resolve(response);
+        });
+      return def.promise;
+    };
+
+    return service;
+  }])
 
 .factory('MyBeerList', ['$http','$q','cfg',
   function($http,$q,$cfg) {
@@ -52,6 +69,19 @@ angular.module('resources',['ngResource'])
       return def.promise;
     };
 
+    service.rejectBeer = function(listId,beerOnListId) {
+      var drinkUrl = $cfg.baseUrl + '/beerlists/' + listId + '/beers/' + beerOnListId + '/reject';
+      var def = $q.defer();
+      $http.post(drinkUrl)
+        .then(function(data) {
+          console.log('reject' + listId + ',' + beerOnListId);
+          def.resolve(data);
+        },
+        function(data) {
+            console.log('reject failed');
+        });
+      return def.promise;
+    };
 
     service.getDrinksToVerify = function() {
       var def = $q.defer();
@@ -80,4 +110,5 @@ angular.module('resources',['ngResource'])
 
 .config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('sessionInjector');
+    $httpProvider.defaults.timeout = 5000;
 }]);

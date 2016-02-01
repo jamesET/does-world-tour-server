@@ -18,9 +18,6 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-click="login()">
-          Login
-        </ion-item>
         <ion-item menu-close href="#/app/account">
           Account
         </ion-item>
@@ -29,6 +26,9 @@
         </ion-item>
         <ion-item menu-close href="#/app/completeBeers">
           Verify Beers
+        </ion-item>
+        <ion-item menu-close ng-click="logOut()">
+          Logout
         </ion-item>
       </ion-list>
     </ion-content>

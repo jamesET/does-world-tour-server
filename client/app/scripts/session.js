@@ -8,6 +8,7 @@
     this._email = $localStorage.get('session.email','');
     this._password = $localStorage.get('session.password','');
     this._accessToken = $localStorage.get('session.accessToken','');
+    this._role = $localStorage.get('session.role','');
     this._userData = $localStorage.getObject('session.userData');
 
     this.getUser = function(){
@@ -20,8 +21,18 @@
       return this;
     };
 
+    this.getRole = function(){
+      return this._role;
+    };
+
+    this.setRole = function(role){
+      this._role = role;
+      $localStorage.set('session.role', role);
+      return this;
+    };
+
     this.getEmail = function(){
-      return this._email;
+        return this._email;
     };
 
     this.setEmail = function(email){
@@ -31,7 +42,7 @@
     };
 
     this.getPassword = function(){
-      return this._password;
+        return this._password;
     };
 
     this.setPassword = function(password){
@@ -66,7 +77,9 @@
      */
     this.destroy = function destroy(){
       this.setUser(null);
+      this.setPassword(null);
       this.setAccessToken(null);
+      this.setUserData(null);
     };
 
   }

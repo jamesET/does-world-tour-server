@@ -3,7 +3,7 @@
 (function (angular) {
 
   function AuthService($http, session){
-    var baseUrl = 'http://localhost:8080/';
+    var baseUrl = 'http://jamess-air:8080/';
     var loginUrl = baseUrl + '/login/';
     var logoutUrl =  baseUrl + '/logout/';
 
@@ -34,6 +34,8 @@
           var data = response.data;
           session.setUser(data.userId);
           session.setAccessToken(data.token);
+          session.setUserData(data.userTO);
+          session.setRole(data.userTO.role);
         });
     };
 
@@ -43,11 +45,10 @@
     * @returns {*|Promise}
     */
     this.logOut = function(){
+      session.destroy();
       return $http
         .post(logoutUrl)
         .then(function(response){
-          // Destroy session in the browser
-          session.destroy();
         });
     };
 

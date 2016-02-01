@@ -26,7 +26,26 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+
+  .state('start', {
+      url: '/start',
+      templateUrl: 'templates/start.html',
+      controller: 'StartCtrl'
+  })
+
+  .state('login', {
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl'
+  })
+
+  .state('join', {
+      url: '/join',
+      templateUrl: 'templates/join.html',
+      controller: 'JoinCtrl'
+  })
+
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -64,5 +83,5 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/mybeerlist');
+  $urlRouterProvider.otherwise('/start');
 });

@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.justjames.beertour.user.User;
+import com.justjames.beertour.user.UserTO;
+
 public class ActiveUser implements Serializable {
 	
 	private static final long serialVersionUID = -6754723511884185662L;
@@ -11,10 +14,12 @@ public class ActiveUser implements Serializable {
 	private Integer userId;
 	private String email;
 	private String token;
+	private UserTO userTO;
 	
-	public ActiveUser(Integer userId,String email) {
-		this.userId = userId;
-		this.email = email;
+	public ActiveUser(User user) {
+		this.userId = user.getId();
+		this.email = user.getEmail();
+		this.setUserTO(new UserTO(user));
 		this.token = RandomStringUtils.randomAlphanumeric(32);
 	}
 
@@ -40,6 +45,14 @@ public class ActiveUser implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public UserTO getUserTO() {
+		return userTO;
+	}
+
+	public void setUserTO(UserTO userTO) {
+		this.userTO = userTO;
 	}
 
 	@Override

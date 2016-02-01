@@ -2,7 +2,7 @@
 
 angular.module('starter.controllers', ['resources','ionic.utils'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, auth, session) {
+.controller('AppCtrl', function($scope, $timeout, $http, $state, auth, session) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,44 +11,18 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.loginData = {
-      username : session.getEmail(),
-      password : session.getPassword()
-  };
-  $scope.myBeerList = {};
-  $scope.drinksToVerify = {};
   $scope.errorMessage = '';
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
+  $scope.logOut = function() {
+      auth.logOut();
+      $state.go('start');
   };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-    auth.logIn($scope.loginData.username,$scope.loginData.password);
-    $scope.closeLogin();
-
-  };
 })
 
 .controller('BeerListCtrl', function($scope,MyBeerList) {
 
-  $scope.$on('$stateChangeSuccess', function(){
+  $scope.$on('$ionicView.enter', function(e) {
     $scope.refresh();
   });
 
@@ -63,23 +37,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
     MyBeerList.drinkBeer(listId,beerOnListId)
       .then(function() {
           $scope.refresh();
-          $scope.refreshVerifyList();
       });
-  };
-
-  $scope.verifyBeer = function(listId,beerOnListId) {
-    MyBeerList.verifyBeer(listId,beerOnListId)
-      .then(function() {
-          $scope.refresh();
-          $scope.refreshVerifyList();
-      });
-  };
-
-  $scope.refreshVerifyList = function() {
-      MyBeerList.getDrinksToVerify()
-        .then(function(response){
-          $scope.drinksToVerify = response.data.beers;
-        });
   };
 
 
@@ -87,12 +45,19 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 .controller('VerifyListCtrl', function($scope,MyBeerList) {
 
-  $scope.$on('$stateChangeSuccess', function(){
+  $scope.$on('$ionicView.enter', function(e) {
     $scope.refresh();
   });
 
   $scope.verifyBeer = function(listId,beerOnListId) {
     MyBeerList.verifyBeer(listId,beerOnListId)
+      .then(function() {
+          $scope.refresh();
+      });
+  };
+
+  $scope.rejectBeer = function(listId,beerOnListId) {
+    MyBeerList.rejectBeer(listId,beerOnListId)
       .then(function() {
           $scope.refresh();
       });
@@ -107,15 +72,106 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('AccountCtrl', function($scope,session) {
-  var userData = session.getUserData();
-  $scope.acctData = {
-      name : userData.name,
-      nickName : userData.nickName,
-      email : session.getEmail(),
-      password: session.getPassword(),
-      password2 : session.getPassword(),
+.controller('StartCtrl', function($scope,$state,session) {
+
+  // Navigate to the login form
+  $scope.login = function() {
+      $state.go('login');
   };
+
+  // Navigate to the signup form
+  $scope.join = function() {
+      $state.go('join');
+  };
+})
+
+.controller('LoginCtrl', function($scope,$state,session,auth) {
+
+  $scope.errorMessage = '';
+  $scope.loginData = {};
+
+  // Let the user go back to the start page
+  $scope.back = function() {
+      $state.go('start');
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.login = function() {
+    $scope.errorMessage = '';
+    auth.logIn($scope.loginData.username,$scope.loginData.password)
+      .then(function(){
+        // if login succeeds forward on to the beerlist
+        $scope.loginData = { };
+        var token = session.getAccessToken();
+        if (token !== null) {
+          $state.go('app.mybeerlist');
+        }
+      }, function(response) {
+          $scope.errorMessage = 'Failure';
+          if (response.data !== null) {
+              $scope.errorMessage = $scope.errorMessage + ': ' + response.data.message;
+          }
+      });
+  };
+
+})
+
+.controller('JoinCtrl', function($scope,$state,session,UserSvc) {
+
+  $scope.acctData = { };
+  $scope.errorMessage = '';
+
+  $scope.back = function() {
+      $state.go('start');
+  };
+
+  $scope.join = function() {
+    $scope.errorMessage = '';
+
+    var newUser = {
+        email : $scope.acctData.email,
+        name : $scope.acctData.name,
+        password : $scope.acctData.password,
+        nickName : $scope.acctData.nickName
+    };
+
+    var password2 = $scope.acctData.password2;
+    if (newUser.password !== password2) {
+        $scope.errorMessage = 'passwords do not match, please re-enter password';
+        return;
+    }
+
+    UserSvc.signup(newUser)
+      .then(function(response){
+          // success, go login for the first time
+          session.setEmail(newUser.email);
+          $state.go('login');
+      },
+      function(response){
+          $scope.errorMessage = response.data.message;
+      }
+    );
+
+  };
+
+})
+
+.controller('AccountCtrl', function($scope,session) {
+  $scope.acctData = {};
+
+  $scope.$on('$ionicView.enter', function(e) {
+    var ud = session.getUserData();
+    var pwd = session.getPassword();
+    $scope.acctData = {
+        email : ud.email,
+        password: pwd,
+        password2 : pwd,
+        name : ud.name,
+        nickName : ud.nickName,
+        role : ud.role
+    };
+  });
+
 
   $scope.update = function() {
     console.log('Updating account!');

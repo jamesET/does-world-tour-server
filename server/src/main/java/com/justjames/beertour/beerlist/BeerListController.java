@@ -67,6 +67,14 @@ public class BeerListController {
 		MyBeerListResponse response = new MyBeerListResponse(myBeerList); 
 		return response;
 	}
+
+	@RequestMapping(value="/{listId}/beers/{beerOnListId}/reject", method=RequestMethod.POST)
+	public MyBeerListResponse rejectBeer(@PathVariable Integer listId,@PathVariable Integer beerOnListId) {
+		listSvc.rejectBeer(listId, beerOnListId);
+		BeerList myBeerList = listSvc.getBeerList(listId);
+		MyBeerListResponse response = new MyBeerListResponse(myBeerList); 
+		return response;
+	}
 	
 	@RequestMapping(value="/getListToComplete", method=RequestMethod.GET)
 	public CompleteListResponse getCompleteList() {

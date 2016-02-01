@@ -20,7 +20,7 @@ var Orchestrator = require('orchestrator');
 
 var BASES = {
   android: 'res',
-  ios: 'BeerApp/Resources',
+  ios: 'Client/Resources',
   browser: 'www/images'
 };
 var RESOURCE_DIR = 'resources';

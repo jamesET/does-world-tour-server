@@ -233,6 +233,49 @@ public class BeerListSvc {
 	}
 	
 	/**
+	 * Administrator rejects that a customer completed a beer 
+	 * @param listId
+	 * @param beer
+	 */
+	@Transactional
+	public void rejectBeer(Integer listId,Integer beerOnListId) {
+		log.debug("uncompleteBeer listId="+listId+" beerOnListId="+beerOnListId);
+		User loggedInUser = getLoggedInUser();
+		
+		// Only the admin role can do un-completion
+		if (!isAdmin()) {
+			String msg = String.format("User '%s' is not authorized",loggedInUser.getEmail());
+			throw new Brewception(msg);
+		}
+		
+		// Get the targeted list
+		BeerList beerList = getBeerList(listId);
+		User listUser = beerList.getUser();
+
+		// Find the beer on the beerlist and return it to the user's list 
+		BeerOnList foundBeer = null;
+		try {
+			foundBeer = beerOnListRepo.getOne(beerOnListId);
+			foundBeer.setOrdered(false);
+			foundBeer.setOrderedDate(null);
+			beerOnListRepo.saveAndFlush(foundBeer);
+		} catch (EntityNotFoundException e) {
+			foundBeer = null;
+			String msg = String.format("Beer (%d) not found in list for '%s'", 
+					beerOnListId, listUser.getEmail());
+			log.error(msg);
+			// Throw an error if the beer wasn't found
+			throw new Brewception(msg);
+		}
+		
+		String msg = String.format("Rejected:  Beer '%s' for '%s' completed by '%s'",
+				foundBeer.getBeer().getName(), listUser.getEmail(), loggedInUser.getEmail());
+		log.info(msg);
+
+	}
+
+	
+	/**
 	 * @param list
 	 */
 	@Transactional

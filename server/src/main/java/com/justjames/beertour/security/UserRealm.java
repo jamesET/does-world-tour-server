@@ -73,7 +73,7 @@ public class UserRealm extends AuthorizingRealm {
 				String.format("Login name [%s] not found!", upToken.getUsername()));
 		}
 	
-		ActiveUser activeUser = new ActiveUser(user.getId(),user.getEmail()); 
+		ActiveUser activeUser = new ActiveUser(user); 
 		tokenRealm.addActiveUser(activeUser);
 		log.debug("User found " + activeUser);
 		
