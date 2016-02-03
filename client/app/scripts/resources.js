@@ -3,7 +3,7 @@
 angular.module('resources',['ngResource'])
 
 .constant('cfg',{
-    baseUrl: 'http://jamess-air:8080/'
+    baseUrl: 'http://Jamess-MacBook-Air.local:8080/'
 })
 
 .factory('UserSvc', ['$http','$q','cfg',

@@ -3,7 +3,7 @@
 (function (angular) {
 
   function AuthService($http, session){
-    var baseUrl = 'http://jamess-air:8080/';
+    var baseUrl = 'http://Jamess-MacBook-Air.local:8080/';
     var loginUrl = baseUrl + '/login/';
     var logoutUrl =  baseUrl + '/logout/';
 
