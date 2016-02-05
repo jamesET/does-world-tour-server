@@ -37,7 +37,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
     MyBeerList.drinkBeer(listId,beerOnListId)
       .then(function() {
           $scope.refresh();
-      });
+    });
   };
 
 

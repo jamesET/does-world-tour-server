@@ -36,7 +36,7 @@ public class WebConfig {
     public ShiroFilterFactoryBean shiroFilter() {
 
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setLoginUrl("/login");
+        shiroFilter.setLoginUrl(null);
         shiroFilter.setSecurityManager(securityManager());
         
         Map<String, String> filterChainDefinitionMapping = new HashMap<String, String>();

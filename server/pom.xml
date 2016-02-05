@@ -22,7 +22,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<jquery.version>2.1.1</jquery.version>
-		<jqwidgets.version>3.9.1</jqwidgets.version>
 		<bootstrap.version>3.2.0</bootstrap.version>
 		<shiro.version>1.2.4</shiro.version>
 		<angular.version>1.0</angular.version>
@@ -83,11 +82,6 @@
 			<version>${jquery.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jqwidgets</artifactId>
-			<version>${jqwidgets.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
