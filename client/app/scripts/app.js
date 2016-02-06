@@ -35,10 +35,13 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
 
 })
 
+.constant('AUTH_EVENTS', {
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-
-
   .state('start', {
       url: '/start',
       templateUrl: 'templates/start.html',
