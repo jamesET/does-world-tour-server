@@ -37,6 +37,16 @@ angular.module('resources',['ngResource'])
       return def.promise;
     };
 
+    service.getUsers = function() {
+      var usersUrl = $cfg.baseUrl + 'users/';
+      var def = $q.defer();
+      $http.get(usersUrl)
+        .then(function(response) {
+          def.resolve(response);
+        });
+      return def.promise;
+    };
+
     return service;
   }])
 

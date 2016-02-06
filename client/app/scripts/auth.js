@@ -60,6 +60,9 @@
     };
 
     this.isAdmin = function() {
+      if (!isAuthenticated) {
+        return false;
+      }
         if (session.getRole() === 'ADMIN') {
           return true;
         } else {

@@ -94,6 +94,15 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
       }
   })
 
+  .state('app.users', {
+      url: '/users',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/users.html',
+          controller: 'UsersCtrl'
+        }
+      }
+  })
 
   .state('app.completeBeers', {
       url: '/completeBeers',

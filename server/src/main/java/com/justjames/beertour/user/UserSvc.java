@@ -1,5 +1,6 @@
 package com.justjames.beertour.user;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -33,7 +34,13 @@ public class UserSvc {
 	LoginSvc loginSvc;
 	
 	public Collection<User> getAll() {
-		return userRepo.findAll();
+		if (isAdmin()) {
+			return userRepo.findAll();
+		} else {
+			//TODO, this should be a 403 but just return an empty collection for now 
+			log.info("User not allowed to get users");
+			return new ArrayList<User>();
+		}
 	}
 	
 	/**
@@ -162,6 +169,19 @@ public class UserSvc {
 		}
 
 		return true;
+	}
+	
+	
+	/**
+	 * 
+	 * @return true if the current logged-in user is an Admin
+	 */
+	private boolean isAdmin() {
+		Subject subject = SecurityUtils.getSubject();
+		if (subject == null) {
+			throw new Brewception("User is not logged in!");
+		}
+		return subject.hasRole(Role.ADMIN.toString());
 	}
 
 }

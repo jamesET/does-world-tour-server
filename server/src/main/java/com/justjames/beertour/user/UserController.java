@@ -20,9 +20,9 @@ public class UserController {
 	
 	@CrossOrigin
 	@RequestMapping(value="/",method=RequestMethod.GET)
-	public UserResponse getAll() {
+	public UserCollection getAll() {
 		Collection<User> users = userSvc.getAll();
-		UserResponse response = new UserResponse(users);
+		UserCollection response = new UserCollection(users);
 		if (users == null) {
 			response.setErrorMsg("No users found");
 		}

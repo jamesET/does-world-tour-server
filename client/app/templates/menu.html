@@ -30,7 +30,10 @@
         <ion-item menu-close href="#/app/beers">
           Beer Browser
         </ion-item>
-        <ion-item menu-close href="#/app/completeBeers" ng-show="auth.isAuthenticated() && auth.isAdmin()">
+        <ion-item menu-close href="#/app/users" ng-show="auth.isAdmin()">
+          Users Browser
+        </ion-item>
+        <ion-item menu-close href="#/app/completeBeers" ng-show="auth.isAdmin()">
           Verify Beers
         </ion-item>
         <ion-item menu-close ng-click="logOut()" ng-show="auth.isAuthenticated()">
