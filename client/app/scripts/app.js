@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 'use strict';
-angular.module('starter', ['ionic','ionic.utils', 'starter.controllers'])
+angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$rootScope,$state,AUTH_EVENTS,auth) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,6 +21,17 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.$on('$stateChangeStart', function(event,next,nextParams,fromState) {
+    if (!auth.isAuthenticated()) {
+        if (next.name !== 'login' && next.name !== 'start' && next.name !== 'join') {
+          console.log('Not authenticated, redirected to login');
+          event.preventDefault();
+          $state.go('login');
+        }
+    }
+  });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
