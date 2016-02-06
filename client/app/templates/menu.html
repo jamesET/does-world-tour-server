@@ -18,16 +18,22 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/account">
+        <ion-item menu-close href="#/login" ng-show="!auth.isAuthenticated()">
+          Login
+        </ion-item>
+        <ion-item menu-close href="#/app/account" ng-show="auth.isAuthenticated()">
           Account
         </ion-item>
-        <ion-item menu-close href="#/app/mybeerlist">
+        <ion-item menu-close href="#/app/mybeerlist" ng-show="auth.isAuthenticated()">
           My Beer List
         </ion-item>
-        <ion-item menu-close href="#/app/completeBeers" ng-show="auth.isAdmin()">
+        <ion-item menu-close href="#/app/beers">
+          Beer Browser
+        </ion-item>
+        <ion-item menu-close href="#/app/completeBeers" ng-show="auth.isAuthenticated() && auth.isAdmin()">
           Verify Beers
         </ion-item>
-        <ion-item menu-close ng-click="logOut()">
+        <ion-item menu-close ng-click="logOut()" ng-show="auth.isAuthenticated()">
           Logout
         </ion-item>
       </ion-list>

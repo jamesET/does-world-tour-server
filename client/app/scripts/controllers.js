@@ -20,6 +20,24 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
+.controller('BeersCtrl', function($scope,BeerSvc){
+  console.log('Enter BeersCtrl');
+  $scope.beers = {};
+
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.refresh();
+  });
+
+  $scope.refresh = function() {
+      BeerSvc.getBeers()
+        .then(function(response){
+          $scope.beers = response.data.beers;
+          $scope.errorMessage = response.errorMsg;
+        });
+  };
+
+})
+
 .controller('BeerListCtrl', function($scope,MyBeerList) {
 
   $scope.$on('$ionicView.enter', function(e) {
@@ -82,6 +100,10 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
   // Navigate to the signup form
   $scope.join = function() {
       $state.go('join');
+  };
+
+  $scope.browse = function() {
+    $state.go('app.beers');
   };
 })
 

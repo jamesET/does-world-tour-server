@@ -1,0 +1,18 @@
+<ion-view view-title="Beer Browser">
+  <ion-content>
+
+      <ion-list>
+        <ion-item ng-repeat="beer in beers">
+          <div class="row">
+              <div class="col col-75">
+                <b>{{beer.name}}</b><br>
+                {{beer.brewery}}<br>
+                {{beer.country}} {{beer.region}}
+              </div>
+              <div class="col-25">{{beer.abv}}% abv<br>{{beer.oz}} oz</div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+  </ion-content>
+</ion-view>

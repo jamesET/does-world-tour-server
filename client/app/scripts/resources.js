@@ -6,6 +6,23 @@ angular.module('resources',['ngResource'])
     baseUrl: 'http://Jamess-MacBook-Air.local:8080/'
 })
 
+.factory('BeerSvc', ['$http','$q','cfg',
+  function($http,$q,$cfg) {
+      var service = {};
+
+      service.getBeers = function() {
+        var beersUrl = $cfg.baseUrl + 'beers/';
+        var def = $q.defer();
+        $http.get(beersUrl)
+          .then(function(response) {
+            def.resolve(response);
+          });
+        return def.promise;
+      };
+
+      return service;
+  }])
+
 .factory('UserSvc', ['$http','$q','cfg',
   function($http,$q,$cfg) {
     var service = {};

@@ -24,7 +24,8 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
 
   $rootScope.$on('$stateChangeStart', function(event,next,nextParams,fromState) {
     if (!auth.isAuthenticated()) {
-        if (next.name !== 'login' && next.name !== 'start' && next.name !== 'join') {
+        var whiteList = ['login','start','join','app.beers'];
+        if (whiteList.indexOf(next.name) < 0) {
           console.log('Not authenticated, redirected to login');
           event.preventDefault();
           $state.go('login');
@@ -82,6 +83,17 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
         }
       }
   })
+
+  .state('app.beers', {
+      url: '/beers',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/beers.html',
+          controller: 'BeersCtrl'
+        }
+      }
+  })
+
 
   .state('app.completeBeers', {
       url: '/completeBeers',
