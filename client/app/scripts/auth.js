@@ -59,6 +59,14 @@
       return isAuthenticated;
     };
 
+    this.isAdmin = function() {
+        if (session.getRole() === 'ADMIN') {
+          return true;
+        } else {
+          return false;
+        }
+    }
+
   }
 
   // Inject dependencies

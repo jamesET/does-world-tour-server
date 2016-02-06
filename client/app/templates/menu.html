@@ -24,7 +24,7 @@
         <ion-item menu-close href="#/app/mybeerlist">
           My Beer List
         </ion-item>
-        <ion-item menu-close href="#/app/completeBeers">
+        <ion-item menu-close href="#/app/completeBeers" ng-show="auth.isAdmin()">
           Verify Beers
         </ion-item>
         <ion-item menu-close ng-click="logOut()">
