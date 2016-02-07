@@ -148,10 +148,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
           $state.go('app.mybeerlist');
         }
       }, function(response) {
-          $scope.errorMessage = 'Failure';
-          if (response.data !== null) {
-              $scope.errorMessage = $scope.errorMessage + ': ' + response.data.message;
-          }
+          $scope.errorMessage = 'Service not available';
       });
   };
 

@@ -30,7 +30,7 @@ public class BeerController {
 		return response; 
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/",method=RequestMethod.POST)
 	public Beer addBeer(@RequestBody Beer beer) {
 		log.debug("Adding beer " + beer.getName());
 		return beerSvc.add(beer);

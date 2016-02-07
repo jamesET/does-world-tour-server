@@ -3,23 +3,65 @@ package com.justjames.beertour.beer;
 import java.util.Collection;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.subject.Subject;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.justjames.beertour.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
+import com.justjames.beertour.security.LoginSvc;
+import com.justjames.beertour.security.Role;
+import com.justjames.beertour.security.UserRealm;
+import com.justjames.beertour.user.User;
+import com.justjames.beertour.user.UserSvc;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = BeerTourApplication.class)
-public class BeerSvcTest {
+public class BeerSvcTest extends AbstractShiroTest {
 	
-		@Inject
-		BeerSvc beerSvc;
+		@Inject BeerSvc beerSvc;
+		@Inject UserRealm userRealm;
+		@Inject UserSvc userSvc;
+		@Inject LoginSvc loginSvc;
+		SecurityManager securityManager = null;
+		
+		@Before
+		public void setUp() {
+			if (securityManager == null) {
+				securityManager =  new DefaultSecurityManager(userRealm);
+				setSecurityManager(securityManager);
+			}
+		}
+		
+		@After
+		public void tearDownSubject() {
+			Subject subject = SecurityUtils.getSubject();
+			subject.logout();
+			clearSubject();
+		}
+
+		public User addTestUser(String name,Role role) {
+			User user = new User();
+			user.setEmail( String.format("%s@just-james.com", name));
+			user.setName(name);
+			user.setPassword("1234");
+			user.setRole(role);
+			user = userSvc.addUser(user);
+			loginSvc.login(user.getEmail(), user.getPassword());
+			return user;
+		}
 		
 		/* In order to sell beer
 		 * I want to see the list of all the beers I have
@@ -36,7 +78,9 @@ public class BeerSvcTest {
 		 * so that it will be available to customers. 
 		 */
 		@Test
+		@Transactional
 		public void addBeer() {
+			addTestUser("addBeer",Role.ADMIN);
 			Beer newBeer = new Beer();
 			newBeer.setName("Jimmy Light");
 			newBeer.setBrewery("Jimmy Brewing");

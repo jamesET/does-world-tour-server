@@ -13,12 +13,15 @@
       <ion-list can-swipe="true">
         <ion-item ng-repeat="drink in myBeerList.drinkList">
           <div class="row">
-              <div class="col col-75">
+              <div class="col">
                 <b>{{drink.beer.name}}</b><br>
                 {{drink.beer.brewery}}<br>
                 {{drink.beer.country}} {{drink.beer.region}}
               </div>
-              <div class="col-25">{{drink.beer.abv}}% abv<br>{{drink.beer.oz}} oz</div>
+              <div class="col col-30">{{drink.beer.style}}<br>
+                {{drink.beer.abv}}% abv<br>
+                {{drink.beer.oz}} oz
+              </div>
           </div>
           <ion-option-button class="button-positive button-large" ng-click="drinkBeer(myBeerList.id,drink.id)">Drink!</ion-option-button>
         </ion-item>

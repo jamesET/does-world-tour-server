@@ -1,7 +1,7 @@
 package com.justjames.beertour.beer;
 
 import java.io.Serializable;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +31,9 @@ public class Beer implements Serializable {
 	@Column
 	private String region;
 	
+	@Column
+	private String style;
+	
 	@Column private Float abv;
 	
 	@Column private Float ibu;
@@ -40,6 +43,8 @@ public class Beer implements Serializable {
 	@Column private boolean discontinued;
 	
 	@Column(name="out") private boolean outOfStock;
+	
+	@Column private LocalDate createDate;
 
 	public Integer getId() {
 		return id;
@@ -119,6 +124,22 @@ public class Beer implements Serializable {
 
 	public void setOutOfStock(boolean outOfStock) {
 		this.outOfStock = outOfStock;
+	}
+
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	public LocalDate getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDate createDate) {
+		this.createDate = createDate;
 	}
 
 	@Override

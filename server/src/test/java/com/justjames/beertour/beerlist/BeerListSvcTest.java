@@ -63,6 +63,7 @@ public class BeerListSvcTest extends AbstractShiroTest {
 		user.setPassword("1234");
 		user.setRole(Role.CUSTOMER);
 		user = userSvc.addUser(user);
+		loginSvc.login(user.getEmail(), user.getPassword());
 		return user;
 	}
 	
@@ -118,11 +119,7 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional
 	public void getMyListLoggedIn() {
-		User user = new User(); 
-		user.setEmail("getMyListLoggedIn");
-		user.setName("Get My List");
-		user.setPassword("1234");
-		userSvc.loginSignup(user);
+		addTestUser("getMyListLoggedIn");
 		BeerList myList = listSvc.getMyBeerList();
 		Assert.assertNotNull(myList);
 		Assert.assertNotNull(myList.getBeerOnList());
