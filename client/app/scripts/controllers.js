@@ -36,32 +36,48 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
         });
   };
 
-$ionicModal.fromTemplateUrl('templates/beerForm.html', {
-  scope: $scope,
-  animation: 'slide-in-up'
-}).then(function(modal) {
-  $scope.modal = modal;
-});
+  $ionicModal.fromTemplateUrl('templates/beerForm.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
-$scope.openModal = function(beer) {
-  $scope.beer = beer;
-  $scope.modal.show();
-};
+  $scope.add = function() {
+    $scope.beer = {};
+    $scope.action = 'add';
+    $scope.modal.show();
+  };
 
-$scope.closeModal = function(action) {
-  if (action === 'ok') {
-      BeerSvc.update($scope.beer)
-        .then(function(response){
-            $scope.refresh();
-            $scope.errorMessage = response.errorMsg;
-        });
-  } 
-  $scope.modal.hide();
-};
+  $scope.update = function(beer) {
+    $scope.beer = beer;
+    $scope.action = 'update';
+    $scope.modal.show();
+  };
 
-$scope.$on('$destroy', function() {
-  $scope.modal.remove();
-});
+  $scope.closeModal = function(action) {
+    if (action === 'ok') {
+        if ($scope.action === 'update') {
+          BeerSvc.update($scope.beer)
+            .then(function(response){
+                $scope.refresh();
+                $scope.errorMessage = response.errorMsg;
+            });
+        } else {
+          BeerSvc.add($scope.beer)
+            .then(function(response){
+                $scope.refresh();
+                $scope.errorMessage = response.errorMsg;
+            });
+        }
+    }
+    $scope.modal.hide();
+    $scope.action = null;
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
 
 })
 

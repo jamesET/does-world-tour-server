@@ -1,6 +1,19 @@
 <ion-view view-title="Beer Browser">
   <ion-content>
 
+    <div id="addBeer" ng-show="auth.isAdmin()" class="row">
+      <div class="col text-right">
+      <button class="button button-block button-positive ion-plus-round" ng-click="add()">
+        Add Beer
+      </button>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">{{errorMessage}}</div>
+    </div>
+
+
       <ion-list>
         <ion-item ng-repeat="beer in beers">
           <div class="row">
@@ -14,7 +27,7 @@
                 {{beer.oz}} oz
               </div>
           </div>
-          <ion-option-button ng-show="auth.isAdmin()" class="button-positive button-large" ng-click="openModal(beer)">Edit</ion-option-button>
+          <ion-option-button ng-show="auth.isAdmin()" class="button-positive button-large" ng-click="update(beer)">Edit</ion-option-button>
         </ion-item>
       </ion-list>
 

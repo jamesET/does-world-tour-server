@@ -30,6 +30,16 @@ angular.module('resources',['ngResource'])
           return def.promise;
       };
 
+      service.add = function(beer) {
+          var beersUrl = $cfg.baseUrl + 'beers/';
+          var def = $q.defer();
+          $http.post(beersUrl,beer)
+            .then(function(response) {
+              def.resolve(response);
+            });
+          return def.promise;
+      };
+
       return service;
   }])
 
