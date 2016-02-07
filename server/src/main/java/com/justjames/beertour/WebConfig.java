@@ -42,9 +42,10 @@ public class WebConfig {
         Map<String, String> filterChainDefinitionMapping = new HashMap<String, String>();
         filterChainDefinitionMapping.put("/login/*", "anon");
         filterChainDefinitionMapping.put("/users/signup/*", "anon");
+        filterChainDefinitionMapping.put("/beers/browse/*", "anon");
         filterChainDefinitionMapping.put("/users/**", "token");
         filterChainDefinitionMapping.put("/beerlists/**", "token");
-        filterChainDefinitionMapping.put("/beers/**", "anon");
+        filterChainDefinitionMapping.put("/beers/**", "token");
         filterChainDefinitionMapping.put("/*", "anon");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
 

@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,6 +27,7 @@ public class BeerSvc {
 		return beerRepo.findAll();
 	}
 
+	@Transactional
 	public Beer add(Beer newBeer) {
 		newBeer.setCreateDate(LocalDate.now());
 		
@@ -34,8 +36,30 @@ public class BeerSvc {
 			return null;
 		}
 
+		log.info("Updating beer: " + newBeer);
 		Beer savedBeer = beerRepo.save(newBeer);
 		return savedBeer; 
+	}
+	
+	/**
+	 * Save changes to a beer
+	 * @param beer
+	 * @return
+	 */
+	@Transactional
+	public Beer update(Beer beer) {
+		log.info("Updating beer: " + beer);
+
+		if (!isAdmin()) {
+			throw new Brewception("Only admin users can udpate beer.");
+		}
+		
+		if (!beerRepo.exists(beer.getId())) {
+			throw new Brewception("Beer does not exist");
+		}
+		
+		Beer updatedBeer = beerRepo.saveAndFlush(beer);
+		return updatedBeer;
 	}
 	
 	

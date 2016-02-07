@@ -11,13 +11,23 @@ angular.module('resources',['ngResource'])
       var service = {};
 
       service.getBeers = function() {
-        var beersUrl = $cfg.baseUrl + 'beers/';
+        var beersUrl = $cfg.baseUrl + 'beers/browse/';
         var def = $q.defer();
         $http.get(beersUrl)
           .then(function(response) {
             def.resolve(response);
           });
         return def.promise;
+      };
+
+      service.update = function(beer) {
+          var beersUrl = $cfg.baseUrl + 'beers/';
+          var def = $q.defer();
+          $http.put(beersUrl,beer)
+            .then(function(response) {
+              def.resolve(response);
+            });
+          return def.promise;
       };
 
       return service;

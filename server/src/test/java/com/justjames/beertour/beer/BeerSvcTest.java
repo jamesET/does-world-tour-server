@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.justjames.beertour.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
+import com.justjames.beertour.Brewception;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.security.LoginSvc;
@@ -89,6 +90,38 @@ public class BeerSvcTest extends AbstractShiroTest {
 			Assert.assertNotNull(savedBeer);
 			Assert.assertTrue(savedBeer.getId() > 0);
 		}
+		
+		@Test
+		@Transactional
+		public void updateExistingBeerAsAdmin() {
+			addTestUser("updateExistingBeerAsAdmin",Role.ADMIN);
+			Collection<Beer> allBeers = beerSvc.getAll();
+			Beer beer = allBeers.iterator().next();
+			beer.setOutOfStock(true);
+			Beer updatedBeer = beerSvc.update(beer);
+			Assert.assertTrue(updatedBeer.isOutOfStock());
+		}
+		
+		@Test(expected=Brewception.class)
+		@Transactional
+		public void updateExistingBeerAsCustomer() {
+			addTestUser("updateExistingBeerAsCustomer",Role.CUSTOMER);
+			Collection<Beer> allBeers = beerSvc.getAll();
+			Beer beer = allBeers.iterator().next();
+			beer.setOutOfStock(true);
+			beerSvc.update(beer);
+		}
+
+		@Test(expected=Brewception.class)
+		@Transactional
+		public void updateInvalidBeerAsAdmin() {
+			addTestUser("updateInvalidBeerAsAdmin",Role.ADMIN);
+			Beer newBeer = new Beer();
+			newBeer.setId(-1);
+			beerSvc.update(newBeer);
+		}
+
+		
 	
 
 }

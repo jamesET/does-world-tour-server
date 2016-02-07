@@ -20,7 +20,7 @@ public class BeerController {
 	
 	private Log log = LogFactory.getLog(BeerController.class);
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	@RequestMapping(value="/browse",method=RequestMethod.GET)
 	public BeerResponse getAll() {
 		Collection<Beer> beers = beerSvc.getAll();
 		BeerResponse response = new BeerResponse(beers);
@@ -34,6 +34,12 @@ public class BeerController {
 	public Beer addBeer(@RequestBody Beer beer) {
 		log.debug("Adding beer " + beer.getName());
 		return beerSvc.add(beer);
+	}
+	
+	@RequestMapping(value="/", method=RequestMethod.PUT)
+	public Beer updateBeer(@RequestBody Beer beer) {
+		log.debug("Updating beer " + beer);
+		return beerSvc.update(beer);
 	}
 
 }

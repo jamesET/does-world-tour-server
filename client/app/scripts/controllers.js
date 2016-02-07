@@ -20,9 +20,9 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('BeersCtrl', function($scope,BeerSvc){
-  console.log('Enter BeersCtrl');
+.controller('BeersCtrl', function($scope,$ionicModal,BeerSvc){
   $scope.beers = {};
+  $scope.beer = {};
 
   $scope.$on('$ionicView.enter', function(e) {
     $scope.refresh();
@@ -35,6 +35,33 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
           $scope.errorMessage = response.errorMsg;
         });
   };
+
+$ionicModal.fromTemplateUrl('templates/beerForm.html', {
+  scope: $scope,
+  animation: 'slide-in-up'
+}).then(function(modal) {
+  $scope.modal = modal;
+});
+
+$scope.openModal = function(beer) {
+  $scope.beer = beer;
+  $scope.modal.show();
+};
+
+$scope.closeModal = function(action) {
+  if (action === 'ok') {
+      BeerSvc.update($scope.beer)
+        .then(function(response){
+            $scope.refresh();
+            $scope.errorMessage = response.errorMsg;
+        });
+  } 
+  $scope.modal.hide();
+};
+
+$scope.$on('$destroy', function() {
+  $scope.modal.remove();
+});
 
 })
 
