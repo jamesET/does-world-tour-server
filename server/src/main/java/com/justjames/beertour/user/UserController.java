@@ -33,5 +33,10 @@ public class UserController {
 		return userSvc.loginSignup(user);
 	}
 	
+	@RequestMapping(value="/",method=RequestMethod.PUT)
+	public UserTO update(@RequestBody User user) {
+		return new UserTO(userSvc.update(user));
+	}
+	
 
 }

@@ -237,8 +237,9 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('AccountCtrl', function($scope,session) {
+.controller('AccountCtrl', function($scope,session,UserSvc) {
   $scope.acctData = {};
+  $scope.errorMessage = '';
 
   $scope.$on('$ionicView.enter', function(e) {
     var ud = session.getUserData();
@@ -255,7 +256,32 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 
   $scope.update = function() {
-    console.log('Updating account!');
+    $scope.errorMessage = '';
+    var acct = $scope.acctData;
+
+    var password2 = $scope.acctData.password2;
+    if (acct.password !== password2) {
+        $scope.errorMessage = 'passwords do not match, please re-enter password';
+        return;
+    }
+
+    var user = {
+        id : session.getUser(),
+        email : acct.email,
+        password: acct.password,
+        name: acct.name,
+        nickName : acct.nickName,
+        role: acct.role
+    };
+
+    UserSvc.update(user)
+      .then(
+          function(response) {},
+          function(response) {
+            $scope.errorMessage = 'Updated Failed';
+          }
+      );
+
   };
 
 });

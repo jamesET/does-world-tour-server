@@ -40,6 +40,16 @@ angular.module('resources',['ngResource'])
           return def.promise;
       };
 
+      service.update = function(beer) {
+          var beersUrl = $cfg.baseUrl + 'beers/';
+          var def = $q.defer();
+          $http.put(beersUrl,beer)
+            .then(function(response) {
+              def.resolve(response);
+            });
+          return def.promise;
+      };
+
       return service;
   }])
 
@@ -65,6 +75,16 @@ angular.module('resources',['ngResource'])
           def.resolve(response);
         });
       return def.promise;
+    };
+
+    service.update = function(user) {
+        var updateUrl = $cfg.baseUrl + 'users/';
+        var def = $q.defer();
+        $http.put(updateUrl,user)
+          .then(function(response) {
+            def.resolve(response);
+          });
+        return def.promise;
     };
 
     return service;

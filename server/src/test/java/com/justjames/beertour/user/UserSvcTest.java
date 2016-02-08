@@ -18,6 +18,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import com.justjames.beertour.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
 
@@ -29,6 +30,8 @@ public class UserSvcTest extends AbstractShiroTest {
 
 	@Inject UserRealm userRealm;
 	
+	@Inject LoginSvc loginSvc;
+	
 	SecurityManager securityManager = null;
 	
 	@Before
@@ -39,6 +42,24 @@ public class UserSvcTest extends AbstractShiroTest {
 		}
 	}
 	
+	/**
+	 * Utility method to help test with different permissions
+	 * @param name
+	 * @param role
+	 * @return
+	 */
+	public User addTestUser(String name,Role role) {
+		User user = new User();
+		user.setEmail( String.format("%s@just-james.com", name));
+		user.setName(name);
+		user.setPassword("1234");
+		user.setRole(role);
+		user = userSvc.addUser(user);
+		loginSvc.login(user.getEmail(), user.getPassword());
+		return user;
+	}
+	
+	
 	@Test
 	public void getOneUser() {
 		User user = userSvc.getUser(1);
@@ -46,9 +67,18 @@ public class UserSvcTest extends AbstractShiroTest {
 	}
 	
 	@Test
-	public void getAllUsers() {
+	@Transactional
+	public void getAllUsersAsAdmin() {
+		addTestUser("getAllUsersAsAdmin",Role.ADMIN);
 		Collection<User> allUsers = userSvc.getAll();
 		Assert.assertNotNull(allUsers);
+	}
+
+	@Test(expected=Brewception.class)
+	@Transactional
+	public void getAllUsersAsOther() {
+		addTestUser("getAllUsersAsOther",Role.CUSTOMER);
+		userSvc.getAll();
 	}
 	
 	@Test
@@ -115,6 +145,44 @@ public class UserSvcTest extends AbstractShiroTest {
 	@Test
 	public void testLogoutUser() {
 		// TODO expose logout action 
+	}
+	
+	@Test
+	@Transactional
+	public void testUpdateUserAsAdmin() {
+		addTestUser("testUpdateUserAsAdmin",Role.ADMIN);
+		User owner = userSvc.findByEmail("james@just-james.com");
+		owner.setNumListsCompleted(999);
+		User updatedUser = userSvc.update(owner);
+		Assert.assertTrue(updatedUser.getNumListsCompleted()==999);
+	}
+
+	@Test
+	@Transactional
+	public void testUpdateUserAsOwner() {
+		loginSvc.login("james@just-james.com", "admin");
+		User owner = userSvc.findByEmail("james@just-james.com");
+		owner.setNumListsCompleted(997);
+		User updatedUser = userSvc.update(owner);
+		Assert.assertTrue(updatedUser.getNumListsCompleted()==997);
+	}
+
+	@Test(expected=Brewception.class)
+	@Transactional
+	public void testUpdateUserAsOther() {
+		addTestUser("testUpdateUserAsOther",Role.CUSTOMER);
+		User owner = userSvc.findByEmail("james@just-james.com");
+		userSvc.update(owner);
+	}
+
+	@Test(expected=Brewception.class)
+	@Transactional
+	public void testUpdateInvalidUser() {
+		addTestUser("testUpdateInvalidUser",Role.ADMIN);
+		User user = new User(); 
+		user.setId(-1);
+		user.setEmail("nobody@nowhere.com");
+		userSvc.update(user);
 	}
 
 	@After
