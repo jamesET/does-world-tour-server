@@ -36,8 +36,12 @@ public class SecurityFilter extends PassThruAuthenticationFilter {
 		HttpServletRequest httpReq = null;
 		if (request instanceof HttpServletRequest) {
 			httpReq = (HttpServletRequest) request;
+			log.debug("Context Path: " + httpReq.getContextPath());
+			log.debug("Request URL: " + httpReq.getRequestURL());
+			log.debug("Path Info: " + httpReq.getPathInfo());
+			log.debug("PathWithinApplication: " + WebUtils.getPathWithinApplication(httpReq));
 		}
-
+		
 		// OPTIONS calls are always allowed
 		String method = httpReq.getMethod();
 		if (StringUtils.equalsIgnoreCase(method, "OPTIONS")) {
@@ -62,5 +66,8 @@ public class SecurityFilter extends PassThruAuthenticationFilter {
 
 		return allowed;
 	}
+	
+	
+	
 
 }

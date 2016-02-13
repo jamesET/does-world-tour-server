@@ -24,6 +24,7 @@
 		<bootstrap.version>3.2.0</bootstrap.version>
 		<shiro.version>1.2.4</shiro.version>
 		<angular.version>1.0</angular.version>
+     	 <docker.image.prefix>springio</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -209,9 +210,29 @@
         			</excludes>
     			</configuration>
 			</plugin>
+			
+		    <plugin>
+        	    <groupId>com.spotify</groupId>
+        	    <artifactId>docker-maven-plugin</artifactId>
+        	    <version>0.2.3</version>
+        	    <configuration>
+        	        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+        	        <dockerDirectory>src/main/docker</dockerDirectory>
+        	        <resources>
+        	            <resource>
+        	                <targetPath>/</targetPath>
+        	                <directory>${project.build.directory}</directory>
+        	                <include>${project.build.finalName}.jar</include>
+        	            </resource>
+        	        </resources>
+        	    </configuration>
+        	</plugin>
+			
+			
 
 		</plugins>
 	</build>
 
 
+	<packaging>war</packaging>
 </project>

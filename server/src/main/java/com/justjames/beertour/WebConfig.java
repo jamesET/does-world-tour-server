@@ -3,7 +3,9 @@ package com.justjames.beertour;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.Filter;
 
@@ -39,14 +41,20 @@ public class WebConfig {
         shiroFilter.setLoginUrl(null);
         shiroFilter.setSecurityManager(securityManager());
         
-        Map<String, String> filterChainDefinitionMapping = new HashMap<String, String>();
-        filterChainDefinitionMapping.put("/login/*", "public");
-        filterChainDefinitionMapping.put("/users/signup/*", "public");
-        filterChainDefinitionMapping.put("/beers/browse/*", "public");
-        filterChainDefinitionMapping.put("/**", "token");
+        Map<String, String> filterChainDefinitionMapping = new LinkedHashMap<String, String>();
+        filterChainDefinitionMapping.put("/login*", "public");
+        filterChainDefinitionMapping.put("/users/signup*", "public");
+        filterChainDefinitionMapping.put("/beers/browse*", "public");
+        filterChainDefinitionMapping.put("/beers/*", "token");
+        filterChainDefinitionMapping.put("/users/*", "token");
+        filterChainDefinitionMapping.put("/beerlists/*", "token");
+        filterChainDefinitionMapping.put("/*", "token");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
+        
+        
+        
 
-        Map<String, Filter> filters = new HashMap<>();
+        Map<String, Filter> filters = new LinkedHashMap<>();
         filters.put("public", new PublicFilter());
         filters.put("token", new SecurityFilter());
         shiroFilter.setFilters(filters);
