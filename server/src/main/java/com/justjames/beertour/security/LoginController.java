@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,6 @@ public class LoginController {
 	@Inject
 	private LoginSvc loginSvc;
 	
-	@CrossOrigin(origins="*",methods={RequestMethod.POST})
 	@RequestMapping(value="/",method=RequestMethod.POST)
 	public ActiveUser login(@RequestBody LoginRequest request) {
 		return loginSvc.login(request.getUsername(),request.getPassword());

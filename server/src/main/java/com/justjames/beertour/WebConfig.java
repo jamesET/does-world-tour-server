@@ -15,9 +15,9 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
+import com.justjames.beertour.security.PublicFilter;
 import com.justjames.beertour.security.SecurityFilter;
 import com.justjames.beertour.security.SimpleCorsFilter;
 import com.justjames.beertour.security.TokenRealm;
@@ -40,17 +40,14 @@ public class WebConfig {
         shiroFilter.setSecurityManager(securityManager());
         
         Map<String, String> filterChainDefinitionMapping = new HashMap<String, String>();
-        filterChainDefinitionMapping.put("/login/*", "anon");
-        filterChainDefinitionMapping.put("/users/signup/*", "anon");
-        filterChainDefinitionMapping.put("/beers/browse/*", "anon");
-        filterChainDefinitionMapping.put("/users/**", "token");
-        filterChainDefinitionMapping.put("/beerlists/**", "token");
-        filterChainDefinitionMapping.put("/beers/**", "token");
-        filterChainDefinitionMapping.put("/*", "anon");
+        filterChainDefinitionMapping.put("/login/*", "public");
+        filterChainDefinitionMapping.put("/users/signup/*", "public");
+        filterChainDefinitionMapping.put("/beers/browse/*", "public");
+        filterChainDefinitionMapping.put("/**", "token");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
 
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("anon", new AnonymousFilter());
+        filters.put("public", new PublicFilter());
         filters.put("token", new SecurityFilter());
         shiroFilter.setFilters(filters);
 
