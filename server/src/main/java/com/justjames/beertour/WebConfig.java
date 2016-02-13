@@ -42,9 +42,9 @@ public class WebConfig {
         filterChainDefinitionMapping.put("/login", "public");
         filterChainDefinitionMapping.put("/users/signup", "public");
         filterChainDefinitionMapping.put("/beers/browse", "public");
-        filterChainDefinitionMapping.put("/beers/**", "token");
-        filterChainDefinitionMapping.put("/beerlists/**", "token");
-        filterChainDefinitionMapping.put("/users/**", "token");
+        filterChainDefinitionMapping.put("/beers/**", "public, token");
+        filterChainDefinitionMapping.put("/beerlists/**", "public, token");
+        filterChainDefinitionMapping.put("/users/**", "public, token");
         filterChainDefinitionMapping.put("/*", "public");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
 
