@@ -3,7 +3,6 @@ package com.justjames.beertour;
 import java.util.Collection;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;

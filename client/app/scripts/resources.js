@@ -13,7 +13,7 @@ angular.module('resources',['ngResource'])
       var service = {};
 
       service.getBeers = function() {
-        var beersUrl = $cfg.baseUrl + 'beers/browse/';
+        var beersUrl = $cfg.baseUrl + 'beers/browse';
         var def = $q.defer();
         $http.get(beersUrl)
           .then(function(response) {
