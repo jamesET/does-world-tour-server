@@ -15,6 +15,8 @@ public class BeerResponse extends BaseResponse {
 	
 	private Collection<Beer> beers;
 	
+	public BeerResponse() { }
+	
 	public BeerResponse(Collection<Beer> beers) {
 		this.beers = beers;
 	}

@@ -3,7 +3,8 @@
 angular.module('resources',['ngResource'])
 
 .constant('cfg',{
-    baseUrl: 'http://Jamess-MacBook-Air.local:8080/'
+    baseUrl: 'http://beerlist-env.us-west-2.elasticbeanstalk.com/'
+    //baseUrl: 'http://Jamess-MacBook-Air.local:8080/'
     //baseUrl: 'http://raspberrypi:8080/'
 })
 

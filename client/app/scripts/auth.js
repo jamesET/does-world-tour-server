@@ -3,8 +3,9 @@
 (function (angular) {
 
   function AuthService($http, session){
-    var baseUrl = 'http://Jamess-MacBook-Air.local:8080';
-    //var baseUrl = 'http://raspberrypi:8080/';
+    var baseUrl = 'http://beerlist-env.us-west-2.elasticbeanstalk.com';
+    //var baseUrl = 'http://Jamess-MacBook-Air.local:8080';
+    //var baseUrl = 'http://raspberrypi:8080';
     var loginUrl = baseUrl + '/login/';
     var logoutUrl =  baseUrl + '/logout/';
     var isAuthenticated = false;

@@ -5,7 +5,7 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>beer-list</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.5-SNAPSHOT</version>
 
 	<name>Beer Tour</name>
 	<description>Beer Tour POC</description>
@@ -113,10 +113,10 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.springframework.boot</groupId> -->
+<!-- 				<artifactId>spring-boot-maven-plugin</artifactId> -->
+<!-- 			</plugin> -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -211,25 +211,6 @@
     			</configuration>
 			</plugin>
 			
-		    <plugin>
-        	    <groupId>com.spotify</groupId>
-        	    <artifactId>docker-maven-plugin</artifactId>
-        	    <version>0.2.3</version>
-        	    <configuration>
-        	        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-        	        <dockerDirectory>src/main/docker</dockerDirectory>
-        	        <resources>
-        	            <resource>
-        	                <targetPath>/</targetPath>
-        	                <directory>${project.build.directory}</directory>
-        	                <include>${project.build.finalName}.jar</include>
-        	            </resource>
-        	        </resources>
-        	    </configuration>
-        	</plugin>
-			
-			
-
 		</plugins>
 	</build>
 
