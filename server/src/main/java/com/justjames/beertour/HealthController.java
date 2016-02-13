@@ -23,7 +23,7 @@ public class HealthController {
 	
 	private Log log = LogFactory.getLog(HealthController.class);
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public Response healthCheck() {
 		boolean isHealthy = true;
 		Collection<Beer> beers = beerSvc.getAll();

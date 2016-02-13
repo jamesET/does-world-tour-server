@@ -17,7 +17,7 @@ public class UserController {
 	@Inject
 	private UserSvc userSvc;
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public UserCollection getAll() {
 		Collection<User> users = userSvc.getAll();
 		UserCollection response = new UserCollection(users);
@@ -26,17 +26,16 @@ public class UserController {
 		}
 		return response;
 	}
+
+	@RequestMapping(method=RequestMethod.PUT)
+	public UserTO update(@RequestBody User user) {
+		return new UserTO(userSvc.update(user));
+	}
 	
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
 	@Transactional
 	public User signupLogin(@RequestBody User user) {
 		return userSvc.loginSignup(user);
 	}
-	
-	@RequestMapping(value="/",method=RequestMethod.PUT)
-	public UserTO update(@RequestBody User user) {
-		return new UserTO(userSvc.update(user));
-	}
-	
 
 }

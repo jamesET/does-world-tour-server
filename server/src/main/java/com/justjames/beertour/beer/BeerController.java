@@ -30,13 +30,13 @@ public class BeerController {
 		return response; 
 	}
 	
-	@RequestMapping(value="/",method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST)
 	public Beer addBeer(@RequestBody Beer beer) {
 		log.debug("Adding beer " + beer.getName());
 		return beerSvc.add(beer);
 	}
 	
-	@RequestMapping(value="/", method=RequestMethod.PUT)
+	@RequestMapping(method=RequestMethod.PUT)
 	public Beer updateBeer(@RequestBody Beer beer) {
 		log.debug("Updating beer " + beer);
 		return beerSvc.update(beer);
