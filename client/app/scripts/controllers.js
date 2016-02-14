@@ -49,6 +49,10 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
       MyBeerList.getBeerlist()
         .then(function(beerlist){
           $scope.myBeerList = beerlist.data;
+
+        })
+        .finally(function(){
+              $scope.$broadcast('scroll.refreshComplete');
         });
   };
 

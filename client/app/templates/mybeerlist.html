@@ -9,7 +9,10 @@
     <div class="text-center">
       Beers left to finish: {{myBeerList.numberRemaining}}
     </div>
-
+      <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="refresh()">
+</ion-refresher>
       <ion-list can-swipe="true">
         <ion-item ng-repeat="drink in myBeerList.drinkList">
           <div class="row">
