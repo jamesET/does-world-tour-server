@@ -1,4 +1,4 @@
-package com.justjames.beertour;
+package com.justjames.beertour.webcfg;
 
 import java.util.ArrayList;
 import java.util.Collection;
