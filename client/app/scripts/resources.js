@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('resources',['ngResource'])
+angular.module('resources',['ngResource','config'])
 
 .constant('cfg',{
     baseUrl: 'http://beerlist-env.us-west-2.elasticbeanstalk.com/'
@@ -8,12 +8,12 @@ angular.module('resources',['ngResource'])
     //baseUrl: 'http://raspberrypi:8080/'
 })
 
-.factory('UserSvc', ['$http','$q','cfg',
-  function($http,$q,$cfg) {
+.factory('UserSvc', ['$http','$q','cfg','ENV',
+  function($http,$q,$cfg,ENV) {
     var service = {};
 
     service.signup = function(newUser) {
-      var signupUrl = $cfg.baseUrl + 'users/signup/';
+      var signupUrl = ENV.apiEndpoint + 'users/signup/';
       var def = $q.defer();
       $http.post(signupUrl,newUser)
         .then(function(response) {
@@ -23,7 +23,7 @@ angular.module('resources',['ngResource'])
     };
 
     service.getUsers = function() {
-      var usersUrl = $cfg.baseUrl + 'users/';
+      var usersUrl = ENV.apiEndpoint + 'users/';
       var def = $q.defer();
       $http.get(usersUrl)
         .then(function(response) {
@@ -33,7 +33,7 @@ angular.module('resources',['ngResource'])
     };
 
     service.update = function(user) {
-        var updateUrl = $cfg.baseUrl + 'users/';
+        var updateUrl = ENV.apiEndpoint + 'users/';
         var def = $q.defer();
         $http.put(updateUrl,user)
           .then(function(response) {
@@ -45,13 +45,13 @@ angular.module('resources',['ngResource'])
     return service;
   }])
 
-.factory('MyBeerList', ['$http','$q','cfg',
-  function($http,$q,$cfg) {
+.factory('MyBeerList', ['$http','$q','cfg','ENV',
+  function($http,$q,$cfg,ENV) {
     var service = {};
 
     service.getBeerlist = function() {
         var def = $q.defer();
-        $http.get($cfg.baseUrl + 'beerlists/getMyBeerList/')
+        $http.get(ENV.apiEndpoint + 'beerlists/getMyBeerList/')
         .then(function(data) {
           def.resolve(data);
         },
@@ -63,7 +63,7 @@ angular.module('resources',['ngResource'])
 
     service.drinkBeer = function(listId,beerOnListId) {
       ///beerlists/" + listId + "/beers/" + beerOnListId + "/crossoff";
-      var drinkUrl = $cfg.baseUrl + '/beerlists/' + listId + '/beers/' + beerOnListId + '/crossoff';
+      var drinkUrl = ENV.apiEndpoint + '/beerlists/' + listId + '/beers/' + beerOnListId + '/crossoff';
       var def = $q.defer();
       $http.post(drinkUrl)
         .then(function(data) {
@@ -78,7 +78,7 @@ angular.module('resources',['ngResource'])
 
     service.verifyBeer = function(listId,beerOnListId) {
       ///beerlists/" + listId + "/beers/" + beerOnListId + "/crossoff";
-      var drinkUrl = $cfg.baseUrl + '/beerlists/' + listId + '/beers/' + beerOnListId + '/complete';
+      var drinkUrl = ENV.apiEndpoint + '/beerlists/' + listId + '/beers/' + beerOnListId + '/complete';
       var def = $q.defer();
       $http.post(drinkUrl)
         .then(function(data) {
@@ -92,7 +92,7 @@ angular.module('resources',['ngResource'])
     };
 
     service.rejectBeer = function(listId,beerOnListId) {
-      var drinkUrl = $cfg.baseUrl + '/beerlists/' + listId + '/beers/' + beerOnListId + '/reject';
+      var drinkUrl = ENV.apiEndpoint + '/beerlists/' + listId + '/beers/' + beerOnListId + '/reject';
       var def = $q.defer();
       $http.post(drinkUrl)
         .then(function(data) {
@@ -107,7 +107,7 @@ angular.module('resources',['ngResource'])
 
     service.getDrinksToVerify = function() {
       var def = $q.defer();
-      $http.get($cfg.baseUrl + 'beerlists/getListToComplete/')
+      $http.get(ENV.apiEndpoint + 'beerlists/getListToComplete/')
       .then(function(data) {
         def.resolve(data);
       },

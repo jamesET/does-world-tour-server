@@ -2,10 +2,8 @@
 
 (function (angular) {
 
-  function AuthService($http, session){
-    var baseUrl = 'http://beerlist-env.us-west-2.elasticbeanstalk.com';
-    //var baseUrl = 'http://Jamess-MacBook-Air.local:8080';
-    //var baseUrl = 'http://raspberrypi:8080';
+  function AuthService($http, session, ENV){
+    var baseUrl = ENV.apiEndpoint;
     var loginUrl = baseUrl + '/login/';
     var logoutUrl =  baseUrl + '/logout/';
     var isAuthenticated = false;
@@ -75,11 +73,11 @@
   }
 
   // Inject dependencies
-  AuthService.$inject = ['$http', 'session'];
+  AuthService.$inject = ['$http', 'session','ENV'];
 
   // Export
   angular
-    .module('starter')
+    .module('app.auth',['config'])
     .service('auth', AuthService);
 
 })(angular);

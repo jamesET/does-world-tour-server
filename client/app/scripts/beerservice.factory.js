@@ -26,7 +26,7 @@
         }
 
         function update(beer) {
-            var beersUrl = $cfg.baseUrl + 'beers/';
+            var beersUrl = ENV.apiEndpoint + 'beers/';
             var def = $q.defer();
             $http.put(beersUrl,beer)
               .then(function(response) {
@@ -36,7 +36,7 @@
         }
 
         function add(beer) {
-            var beersUrl = $cfg.baseUrl + 'beers/';
+            var beersUrl = ENV.apiEndpoint + 'beers/';
             var def = $q.defer();
             $http.post(beersUrl,beer)
               .then(function(response) {
