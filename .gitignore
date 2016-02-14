@@ -11,3 +11,5 @@ client/.sass-cache
 *.swo
 *.log
 *.DS_Store
+
+client/app/scripts/configuration.js

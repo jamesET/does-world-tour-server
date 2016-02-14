@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 'use strict';
-angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'])
+angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config', 'beers'])
 
 .run(function($ionicPlatform,$rootScope,$state,AUTH_EVENTS,auth) {
   $ionicPlatform.ready(function() {
@@ -92,7 +92,7 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
       views: {
         'menuContent': {
           templateUrl: 'templates/beers.html',
-          controller: 'BeersCtrl'
+          controller: 'BeersController'
         }
       }
   })

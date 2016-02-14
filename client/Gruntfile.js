@@ -43,7 +43,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://dev.yoursite.com:10000/'
+            apiEndpoint: 'http://localhost:8080/'
           }
         }
       },
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://api.yoursite.com/'
+            apiEndpoint: 'http://beerlist-env.us-west-2.elasticbeanstalk.com/'
           }
         }
       }
@@ -157,7 +157,7 @@ module.exports = function (grunt) {
       }
     },
 
-    
+
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -513,7 +513,7 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('coverage', 
+  grunt.registerTask('coverage',
     ['karma:continuous',
     'connect:coverage:keepalive'
   ]);
