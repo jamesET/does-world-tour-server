@@ -1,6 +1,5 @@
 package com.justjames.beertour.user;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.inject.Inject;

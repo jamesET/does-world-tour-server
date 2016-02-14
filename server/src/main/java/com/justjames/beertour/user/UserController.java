@@ -5,6 +5,8 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/users")
 public class UserController {
 	
+	private Log log = LogFactory.getLog(UserController.class);
+	
 	@Inject
 	private UserSvc userSvc;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public UserCollection getAll() {
+		log.debug("getAll()");
 		Collection<User> users = userSvc.getAll();
 		UserCollection response = new UserCollection(users);
 		if (users == null) {

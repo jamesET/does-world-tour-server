@@ -39,20 +39,21 @@ public class WebConfig {
         shiroFilter.setSecurityManager(securityManager());
         
         Map<String, String> filterChainDefinitionMapping = new LinkedHashMap<String, String>();
-        filterChainDefinitionMapping.put("/login?", "public");
+        filterChainDefinitionMapping.put("/login?", "token");
         filterChainDefinitionMapping.put("/logout?", "token");
-        filterChainDefinitionMapping.put("/health?", "public");
         filterChainDefinitionMapping.put("/users/signup?", "public");
+        filterChainDefinitionMapping.put("/users/", "token");
         filterChainDefinitionMapping.put("/users?", "token");
-        filterChainDefinitionMapping.put("/beers/browse?", "public");
         filterChainDefinitionMapping.put("/beers?", "token");
         filterChainDefinitionMapping.put("/beerlists/**/*", "token");
+        filterChainDefinitionMapping.put("/beers/browse?", "public");
+        filterChainDefinitionMapping.put("/health?", "public");
         filterChainDefinitionMapping.put("/*", "public");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
 
-        Map<String, Filter> filters = new LinkedHashMap<>();
-        filters.put("public", new PublicFilter());
+        Map<String, Filter> filters = new LinkedHashMap<String,Filter>();
         filters.put("token", new SecurityFilter());
+        filters.put("public", new PublicFilter());
         shiroFilter.setFilters(filters);
 
         return shiroFilter;

@@ -16,6 +16,8 @@ import org.apache.shiro.web.util.WebUtils;
 
 public class SecurityFilter extends PassThruAuthenticationFilter {
 
+	private Log log = LogFactory.getLog(SecurityFilter.class);
+
 	@Override
 	protected boolean onAccessDenied(ServletRequest request,
 			ServletResponse response) throws Exception {
@@ -24,8 +26,6 @@ public class SecurityFilter extends PassThruAuthenticationFilter {
 		return false;
 		//return super.onAccessDenied(request, response);
 	}
-
-	private Log log = LogFactory.getLog(SecurityFilter.class);
 
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request,
