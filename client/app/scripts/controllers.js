@@ -2,7 +2,7 @@
 
 angular.module('starter.controllers', ['resources','ionic.utils'])
 
-.controller('AppCtrl', function($scope, $timeout, $http, $state, auth, session) {
+.controller('AppCtrl', function($scope, $timeout, $http, $state, $interval, auth, session) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -62,7 +62,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('VerifyListCtrl', function($scope,MyBeerList) {
+.controller('VerifyListCtrl', function($scope,$interval,MyBeerList) {
 
   $scope.$on('$ionicView.enter', function(e) {
     $scope.refresh();
@@ -82,12 +82,16 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
       });
   };
 
-  $scope.refresh = function() {
+  function refresh() {
       MyBeerList.getDrinksToVerify()
         .then(function(response){
           $scope.drinksToVerify = response.data.beers;
+          console.log("getDrinksToVerify refreshed.")
         });
-  };
+  }
+  $scope.refresh = refresh;
+
+  $interval(refresh,30000);
 
 })
 
