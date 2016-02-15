@@ -10,7 +10,6 @@ import javax.servlet.Filter;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
 
 import com.justjames.beertour.security.PublicFilter;
 import com.justjames.beertour.security.SecurityFilter;
@@ -87,7 +85,6 @@ public class BeerTourApplication extends SpringBootServletInitializer {
     }
 
     @Bean(name = "userRealm")
-    @DependsOn("lifecycleBeanPostProcessor")
     public UserRealm userRealm() {
         UserRealm userRealm = new UserRealm();
         userRealm.init();
@@ -95,16 +92,11 @@ public class BeerTourApplication extends SpringBootServletInitializer {
     }
 
     @Bean(name = "tokenRealm")
-    @DependsOn("lifecycleBeanPostProcessor")
     public TokenRealm tokenRealm() {
         TokenRealm tokenRealm = new TokenRealm();
         tokenRealm.init();
         return tokenRealm;
     }
 
-    @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
 
 }
