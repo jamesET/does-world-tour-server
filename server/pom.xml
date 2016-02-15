@@ -5,7 +5,7 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>beer-list</artifactId>
-	<version>0.0.12-SNAPSHOT</version>
+	<version>0.0.13-SNAPSHOT</version>
 
 	<name>Beer Tour</name>
 	<description>Beer Tour POC</description>
@@ -108,11 +108,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>3.4.2</version>
 		</dependency>
 	</dependencies>
 
