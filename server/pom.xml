@@ -5,7 +5,7 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>beer-list</artifactId>
-	<version>0.0.14-SNAPSHOT</version>
+	<version>0.0.16-SNAPSHOT</version>
 
 	<name>Beer Tour</name>
 	<description>Beer Tour POC</description>
@@ -112,7 +112,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.38</version>
 		</dependency>
 	</dependencies>
 
