@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.justjames.beertour.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.Brewception;
 import com.justjames.beertour.beer.Beer;
@@ -25,6 +24,7 @@ import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
+import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
 

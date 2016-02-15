@@ -1,4 +1,4 @@
-package com.justjames.beertour;
+package com.justjames.beertour.shiro;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.mgt.SecurityManager;
