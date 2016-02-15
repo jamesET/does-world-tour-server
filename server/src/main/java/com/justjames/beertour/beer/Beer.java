@@ -42,7 +42,7 @@ public class Beer implements Serializable {
 	
 	@Column private boolean discontinued;
 	
-	@Column(name="out") private boolean outOfStock;
+	@Column(name="oos") private boolean outOfStock;
 	
 	@Column private LocalDate createDate;
 
