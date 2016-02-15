@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authc.AuthenticationException;
@@ -19,19 +16,21 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
 
-@Named
+@Component
 public class UserRealm extends AuthorizingRealm {
 	
 	private Log log = LogFactory.getLog(UserRealm.class);
 	
-	@Inject
+	@Autowired
 	UserSvc userSvc;
 	
-	@Inject
+	@Autowired
 	TokenRealm tokenRealm;
 
 	@Override

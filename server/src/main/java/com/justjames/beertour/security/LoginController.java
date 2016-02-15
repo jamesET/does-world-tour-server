@@ -1,8 +1,8 @@
 package com.justjames.beertour.security;
 
-import javax.inject.Inject;
 
 import org.apache.shiro.authc.AuthenticationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/login")
 public class LoginController {
 	
-	@Inject
+	@Autowired
 	private LoginSvc loginSvc;
 	
 	@RequestMapping(value="/",method=RequestMethod.POST)

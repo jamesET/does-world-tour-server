@@ -5,9 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authc.AuthenticationException;
@@ -19,16 +16,18 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
 
-@Named
+@Component
 public class TokenRealm extends AuthorizingRealm {
 	
-	@Inject UserSvc userSvc;
+	@Autowired UserSvc userSvc;
 	
 	private Log log = LogFactory.getLog(TokenRealm.class);
 	

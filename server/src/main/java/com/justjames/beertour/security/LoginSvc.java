@@ -1,14 +1,14 @@
 package com.justjames.beertour.security;
 
-import javax.inject.Named;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Component;
 
-@Named
+@Component
 public class LoginSvc {
 	
 	private Log log = LogFactory.getLog(LoginSvc.class);

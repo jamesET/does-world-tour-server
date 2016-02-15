@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -13,6 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
 import com.justjames.beertour.beer.Beer;
@@ -26,21 +26,21 @@ import com.justjames.beertour.user.UserSvc;
  * @author James Thomas
  *
  */
-@Named
+@Component
 public class BeerListSvc {
 	
 	private Log log = LogFactory.getLog(BeerListSvc.class);
 	
-	@Inject
+	@Autowired
 	private BeerListRepository listRepo;
 	
-	@Inject
+	@Autowired
 	private BeerOnListRepository beerOnListRepo;
 	
-	@Inject
+	@Autowired
 	private BeerSvc beerSvc;
 	
-	@Inject
+	@Autowired
 	private UserSvc userSvc;
 
 	BeerListCompleteSpec beerListCompleteSpec = new BeerListCompleteSpec();

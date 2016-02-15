@@ -1,11 +1,10 @@
 package com.justjames.beertour.security;
 
-import javax.inject.Inject;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,7 +14,7 @@ import com.justjames.beertour.BeerTourApplication;
 @SpringApplicationConfiguration(classes = BeerTourApplication.class)
 public class LoginSvcTest {
 	
-	@Inject LoginSvc loginSvc;
+	@Autowired LoginSvc loginSvc;
 	
 	@Test(expected = AuthenticationException.class)
 	public void loginInvalidUserId() {

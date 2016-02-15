@@ -3,24 +3,24 @@ package com.justjames.beertour.beer;
 import java.time.LocalDate;
 import java.util.Collection;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
 import com.justjames.beertour.security.Role;
 
-@Named
+@Component
 public class BeerSvc {
 	
 	private Log log = LogFactory.getLog(BeerSvc.class);
 	
-	@Inject 
+	@Autowired 
 	BeerRepository beerRepo;
 
 	public Collection<Beer> getAll() {

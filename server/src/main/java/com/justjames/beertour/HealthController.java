@@ -2,11 +2,12 @@ package com.justjames.beertour;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +19,13 @@ import com.justjames.beertour.beer.BeerSvc;
 @RequestMapping(value="/health")
 public class HealthController {
 	
-	@Inject
+	@Autowired
 	BeerSvc beerSvc;
 	
 	private Log log = LogFactory.getLog(HealthController.class);
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public Response healthCheck() {
+	public ResponseEntity<String> healthCheck() {
 		boolean isHealthy = true;
 		Collection<Beer> beers = beerSvc.getAll();
 		if (beers.size() < 1) {
@@ -33,9 +34,9 @@ public class HealthController {
 		}
 		
 		if (isHealthy) {
-			return Response.ok().build();
+			return new ResponseEntity<String>("", HttpStatus.OK);
 		} else {
-			return Response.serverError().build(); 
+			return new ResponseEntity<String>("", HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
 

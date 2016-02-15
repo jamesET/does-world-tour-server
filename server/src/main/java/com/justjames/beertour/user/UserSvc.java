@@ -2,13 +2,14 @@ package com.justjames.beertour.user;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.justjames.beertour.Brewception;
 import com.justjames.beertour.beerlist.BeerListSvc;
 import com.justjames.beertour.security.ActiveUser;
@@ -16,18 +17,18 @@ import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserUtils;
 
-@Named
+@Component
 public class UserSvc {
 	
 	private Log log = LogFactory.getLog(UserSvc.class);
 	
-	@Inject 
+	@Autowired 
 	IUserRepository userRepo;
 	
-	@Inject
+	@Autowired
 	BeerListSvc listSvc;
 	
-	@Inject
+	@Autowired
 	LoginSvc loginSvc;
 	
 	public Collection<User> getAll() {

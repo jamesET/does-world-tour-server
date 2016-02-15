@@ -2,10 +2,10 @@ package com.justjames.beertour.beer;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/beers")
 public class BeerController {
 	
-	@Inject
+	@Autowired
 	private BeerSvc beerSvc;
 	
 	private Log log = LogFactory.getLog(BeerController.class);

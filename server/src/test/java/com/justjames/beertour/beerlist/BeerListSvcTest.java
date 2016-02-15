@@ -2,7 +2,6 @@ package com.justjames.beertour.beerlist;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import org.apache.shiro.SecurityUtils;
@@ -14,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -31,13 +31,13 @@ import com.justjames.beertour.user.UserSvc;
 @SpringApplicationConfiguration(classes = BeerTourApplication.class)
 public class BeerListSvcTest extends AbstractShiroTest {
 	
-	@Inject BeerListSvc listSvc;
+	@Autowired BeerListSvc listSvc;
 	
-	@Inject UserSvc userSvc;
+	@Autowired UserSvc userSvc;
 
-	@Inject LoginSvc loginSvc;
+	@Autowired LoginSvc loginSvc;
 	
-	@Inject UserRealm userRealm;
+	@Autowired UserRealm userRealm;
 	
 	SecurityManager securityManager = null;
 	

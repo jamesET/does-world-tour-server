@@ -2,11 +2,11 @@ package com.justjames.beertour.user;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +18,7 @@ public class UserController {
 	
 	private Log log = LogFactory.getLog(UserController.class);
 	
-	@Inject
+	@Autowired
 	private UserSvc userSvc;
 	
 	@RequestMapping(method=RequestMethod.GET)

@@ -2,10 +2,9 @@ package com.justjames.beertour.beerlist;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +18,7 @@ public class BeerListController {
 	
 	private Log log = LogFactory.getLog(BeerListController.class);
 	
-	@Inject
+	@Autowired
 	BeerListSvc listSvc;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)

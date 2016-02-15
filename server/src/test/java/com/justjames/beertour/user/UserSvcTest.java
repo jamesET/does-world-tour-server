@@ -2,7 +2,6 @@ package com.justjames.beertour.user;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import org.junit.After;
@@ -10,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -26,11 +26,11 @@ import com.justjames.beertour.security.UserRealm;
 @SpringApplicationConfiguration(classes = BeerTourApplication.class)
 public class UserSvcTest extends AbstractShiroTest {
 	
-	@Inject UserSvc userSvc;
+	@Autowired UserSvc userSvc;
 
-	@Inject UserRealm userRealm;
+	@Autowired UserRealm userRealm;
 	
-	@Inject LoginSvc loginSvc;
+	@Autowired LoginSvc loginSvc;
 	
 	SecurityManager securityManager = null;
 	
