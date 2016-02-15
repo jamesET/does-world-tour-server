@@ -13,3 +13,5 @@ client/.sass-cache
 *.DS_Store
 
 client/app/scripts/configuration.js
+
+server/beerSrv.log.1
