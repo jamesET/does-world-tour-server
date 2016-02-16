@@ -74,11 +74,18 @@ public class UserSvc {
 			throw new Brewception("Only admin or user can update account.");
 		}
 		
-		if (!userRepo.exists(user.getId())) {
+		User currentUser = null;
+		currentUser = userRepo.findByEmail(user.getEmail());
+		if (currentUser == null) {
 			throw new Brewception("User does not exist:" + user);
 		}
 		
-		User updatedUser = userRepo.saveAndFlush(user);
+		// These are the only attributes that the user can actually update
+		currentUser.setName(user.getName());
+		currentUser.setPassword(user.getPassword());
+		currentUser.setNickName(user.getNickName());
+		
+		User updatedUser = userRepo.saveAndFlush(currentUser);
 		return updatedUser;
 	}
 
