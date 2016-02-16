@@ -2,14 +2,8 @@
 
 angular.module('resources',['ngResource','config'])
 
-.constant('cfg',{
-    baseUrl: 'http://beerlist-env.us-west-2.elasticbeanstalk.com/'
-    //baseUrl: 'http://Jamess-MacBook-Air.local:8080/'
-    //baseUrl: 'http://raspberrypi:8080/'
-})
-
-.factory('UserSvc', ['$http','$q','cfg','ENV',
-  function($http,$q,$cfg,ENV) {
+.factory('UserSvc', ['$http','$q','ENV',
+  function($http,$q,ENV) {
     var service = {};
 
     service.signup = function(newUser) {
@@ -45,8 +39,8 @@ angular.module('resources',['ngResource','config'])
     return service;
   }])
 
-.factory('MyBeerList', ['$http','$q','cfg','ENV',
-  function($http,$q,$cfg,ENV) {
+.factory('MyBeerList', ['$http','$q','ENV',
+  function($http,$q,ENV) {
     var service = {};
 
     service.getBeerlist = function() {

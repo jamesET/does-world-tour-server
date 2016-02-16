@@ -5,7 +5,17 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 'use strict';
-angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config', 'beers','app.auth'])
+angular.module('starter',
+  ['ionic',
+  'ionic.utils',
+  'starter.controllers',
+  'config',
+  'beers',
+  'app.auth',
+  'blocks.exception',
+  'blocks.logger',
+  'verifybeer'
+  ])
 
 .run(function($ionicPlatform,$rootScope,$state,AUTH_EVENTS,auth) {
   $ionicPlatform.ready(function() {
@@ -41,6 +51,7 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
   .state('start', {
       url: '/start',
@@ -112,7 +123,8 @@ angular.module('starter', ['ionic','ionic.utils', 'starter.controllers','config'
       views: {
         'menuContent': {
           templateUrl: 'templates/completeBeers.html',
-          controller: 'VerifyListCtrl'
+          //controller: 'VerifyListCtrl'
+          controller: 'VerifyListController'
         }
       }
   });

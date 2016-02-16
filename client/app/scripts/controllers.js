@@ -66,39 +66,6 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('VerifyListCtrl', function($scope,$interval,MyBeerList) {
-
-  $scope.$on('$ionicView.enter', function(e) {
-    $scope.refresh();
-  });
-
-  $scope.verifyBeer = function(listId,beerOnListId) {
-    MyBeerList.verifyBeer(listId,beerOnListId)
-      .then(function() {
-          $scope.refresh();
-      });
-  };
-
-  $scope.rejectBeer = function(listId,beerOnListId) {
-    MyBeerList.rejectBeer(listId,beerOnListId)
-      .then(function() {
-          $scope.refresh();
-      });
-  };
-
-  function refresh() {
-      MyBeerList.getDrinksToVerify()
-        .then(function(response){
-          $scope.drinksToVerify = response.data.beers;
-          console.log("getDrinksToVerify refreshed.")
-        });
-  }
-  $scope.refresh = refresh;
-
-  $interval(refresh,30000);
-
-})
-
 .controller('StartCtrl', function($scope,$state,session) {
 
   // Navigate to the login form
@@ -132,14 +99,13 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
     auth.logIn($scope.loginData.username,$scope.loginData.password)
       .then(function(){
         // if login succeeds forward on to the beerlist
-        $scope.loginData = { };
         var token = session.getAccessToken();
         if (token !== null) {
           $state.go('app.mybeerlist');
         }
-      }, function(response) {
-          $scope.errorMessage = 'Service not available';
-      });
+      }
+      //, function(response) { $scope.errorMessage = 'Service not available'; }
+    );
   };
 
 })
