@@ -9,15 +9,23 @@
 
     /* @ngInject */
     function VerifyListController($scope,$interval,MyBeerList,logger) {
+        var vm = this;
         $scope.drinksToVerify = {};
         $scope.refresh = refresh;
         $scope.verifyBeer = verifyBeer;
         $scope.rejectBeer = rejectBeer;
 
+        $scope.refresh();
+
         $scope.$on('$ionicView.enter', function(e) {
             $scope.refresh();
-            $interval(refresh,30000);
+            vm.autoRefresh = $interval(refresh,10000);
         } );
+
+        $scope.$on('$ionicView.leave', function(e) {
+            $interval.cancel(vm.autoRefresh);
+            vm.autoRefresh = null;
+        });
 
         function refresh() {
             MyBeerList.getDrinksToVerify()
