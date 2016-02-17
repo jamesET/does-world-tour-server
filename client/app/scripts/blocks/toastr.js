@@ -12,9 +12,9 @@
         };
         return service;
 
-        function show(title,message) {
+        function show(message,data,title) {
           $ionicLoading.show({
-            template: '<h2>' + title + '</h2><br>' + message,
+            template: '<h2>' + title + '</h2><br>' + message + '<br>' +  data,
             noBackdrop: true,
             duration: 2000
           });

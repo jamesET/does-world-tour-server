@@ -7,13 +7,11 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
-import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserUtils;
 
 @Component
@@ -59,7 +57,14 @@ public class BeerSvc {
 			throw new Brewception("Beer does not exist");
 		}
 		
-		Beer updatedBeer = beerRepo.saveAndFlush(beer);
+		Beer updatedBeer = null;
+		try {
+			updatedBeer = beerRepo.saveAndFlush(beer);
+		} catch (DataAccessException de) {
+			log.error(de.getMessage() + "\n" + beer);
+			throw new Brewception("Update Beer Failed");
+		}
+		
 		return updatedBeer;
 	}
 	

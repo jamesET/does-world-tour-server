@@ -2,12 +2,12 @@
   'use strict';
 
   angular
-      .module('beers.service',['config','blocks.logger'])
+      .module('beers.service',['config','blocks.exception'])
       .factory('BeerService', BeerService );
 
-      BeerService.$inject = ['$http','$q','ENV','logger'];
+      BeerService.$inject = ['$http','$q','ENV','logger','exception'];
 
-      function BeerService($http,$q,ENV,logger) {
+      function BeerService($http,$q,ENV,logger,exception) {
         var service = {
           getBeers : getBeers,
           update : update,
@@ -29,23 +29,10 @@
             var beersUrl = ENV.apiEndpoint + 'beers/';
             return $http.put(beersUrl,beer)
               .then(updateBeerComplete)
-              .catch(updateBeerFailed);
+              .catch(exception.catcher('Update Beer Failed'));
 
             function updateBeerComplete(data, status, headers, config) {
               return data;
-            }
-
-            function updateBeerFailed(e) {
-              var newMessage = 'XHR Failed for getCustomer ';
-              if (e.data && e.data.status) {
-                  newMessage = newMessage + e.data.status;
-              }
-              if (e.data && e.data.message) {
-                newMessage = newMessage + '\n' + e.data.message;
-              }
-              e.data.description = newMessage;
-              logger.error(newMessage);
-              return $q.reject(e);
             }
         }
 

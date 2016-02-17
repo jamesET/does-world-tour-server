@@ -2,7 +2,7 @@
 
 (function (angular) {
 
-  function AuthService($http, session, ENV){
+  function AuthService($http, $q, session, ENV, logger, exception){
     var baseUrl = ENV.apiEndpoint;
     var loginUrl = baseUrl + '/login/';
     var logoutUrl =  baseUrl + '/logout/';
@@ -31,14 +31,17 @@
       };
       return $http
         .post(loginUrl, credentials)
-        .then(function(response){
-          var data = response.data;
-          isAuthenticated = true;
-          session.setUser(data.userId);
-          session.setAccessToken(data.token);
-          session.setUserData(data.userTO);
-          session.setRole(data.userTO.role);
-        });
+        .then( loginSuccess )
+        .catch( exception.catcher('Login failed') );
+
+        function loginSuccess(response, status, headers, config) {
+            isAuthenticated = true;
+            session.setUser(response.data.userId);
+            session.setAccessToken(response.data.token);
+            session.setUserData(response.data.userTO);
+            session.setRole(response.data.userTO.role);
+        }
+
     };
 
     /**
@@ -51,8 +54,12 @@
       session.destroy();
       return $http
         .post(logoutUrl)
-        .then(function(response){
-        });
+        .then(logOutComplete)
+        .catch(exception.catcher('Logout failed'));
+
+        function logOutComplete() {
+            logger.log('User logged out');
+        }
     };
 
     this.isAuthenticated = function() {
@@ -73,11 +80,11 @@
   }
 
   // Inject dependencies
-  AuthService.$inject = ['$http', 'session','ENV'];
+  AuthService.$inject = ['$http', '$q', 'session','ENV','logger','exception'];
 
   // Export
   angular
-    .module('app.auth',['config'])
+    .module('app.auth',['config','blocks.exception'])
     .service('auth', AuthService);
 
 })(angular);
