@@ -12,24 +12,28 @@ angular.module('starter',
   'config',
   'beers',
   'app.auth',
-  'blocks.exception',
   'blocks.logger',
-  'verifybeer'
+  'verifybeer',
+  'ngCordova'
   ])
 
-.run(function($ionicPlatform,$rootScope,$state,AUTH_EVENTS,auth) {
+.run(function($ionicPlatform,$cordovaStatusbar,$rootScope,$state,AUTH_EVENTS,auth) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
+    }
 
-    }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
+       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+      $cordovaStatusbar.overlaysWebView(true)
+      $cordovaStatusBar.style(1) //Light
     }
+
+
   });
 
   $rootScope.$on('$stateChangeStart', function(event,next,nextParams,fromState) {
@@ -44,6 +48,7 @@ angular.module('starter',
   });
 
 })
+
 
 .constant('AUTH_EVENTS', {
     notAuthenticated: 'auth-not-authenticated',
