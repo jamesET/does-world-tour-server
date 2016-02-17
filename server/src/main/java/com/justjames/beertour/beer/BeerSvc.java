@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
 import com.justjames.beertour.security.Role;
+import com.justjames.beertour.security.UserUtils;
 
 @Component
 public class BeerSvc {
@@ -31,7 +32,7 @@ public class BeerSvc {
 	public Beer add(Beer newBeer) {
 		newBeer.setCreateDate(LocalDate.now());
 		
-		if (!isAdmin()) {
+		if (!UserUtils.isAdmin()) {
 			log.warn("User not authorized to add beer.");
 			return null;
 		}
@@ -50,7 +51,7 @@ public class BeerSvc {
 	public Beer update(Beer beer) {
 		log.info("Updating beer: " + beer);
 
-		if (!isAdmin()) {
+		if (!UserUtils.isAdmin()) {
 			throw new Brewception("Only admin users can udpate beer.");
 		}
 		
@@ -62,17 +63,5 @@ public class BeerSvc {
 		return updatedBeer;
 	}
 	
-	
-	/**
-	 * 
-	 * @return true if the current logged-in user is an Admin
-	 */
-	private boolean isAdmin() {
-		Subject subject = SecurityUtils.getSubject();
-		if (subject == null) {
-			throw new Brewception("User is not logged in!");
-		}
-		return subject.hasRole(Role.ADMIN.toString());
-	}
 
 }
