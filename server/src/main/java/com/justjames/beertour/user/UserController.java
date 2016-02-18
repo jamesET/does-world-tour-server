@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +35,13 @@ public class UserController {
 
 	@RequestMapping(method=RequestMethod.PUT)
 	public UserTO update(@RequestBody User user) {
-		return new UserTO(userSvc.update(user));
+		return new UserTO(userSvc.selfUpdate(user));
+	}
+	
+	@RequestMapping(value="/{id}/adminEdit", method=RequestMethod.PUT)
+	public UserEditTO adminEdit(@PathVariable("id") Integer userId, @RequestBody UserEditTO editedUser) {
+		return new UserEditTO(userSvc.adminEdit(userId,editedUser));
+		
 	}
 	
 	@RequestMapping(value="/signup",method=RequestMethod.POST)

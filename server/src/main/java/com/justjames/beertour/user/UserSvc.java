@@ -2,6 +2,8 @@ package com.justjames.beertour.user;
 
 import java.util.Collection;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -61,12 +63,11 @@ public class UserSvc {
 	}
 	
 	/**
-	 * Save changes to a beer
-	 * @param beer
+	 * @param user
 	 * @return
 	 */
 	@Transactional
-	public User update(User user) {
+	public User selfUpdate(User user) {
 		log.info("Updating user: " + user);
 
 		ActiveUser loggedInUser = UserUtils.getActiveUser();
@@ -88,7 +89,41 @@ public class UserSvc {
 		User updatedUser = userRepo.saveAndFlush(currentUser);
 		return updatedUser;
 	}
+	
+	/**
+	 * @param editedUser
+	 * @return
+	 */
+	@Transactional
+	public User adminEdit(Integer userId, UserEditTO editedUser) {
+		log.info("adminEdit: " + editedUser);
 
+		ActiveUser loggedInUser = UserUtils.getActiveUser();
+		if (!UserUtils.isAdmin() && loggedInUser.getUserId() != userId ) {
+			throw new Brewception("Only admin or user can update account.");
+		}
+		
+		User currentUser = null;
+		User updatedUser = null;
+		try {
+			currentUser = userRepo.getOne(userId);
+			if (currentUser == null) {
+				throw new Brewception("User does not exist:" + editedUser);
+			}
+			
+			// These are the only attributes that the user can actually update
+			currentUser.setRole(editedUser.getRole());
+
+			updatedUser = userRepo.saveAndFlush(currentUser);
+			
+		} catch (EntityNotFoundException enf) {
+			throw new Brewception("User not found");
+		} catch (PersistenceException pe) {
+			throw new Brewception("Error, can't update user");
+		}
+	
+		return updatedUser; 
+	}
 	
 	/**
 	 * @param finisher

@@ -5,8 +5,8 @@
           <span class="input-label">Name</span>
           <input type="text" ng-model="selectedUser.name" ng-disabled="true" required="required" placeholder="you@yourmail.com">
         </label>
-        <ion-radio ng-model="selecteUser.role" ng-value="CUSTOMER">Customer</ion-radio>
-        <ion-radio ng-model="selecteUser.role" ng-value="ADMIN">Admin</ion-radio>
+        <ion-radio ng-model="selectedUser.role" ng-value="'CUSTOMER'">Customer</ion-radio>
+        <ion-radio ng-model="selectedUser.role" ng-value="'ADMIN'">Admin</ion-radio>
     </div>
     <button class="button button-block button-stable" ng-click="updateUser()">Update</button>
     <button class="button button-block button-stable" ng-click="closeModal()">Cancel</button>

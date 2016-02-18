@@ -65,9 +65,11 @@
         }
 
         function updateUser() {
-            var user = $scope.selectedUser;
-            logger.info('updateUser', user.name, 'TODO');
-            closeModal();
+            UserSvc.adminEdit($scope.selectedUser)
+              .then(function() {
+                closeModal();
+                refresh();
+            });
         }
 
     }

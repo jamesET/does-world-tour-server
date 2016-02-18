@@ -153,7 +153,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		addTestUser("testUpdateUserAsAdmin",Role.ADMIN);
 		User owner = userSvc.findByEmail("james@just-james.com");
 		owner.setNumListsCompleted(999);
-		User updatedUser = userSvc.update(owner);
+		User updatedUser = userSvc.selfUpdate(owner);
 		Assert.assertTrue(updatedUser.getNumListsCompleted()==999);
 	}
 
@@ -163,7 +163,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		loginSvc.login("james@just-james.com", "admin");
 		User owner = userSvc.findByEmail("james@just-james.com");
 		owner.setNumListsCompleted(997);
-		User updatedUser = userSvc.update(owner);
+		User updatedUser = userSvc.selfUpdate(owner);
 		Assert.assertTrue(updatedUser.getNumListsCompleted()==997);
 	}
 
@@ -172,7 +172,7 @@ public class UserSvcTest extends AbstractShiroTest {
 	public void testUpdateUserAsOther() {
 		addTestUser("testUpdateUserAsOther",Role.CUSTOMER);
 		User owner = userSvc.findByEmail("james@just-james.com");
-		userSvc.update(owner);
+		userSvc.selfUpdate(owner);
 	}
 
 	@Test(expected=Brewception.class)
@@ -182,8 +182,20 @@ public class UserSvcTest extends AbstractShiroTest {
 		User user = new User(); 
 		user.setId(-1);
 		user.setEmail("nobody@nowhere.com");
-		userSvc.update(user);
+		userSvc.selfUpdate(user);
 	}
+	
+	@Test
+	@Transactional
+	public void testAdminEditAsAdmin() {
+		addTestUser("testAdminEditAsAdmin",Role.ADMIN);
+		User owner = userSvc.findByEmail("james@just-james.com");
+		UserEditTO userEdit = new UserEditTO(owner);
+		userEdit.setRole(Role.CUSTOMER);
+		User updatedUser = userSvc.adminEdit(owner.getId(),userEdit);
+		Assert.assertTrue(updatedUser.getRole()==Role.CUSTOMER);
+	}
+
 
 	@After
 	public void tearDownSubject() {

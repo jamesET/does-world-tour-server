@@ -55,6 +55,7 @@ public class BeerTourApplication extends SpringBootServletInitializer {
         Map<String, String> filterChainDefinitionMapping = new LinkedHashMap<String, String>();
         filterChainDefinitionMapping.put("/login?", "token");
         filterChainDefinitionMapping.put("/logout?", "token");
+        filterChainDefinitionMapping.put("/users/*/adminEdit*", "token");
         filterChainDefinitionMapping.put("/users/signup?", "public");
         filterChainDefinitionMapping.put("/users/", "token");
         filterChainDefinitionMapping.put("/users?", "token");

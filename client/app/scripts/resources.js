@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('resources',['ngResource','config'])
+angular.module('resources',['ngResource','config','blocks.exception'])
 
-.factory('UserSvc', ['$http','$q','ENV',
-  function($http,$q,ENV) {
+.factory('UserSvc', ['$http','$q','ENV','exception',
+  function($http,$q,ENV,exception) {
     var service = {};
 
     service.signup = function(newUser) {
@@ -35,6 +35,22 @@ angular.module('resources',['ngResource','config'])
           });
         return def.promise;
     };
+
+    service.adminEdit = function(user) {
+      var updateUrl = ENV.apiEndpoint + 'users/' + user.id + '/adminEdit';
+      var editUser = {
+          role: user.role
+      };
+
+      return $http.put(updateUrl,editUser)
+        .then(adminEditComplete)
+        .catch(exception.catcher)
+
+      function adminEditComplete(data, status, headers, config) {
+          return data;
+      }
+
+    }
 
     return service;
   }])
