@@ -1,4 +1,4 @@
-package com.justjames.beertour;
+package com.justjames.beertour.health;
 
 import java.util.Collection;
 

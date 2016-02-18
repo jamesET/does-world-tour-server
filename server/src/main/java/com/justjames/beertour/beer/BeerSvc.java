@@ -3,6 +3,8 @@ package com.justjames.beertour.beer;
 import java.time.LocalDate;
 import java.util.Collection;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
@@ -42,30 +44,47 @@ public class BeerSvc {
 	
 	/**
 	 * Save changes to a beer
-	 * @param beer
+	 * @param updatedBeer
 	 * @return
 	 */
 	@Transactional
-	public Beer update(Beer beer) {
-		log.info("Updating beer: " + beer);
+	public Beer update(Beer updatedBeer) {
+		log.info("Updating beer: " + updatedBeer);
 
 		if (!UserUtils.isAdmin()) {
 			throw new Brewception("Only admin users can udpate beer.");
 		}
 		
-		if (!beerRepo.exists(beer.getId())) {
-			throw new Brewception("Beer does not exist");
+		Beer beer = null;
+		try {
+
+			beer = beerRepo.getOne(updatedBeer.getId());
+			// These are the only attributes that may be updated
+			beer.setName(updatedBeer.getName());
+			beer.setBrewery(updatedBeer.getBrewery());
+			beer.setCountry(updatedBeer.getCountry());
+			beer.setRegion(updatedBeer.getRegion());
+			beer.setStyle(updatedBeer.getStyle());
+			beer.setAbv(updatedBeer.getAbv());
+			beer.setOz(updatedBeer.getOz());
+			beer.setDiscontinued(updatedBeer.isDiscontinued());
+			beer.setOutOfStock(updatedBeer.isOutOfStock());
+
+		} catch (EntityNotFoundException nf) {
+			throw new Brewception("Beer not found");
+		} catch (PersistenceException pe) {
+			throw new Brewception("Error, can't update beer");
 		}
 		
-		Beer updatedBeer = null;
+		Beer savedBeer = null;
 		try {
-			updatedBeer = beerRepo.saveAndFlush(beer);
+			savedBeer = beerRepo.saveAndFlush(beer);
 		} catch (DataAccessException de) {
-			log.error(de.getMessage() + "\n" + beer);
+			log.error(de.getMessage() + "\n" + updatedBeer);
 			throw new Brewception("Update Beer Failed");
 		}
 		
-		return updatedBeer;
+		return savedBeer;
 	}
 	
 
