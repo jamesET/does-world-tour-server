@@ -14,7 +14,8 @@ angular.module('starter',
   'app.auth',
   'blocks.logger',
   'verifybeer',
-  'ngCordova'
+  'ngCordova',
+  'app.users'
   ])
 
 .run(function($ionicPlatform,$cordovaStatusbar,$rootScope,$state,AUTH_EVENTS,auth) {
@@ -118,7 +119,7 @@ angular.module('starter',
       views: {
         'menuContent': {
           templateUrl: 'templates/users.html',
-          controller: 'UsersCtrl'
+          controller: 'UserMaintController'
         }
       }
   })

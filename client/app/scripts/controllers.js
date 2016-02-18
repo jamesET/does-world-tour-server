@@ -20,25 +20,6 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('UsersCtrl', function($scope,UserSvc){
-  console.log('Enter UsersCtrl');
-  $scope.users = {};
-
-  $scope.$on('$ionicView.enter', function(e) {
-    $scope.refresh();
-  });
-
-  $scope.refresh = function() {
-      UserSvc.getUsers()
-        .then(function(response){
-          $scope.users = response.data.users;
-          $scope.errorMessage = response.data.errorMsg;
-        });
-  };
-
-})
-
-
 .controller('BeerListCtrl', function($scope,MyBeerList) {
 
   $scope.$on('$ionicView.enter', function(e) {

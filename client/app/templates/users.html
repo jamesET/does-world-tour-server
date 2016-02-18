@@ -6,8 +6,14 @@
           <div class="row">
               <div class="col">
                 <b>{{user.name}}</b>
+                <br>
+                {{user.nickName}}
+              </div>
+              <div class="col">
+                {{user.role}}
               </div>
           </div>
+          <ion-option-button class="button-positive button-large" ng-click="openModal(user)">Edit</ion-option-button>
         </ion-item>
       </ion-list>
 
