@@ -48,7 +48,7 @@ public class BeerSvc {
 	 * @return
 	 */
 	@Transactional
-	public Beer update(Beer updatedBeer) {
+	public Beer update(BeerUpdateTO updatedBeer) {
 		log.info("Updating beer: " + updatedBeer);
 
 		if (!UserUtils.isAdmin()) {

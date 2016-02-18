@@ -37,7 +37,7 @@ public class BeerController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT)
-	public Beer updateBeer(@RequestBody Beer beer) {
+	public Beer updateBeer(@RequestBody BeerUpdateTO beer) {
 		log.debug("Updating beer " + beer);
 		return beerSvc.update(beer);
 	}

@@ -97,8 +97,12 @@ public class BeerSvcTest extends AbstractShiroTest {
 			addTestUser("updateExistingBeerAsAdmin",Role.ADMIN);
 			Collection<Beer> allBeers = beerSvc.getAll();
 			Beer beer = allBeers.iterator().next();
-			beer.setOutOfStock(true);
-			Beer updatedBeer = beerSvc.update(beer);
+			BeerUpdateTO beerTO = new BeerUpdateTO();
+			beerTO.setId(beer.getId());
+			beerTO.setName(beer.getName());
+			beerTO.setBrewery(beer.getBrewery());
+			beerTO.setOutOfStock(true);
+			Beer updatedBeer = beerSvc.update(beerTO);
 			Assert.assertTrue(updatedBeer.isOutOfStock());
 		}
 		
@@ -108,15 +112,17 @@ public class BeerSvcTest extends AbstractShiroTest {
 			addTestUser("updateExistingBeerAsCustomer",Role.CUSTOMER);
 			Collection<Beer> allBeers = beerSvc.getAll();
 			Beer beer = allBeers.iterator().next();
+			BeerUpdateTO beerTO = new BeerUpdateTO();
+			beerTO.setId(beer.getId());
 			beer.setOutOfStock(true);
-			beerSvc.update(beer);
+			beerSvc.update(beerTO);
 		}
 
 		@Test(expected=Brewception.class)
 		@Transactional
 		public void updateInvalidBeerAsAdmin() {
 			addTestUser("updateInvalidBeerAsAdmin",Role.ADMIN);
-			Beer newBeer = new Beer();
+			BeerUpdateTO newBeer = new BeerUpdateTO();
 			newBeer.setId(-1);
 			beerSvc.update(newBeer);
 		}
