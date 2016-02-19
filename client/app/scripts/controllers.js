@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('starter.controllers', ['resources','services.beerlists','services.user','ionic.utils'])
+angular.module('starter.controllers', ['resources','services.user','ionic.utils'])
 
 .controller('AppCtrl', function($scope, $timeout, $http, $state, $interval, auth, session) {
 
@@ -17,33 +17,6 @@ angular.module('starter.controllers', ['resources','services.beerlists','service
       auth.logOut();
       $state.go('start');
   };
-
-})
-
-.controller('BeerListCtrl', function($scope,BeerListService) {
-
-  $scope.$on('$ionicView.enter', function(e) {
-    $scope.refresh();
-  });
-
-  $scope.refresh = function() {
-      BeerListService.getBeerList()
-        .then(function(beerlist){
-          $scope.myBeerList = beerlist.data;
-
-        })
-        .finally(function(){
-              $scope.$broadcast('scroll.refreshComplete');
-        });
-  };
-
-  $scope.drinkBeer = function(listId,beerOnListId) {
-    BeerListService.drinkBeer(listId,beerOnListId)
-      .then(function() {
-          $scope.refresh();
-    });
-  };
-
 
 })
 
@@ -126,55 +99,6 @@ angular.module('starter.controllers', ['resources','services.beerlists','service
           $scope.errorMessage = response.data.message;
       }
     );
-
-  };
-
-})
-
-.controller('AccountCtrl', function($scope,session,UserService) {
-  $scope.acctData = {};
-  $scope.errorMessage = '';
-
-  $scope.$on('$ionicView.enter', function(e) {
-    var ud = session.getUserData();
-    var pwd = session.getPassword();
-    $scope.acctData = {
-        email : ud.email,
-        password: pwd,
-        password2 : pwd,
-        name : ud.name,
-        nickName : ud.nickName,
-        role : ud.role
-    };
-  });
-
-
-  $scope.update = function() {
-    $scope.errorMessage = '';
-    var acct = $scope.acctData;
-
-    var password2 = $scope.acctData.password2;
-    if (acct.password !== password2) {
-        $scope.errorMessage = 'passwords do not match, please re-enter password';
-        return;
-    }
-
-    var user = {
-        id : session.getUser(),
-        email : acct.email,
-        password: acct.password,
-        name: acct.name,
-        nickName : acct.nickName,
-        role: acct.role
-    };
-
-    UserService.update(user)
-      .then(
-          function(response) {},
-          function(response) {
-            $scope.errorMessage = 'Updated Failed';
-          }
-      );
 
   };
 

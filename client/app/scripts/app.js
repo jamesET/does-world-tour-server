@@ -16,6 +16,7 @@ angular.module('starter',
   'verifybeer',
   'ngCordova',
   'app.users',
+  'app.beerlists',
   'account'
   ])
 
@@ -88,7 +89,7 @@ angular.module('starter',
       views: {
         'menuContent': {
           templateUrl: 'templates/mybeerlist.html',
-          controller: 'BeerListCtrl'
+          controller: 'BeerListController'
         }
       }
   })
