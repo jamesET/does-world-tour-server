@@ -9,63 +9,71 @@
 
   function BeersController ($scope,$ionicModal,BeerService) {
 
-    $scope.beers = {};
+    $scope.allBeers = {};
     $scope.beer = {};
 
-    $scope.$on('$ionicView.enter', function(e) {
-      $scope.refresh();
-    });
+    $scope.closeModal = closeModal;
+    $scope.openModal = openModal;
+    $scope.refresh = refresh;
+    $scope.save = save;
 
-    $scope.refresh = function() {
+    activate();
+
+    function activate() {
+      $scope.$on('$ionicView.enter', function(e) {
+        $scope.refresh();
+      });
+
+      $ionicModal.fromTemplateUrl('templates/beerForm.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });
+
+      $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+      });
+    }
+
+    function refresh() {
         BeerService.getBeers()
           .then(function(response){
-            $scope.beers = response.data.beers;
-            $scope.errorMessage = response.errorMsg;
+            $scope.allBeers = response.data.beers;
           });
-    };
-
-  $ionicModal.fromTemplateUrl('templates/beerForm.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  $scope.add = function() {
-    $scope.beer = {};
-    $scope.action = 'add';
-    $scope.modal.show();
-  };
-
-  $scope.update = function(beer) {
-    $scope.beer = beer;
-    $scope.action = 'update';
-    $scope.modal.show();
-  };
-
-  $scope.closeModal = function(action) {
-    if (action === 'ok') {
-        if ($scope.action === 'update') {
-          BeerService.update($scope.beer)
-            .then(function(response){
-                $scope.refresh();
-                $scope.errorMessage = response.errorMsg;
-            });
-        } else {
-          BeerService.add($scope.beer)
-            .then(function(response){
-                $scope.refresh();
-                $scope.errorMessage = response.errorMsg;
-            });
-        }
     }
-    $scope.modal.hide();
-    $scope.action = null;
-  };
 
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-}
+    function openModal(targetBeer) {
+      if (targetBeer) {
+        $scope.beer = targetBeer;
+      } else {
+        $scope.beer = {};
+      }
+      $scope.modal.show();
+    }
+
+    function save() {
+      if ($scope.beer.id) {
+        // this is an update
+        BeerService
+          .update($scope.beer)
+          .then(changeDone);
+      } else {
+          BeerService
+            .add($scope.beer)
+            .then(changeDone);
+      }
+
+      function changeDone() {
+          $scope.modal.hide();
+          $scope.refresh();
+      }
+    }
+
+    function closeModal() {
+        $scope.modal.hide();
+    }
+
+  }
 
 })();
