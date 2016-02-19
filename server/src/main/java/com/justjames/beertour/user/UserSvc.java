@@ -25,7 +25,7 @@ public class UserSvc {
 	private Log log = LogFactory.getLog(UserSvc.class);
 	
 	@Autowired 
-	IUserRepository userRepo;
+	UserRepository userRepo;
 	
 	@Autowired
 	BeerListSvc listSvc;

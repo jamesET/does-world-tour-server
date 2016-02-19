@@ -25,7 +25,7 @@ public class BeerSvc {
 	BeerRepository beerRepo;
 
 	public Collection<Beer> getAll() {
-		return beerRepo.findAll();
+		return beerRepo.findAllByOrderByNameAsc();
 	}
 
 	@Transactional
