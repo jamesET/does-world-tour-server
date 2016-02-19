@@ -37,7 +37,7 @@ public class UserSvc {
 		if (!UserUtils.isAdmin()) {
 		 throw new Brewception("Only Admin can list all users:" + UserUtils.getActiveUser());	
 		} 
-		return userRepo.findAll();
+		return userRepo.findAllByOrderByNameAsc();
 	}
 	
 	/**

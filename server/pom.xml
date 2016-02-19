@@ -5,7 +5,7 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>beer-list</artifactId>
-	<version>0.0.28-SNAPSHOT</version>
+	<version>0.0.29-SNAPSHOT</version>
 
 	<name>Beer Tour</name>
 	<description>Beer Tour POC</description>
