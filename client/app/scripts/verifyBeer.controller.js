@@ -5,10 +5,10 @@
         .module('verifybeer')
         .controller('VerifyListController', VerifyListController);
 
-    VerifyListController.$inject = ['$scope','$interval','MyBeerList','logger'];
+    VerifyListController.$inject = ['$scope','$interval','BeerListService','logger'];
 
     /* @ngInject */
-    function VerifyListController($scope,$interval,MyBeerList,logger) {
+    function VerifyListController($scope,$interval,BeerListService,logger) {
         var vm = this;
         $scope.drinksToVerify = {};
         $scope.refresh = refresh;
@@ -28,7 +28,7 @@
         });
 
         function refresh() {
-            MyBeerList.getDrinksToVerify()
+            BeerListService.getDrinksToVerify()
               .then(function(response){
                 $scope.drinksToVerify = response.data.beers;
                 logger.log('getDrinksToVerify refreshed. ');
@@ -36,14 +36,14 @@
         }
 
         function verifyBeer(listId,beerOnListId) {
-          MyBeerList.verifyBeer(listId,beerOnListId)
+          BeerListService.verifyBeer(listId,beerOnListId)
             .then(function() {
                 $scope.refresh();
             });
         }
 
         function rejectBeer(listId,beerOnListId) {
-          MyBeerList.rejectBeer(listId,beerOnListId)
+          BeerListService.rejectBeer(listId,beerOnListId)
             .then(function() {
                 $scope.refresh();
             });

@@ -1,36 +1,32 @@
 <ion-view view-title="My Account">
   <ion-content>
-    <form novalidate="novalidate" ng-submit="update()">
+    <form novalidate="novalidate" ng-submit="accountUpdate()">
     <div class="list">
     <label class="item item-input item-stacked-label">
       <span class="input-label">Email</span>
-      <input type="email" ng-model="acctData.email" ng-disabled="true" required="required" placeholder="you@yourmail.com">
+      <input type="email" ng-model="accountData.email" ng-disabled="true" required="required" placeholder="you@yourmail.com">
     </label>
     <label class="item item-input item-stacked-label">
       <span class="input-label">Password</span>
-      <input type="password" ng-model="acctData.password" required="required" placeholder="not set">
+      <input type="password" ng-model="accountData.password" required="required" placeholder="not set">
     </label>
     <label class="item item-input item-stacked-label">
       <span class="input-label">Re-enter password</span>
-      <input type="password" ng-model="acctData.password2" required="required" placeholder="not set">
+      <input type="password" ng-model="accountData.password2" required="required" placeholder="not set">
     </label>
     <label class="item item-input item-stacked-label">
       <span class="input-label">Name</span>
-      <input type="text" ng-model="acctData.name" required="required" placeholder="Your full name">
+      <input type="text" ng-model="accountData.name" required="required" placeholder="Your full name">
     </label>
     <label class="item item-input item-stacked-label">
       <span class="input-label">Nickname</span>
-      <input type="text" ng-model="acctData.nickName" placeholder="not set">
+      <input type="text" ng-model="accountData.nickName" placeholder="not set">
     </label>
     <label class="item">
-      <button class="button button-block button-stable" type="submit">Submit</button>
+      <button class="button button-block button-stable" type="submit">Save</button>
     </label>
     </div>
   </form>
-
-    <div class="row">
-        <div class="col text-center">{{errorMessage}}</div>
-    </div>
 
     uid: {{session.getUser()}}
     role: {{session.getRole()}}

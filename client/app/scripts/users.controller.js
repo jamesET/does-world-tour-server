@@ -6,11 +6,10 @@
         .controller('UserMaintController', UserMaintController);
 
     UserMaintController.$inject = ['$scope','$ionicModal',
-      'exception','logger', 'UserSvc'];
+      'exception','logger', 'UserService'];
 
     /* @ngInject */
-    function UserMaintController($scope, $ionicModal, exception, logger, UserSvc) {
-        var vm = this;
+    function UserMaintController($scope, $ionicModal, exception, logger, UserService) {
         $scope.refresh = refresh;
         $scope.openModal = openModal;
         $scope.closeModal = closeModal;
@@ -38,13 +37,13 @@
             $scope.modal.remove();
           });
 
-          $scope.$on('$ionicView.enter', function(e) {
+          $scope.$on('$ionicView.enter', function() {
             $scope.refresh();
           });
         }
 
         function refresh() {
-            UserSvc.getUsers()
+            UserService.getUsers()
               .then(function(response){
                 $scope.users = response.data.users;
                 $scope.errorMessage = response.data.errorMsg;
@@ -65,7 +64,7 @@
         }
 
         function updateUser() {
-            UserSvc.adminEdit($scope.selectedUser)
+            UserService.adminEdit($scope.selectedUser)
               .then(function() {
                 closeModal();
                 refresh();

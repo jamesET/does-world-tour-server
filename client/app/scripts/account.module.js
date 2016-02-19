@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        .module('app.users', [
+        .module('account', [
             'services.user',
-            'blocks.exception'
+            'ngCordova'
         ]);
 })();

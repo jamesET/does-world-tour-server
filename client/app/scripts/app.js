@@ -15,7 +15,8 @@ angular.module('starter',
   'blocks.logger',
   'verifybeer',
   'ngCordova',
-  'app.users'
+  'app.users',
+  'account'
   ])
 
 .run(function($ionicPlatform,$cordovaStatusbar,$rootScope,$state,AUTH_EVENTS,auth) {
@@ -30,8 +31,6 @@ angular.module('starter',
     if (window.StatusBar) {
        // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
-      $cordovaStatusbar.overlaysWebView(true)
-      $cordovaStatusBar.style(1) //Light
     }
 
 
@@ -99,7 +98,7 @@ angular.module('starter',
       views: {
         'menuContent': {
           templateUrl: 'templates/account.html',
-          controller: 'AccountCtrl'
+          controller: 'AccountController'
         }
       }
   })

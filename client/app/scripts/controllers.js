@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('starter.controllers', ['resources','ionic.utils'])
+angular.module('starter.controllers', ['resources','services.beerlists','services.user','ionic.utils'])
 
 .controller('AppCtrl', function($scope, $timeout, $http, $state, $interval, auth, session) {
 
@@ -20,14 +20,14 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('BeerListCtrl', function($scope,MyBeerList) {
+.controller('BeerListCtrl', function($scope,BeerListService) {
 
   $scope.$on('$ionicView.enter', function(e) {
     $scope.refresh();
   });
 
   $scope.refresh = function() {
-      MyBeerList.getBeerlist()
+      BeerListService.getBeerList()
         .then(function(beerlist){
           $scope.myBeerList = beerlist.data;
 
@@ -38,7 +38,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
   };
 
   $scope.drinkBeer = function(listId,beerOnListId) {
-    MyBeerList.drinkBeer(listId,beerOnListId)
+    BeerListService.drinkBeer(listId,beerOnListId)
       .then(function() {
           $scope.refresh();
     });
@@ -91,7 +91,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('JoinCtrl', function($scope,$state,session,UserSvc) {
+.controller('JoinCtrl', function($scope,$state,session,UserService) {
 
   $scope.acctData = { };
   $scope.errorMessage = '';
@@ -116,7 +116,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
         return;
     }
 
-    UserSvc.signup(newUser)
+    UserService.signup(newUser)
       .then(function(response){
           // success, go login for the first time
           session.setEmail(newUser.email);
@@ -131,7 +131,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
 
 })
 
-.controller('AccountCtrl', function($scope,session,UserSvc) {
+.controller('AccountCtrl', function($scope,session,UserService) {
   $scope.acctData = {};
   $scope.errorMessage = '';
 
@@ -168,7 +168,7 @@ angular.module('starter.controllers', ['resources','ionic.utils'])
         role: acct.role
     };
 
-    UserSvc.update(user)
+    UserService.update(user)
       .then(
           function(response) {},
           function(response) {

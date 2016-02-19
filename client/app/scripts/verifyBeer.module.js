@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('verifybeer', ['resources']);
+        .module('verifybeer', ['services.beerlists']);
 })();
