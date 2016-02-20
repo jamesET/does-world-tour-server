@@ -2,11 +2,12 @@
     'use strict';
 
     angular
-        .module('Toastr',['ionic'])
+        .module('Toastr',[])
         .factory('toastr', toastr);
 
+    toastr.$inject = ['$ionicLoading'];
+
     function toastr($ionicLoading) {
-        var vm = this;
         var service = {
             show : show
         };

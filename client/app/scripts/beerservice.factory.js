@@ -17,12 +17,13 @@
 
         function getBeers() {
           var beersUrl = ENV.apiEndpoint + 'beers/browse';
-          var def = $q.defer();
-          $http.get(beersUrl)
-            .then(function(response) {
-              def.resolve(response);
-            });
-          return def.promise;
+          return $http.get(beersUrl)
+            .then(getBeersComplete)
+            .catch(exception.catcher('Retrieve Beers failed.'));
+
+            function getBeersComplete(data) {
+                return data;
+            }
         }
 
         function update(beer) {
@@ -31,7 +32,7 @@
               .then(updateBeerComplete)
               .catch(exception.catcher('Update Beer Failed'));
 
-            function updateBeerComplete(data, status, headers, config) {
+            function updateBeerComplete(data) {
               return data;
             }
         }
@@ -39,12 +40,13 @@
 
         function add(beer) {
             var beersUrl = ENV.apiEndpoint + 'beers/';
-            var def = $q.defer();
-            $http.post(beersUrl,beer)
-              .then(function(response) {
-                def.resolve(response);
-              });
-            return def.promise;
+            return $http.post(beersUrl,beer)
+              .then(addBeerComplete)
+              .catch(exception.catcher('Add Beer Failed'));
+
+            function addBeerComplete(data) {
+                return data;
+            }
         }
 
     }

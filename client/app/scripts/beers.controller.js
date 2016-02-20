@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('beers',[
+      .module('app.beers',[
         'beers.service'
       ])
       .controller('BeersController', BeersController );
@@ -39,7 +39,9 @@
     function refresh() {
         BeerService.getBeers()
           .then(function(response){
-            $scope.allBeers = response.data.beers;
+            if (response && response.data) {
+              $scope.allBeers = response.data.beers;
+            }
           });
     }
 

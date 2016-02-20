@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('verifybeer')
+        .module('app.verifybeer')
         .controller('VerifyListController', VerifyListController);
 
     VerifyListController.$inject = ['$scope','$interval','BeerListService','logger'];

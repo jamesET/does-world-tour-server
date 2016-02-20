@@ -10,17 +10,17 @@ angular.module('starter',
   'ionic.utils',
   'starter.controllers',
   'config',
-  'beers',
+  'app.beers',
   'app.auth',
   'blocks.logger',
-  'verifybeer',
+  'app.verifybeer',
   'ngCordova',
   'app.users',
   'app.beerlists',
   'account'
   ])
 
-.run(function($ionicPlatform,$cordovaStatusbar,$rootScope,$state,AUTH_EVENTS,auth) {
+.run(function($ionicPlatform,$rootScope,$state,AUTH_EVENTS,auth) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -49,7 +49,6 @@ angular.module('starter',
   });
 
 })
-
 
 .constant('AUTH_EVENTS', {
     notAuthenticated: 'auth-not-authenticated',

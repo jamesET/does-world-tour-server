@@ -24,6 +24,9 @@
               if (reason.data && reason.data.message) {
                 message = reason.data.message;
               }
+              if (reason.status && reason.status < 0) {
+                  message = 'Sorry! The service is unavailable, please try later.';
+              }
               logger.error(message, data, title);
             };
         }

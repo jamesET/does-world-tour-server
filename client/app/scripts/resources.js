@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('resources',['ngResource','config','blocks.exception'])
+angular.module('resources',['config','blocks.exception'])
 
 .factory('sessionInjector',
   ['session','$rootScope','$q','AUTH_EVENTS',
