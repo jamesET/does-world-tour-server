@@ -10,6 +10,7 @@
   function BeersController ($scope,$ionicModal,BeerService) {
 
     $scope.allBeers = {};
+    $scope.noBeers = true;
     $scope.beer = {};
 
     $scope.closeModal = closeModal;
@@ -40,7 +41,10 @@
         BeerService.getBeers()
           .then(function(response){
             if (response && response.data) {
+              $scope.noBeers = false;
               $scope.allBeers = response.data.beers;
+            } else {
+              $scope.noBeers = true;
             }
           });
     }

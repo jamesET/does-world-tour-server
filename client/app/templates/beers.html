@@ -13,8 +13,15 @@
         <div class="col text-center">{{errorMessage}}</div>
     </div>
 
+    <div id="retry" ng-show="noBeers" class="row">
+        <div class="col text-center">
+          <h2>No Beers!</h2>
+          <button class="button button-block button-positive"
+            ng-click="refresh()">Click to Retry</button>
+      </div>
+    </div>
 
-      <ion-list>
+    <ion-list>
         <ion-item class="item-text-wrap" ng-repeat="beer in allBeers">
           <div class="row">
               <div class="col col-50">
@@ -29,7 +36,7 @@
           </div>
           <ion-option-button ng-show="auth.isAdmin()" class="button-positive button-large" ng-click="openModal(beer)">Edit</ion-option-button>
         </ion-item>
-      </ion-list>
+    </ion-list>
 
   </ion-content>
 </ion-view>
