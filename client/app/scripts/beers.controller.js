@@ -45,6 +45,7 @@
               $scope.allBeers = response.data.beers;
             } else {
               $scope.noBeers = true;
+              $scope.allBeers = {};
             }
           });
     }
