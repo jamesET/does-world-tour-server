@@ -3,7 +3,6 @@
 
     angular
         .module('account', [
-            'services.user',
-            'ngCordova'
+            'services.user'
         ]);
 })();

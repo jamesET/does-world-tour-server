@@ -6,15 +6,11 @@
 // 'starter.controllers' is found in controllers.js
 'use strict';
 angular.module('starter',
-  ['ionic',
-  'ionic.utils',
+  ['app.core',
   'starter.controllers',
-  'config',
   'app.beers',
   'app.auth',
-  'blocks.logger',
   'app.verifybeer',
-  'ngCordova',
   'app.users',
   'app.beerlists',
   'account'
