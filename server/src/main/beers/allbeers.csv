@@ -1,0 +1,154 @@
+Beer,Brewery,Style,abv,Country,Region,Ounces
+Saddlebock Dunkelweiz,,,7.00,US,Arkansas,16
+Boulevard Unfiltered Wheat,,Wheat Ale ,4.00,US,Misourri,16
+Diamond Bear Pale Ale,,English Pale Ale ,6.00,US,Arkansas,16
+Diamond Bear Presidential IPA,,India Pale Ale (IPA) ,6.00,US,Arkansas,16
+Saddlebock Dirty Blonde Ale,,,5.00,US,Arkansas,16
+Abita Amber,,Amber Lager/Vienna ,5.00,US,Louisiana,12
+Abita Purple Haze,,Fruit Beer ,4.00,US,Louisiana,12
+Abita Turbodog,,Brown Ale ,6.00,US,Louisiana,12
+Affligem Triple,Affligem Brouwerij,Tripel ,9.00,Netherlands,,25
+Amstel Light,,Pale Lager ,4.00,Netherlands,,12
+Anchor Liberty Ale,,American Pale Ale ,6.00,US,California,12
+Anchor Porter,,Porter ,6.00,US,California,12
+Anchor Steam,,California Common ,5.00,US,California,12
+Avery Hog Heaven Barley Wine,,Barley Wine ,9.00,US,Colorado,22
+Avery Mephistopheles Stout,,Imperial Stout ,17.10,US,Colorado,12
+Avery Samael's Oak Aged,,Barley Wine ,15.00,US,Colorado,12
+Avery The Beast Grand Cru,,Belgian Strong Ale ,16.00,US,Colorado,12
+Avery The Czar Imperial Stout,,Imperial Stout ,9.00,US,Colorado,22
+Avery The Kaiser Imperial Oktoberfest,,Oktoberfest/Marzen ,10.00,US,Colorado,22
+Avery The Maharaja,,Imperial/Double IPA ,10.00,US,Colorado,22
+Ayinger Celebrator Doppelbock,,Doppelbock ,7.00,Germany,,12
+Bass Ale,,English Pale Ale ,5.00,Belgium,,12
+Becks,,Premium Lager ,5.00,Germany,,12
+Belhaven Scottish Ale,,Scottish Ale ,5.00,Scotland,,12
+Bitburger Pilsner,,Pilsner ,5.00,Germany,,12
+Monty Python's Holy Grail Ale,Black Sheep Brewery,English Pale Ale ,4.70,England,,12
+Blue Moon Belgian Style Wheat,,Witbier ,5.00,US,Colorado,12
+Blue Moon Grand Cru,,Witbier ,9.00,US,Illinois,22
+Boulevard Double Wide IPA,,Imperial/Double IPA ,9.00,US,Missouri,24
+Bud Light,Anheuser-Busch,Pale Lager ,4.20,Belgium,,12
+Budweiser,Anheuser-Busch,Pale Lager ,5.00,Belgium,,12
+Carta Blanca,,Pale Lager ,4.00,Mexico,,12
+Cerveza Tecate,,Pale Lager ,5.00,Mexico,,12
+Chimay Cinq Cents (White),Bieres de Chimay,Tripel ,8.00,Belgium,,11
+Chimay Grand Reserve,Bieres de Chimay,Belgian Strong Ale ,9.00,Belgium,,11
+Chimay Premiere (Red),Bieres de Chimay,Dubbel ,7.00,Belgium,,11
+Coors Light,,Pale Lager ,4.00,US,Colorado,12
+Arkansas Red,Core Brewery,Red Ale,5.20,US,Arkansas,12
+Barney's Imperial Red,Core Brewery,India Pale Ale (IPA) ,10.00,US,Arkansas,22
+Behemoth Pilsner,Core Brewery,Bohemian-Style Pilsner,5.00,US,Arkansas,12
+Brae Scotch Heavy,Core Brewery,Scottish Ale ,10.00,US,Arkansas,22
+Easy Livin' IPA,Core Brewery,India Pale Ale (IPA) ,5.00,US,Arkansas,12
+ESB,Core Brewery,English Pale Ale ,6.00,US,Arkansas,12
+Hazelnut Southern Brown,Core Brewery,Brown Ale ,6.00,US,Arkansas,12
+Hilltop IPA,Core Brewery,India Pale Ale (IPA) ,6.00,US,Arkansas,12
+Imperial Chocolate,Core Brewery,Stout ,10.00,US,Arkansas,22
+Leghound Lager,Core Brewery,Oktoberfest,6.00,US,Arkansas,12
+Oatmeal Stout,Core Brewery,Stout ,6.00,US,Arkansas,12
+Ol' Grumpy Barley Wine,Core Brewery,Barley Wine ,10.00,US,Arkansas,22
+Pumpkin Pie,Core Brewery,,6.00,US,Arkansas,12
+Raspberry Lager,Core Brewery,Lager,4.00,US,Arkansas,12
+Toasted Coconut,Core Brewery,Southern Brown Ale,6.00,US,Arkansas,12
+Waterfall Hoppy Wheat,Core Brewery,Wheat/Pilsner,6.00,US,Arkansas,12
+Corona,,Pale Lager ,5.00,Mexico,,12
+Corona Light,,Pale Lager ,4.00,Mexico,,12
+Diamond Bear Irish Red,,Irish Red Ale ,6.00,US,Arkansas,12
+Diamond Bear Paradise Porter,,Porter ,6.00,US,Arkansas,12
+Diamond Bear Southern Blonde,,Pale Lager ,4.00,US,Arkansas,12
+Diamond Bear Two Term Double IPA,,Imperial/Double IPA ,10.00,US,Arkansas,12
+Dos Equis XX Amber,,Amber Lager/Vienna ,5.00,US,Missouri,12
+Dos Equis XX Special Lager,,Pale Lager ,4.00,US,Missouri,12
+Dundee's Honey Brown,,Premium Lager ,5.00,US,New York,12
+Estrella Damm,,Pale Lager ,5.00,Spain,,12
+Grolsch,,Premium Lager ,5.00,England,,14
+Guinness,,Dry Stout ,4.00,Ireland,,12
+Harp Lager,,Pale Lager ,5.00,England,,12
+Heineken,,Pilsner ,5.00,Netherlands,,12
+Heineken Light,,Pilsner ,3.00,Netherlands,,12
+Hoegaarden White,Brouwerij van Hoegaarden,Witbier ,5.00,Belgium,,12
+Kirin,,American Pale Ale ,5.00,Japan,,12
+Konig Ludwig Weiss,,German Hefeweizen ,6.00,Germany,,12
+Kostritzer Schwarzbier,,Schwarzbier ,5.00,Germany,,14
+Labatt Blue,,Pilsner ,5.00,Canada,,12
+Lindeman's Framboise,,Lambic - Fruit ,3.00,Belgium,,12
+Lindemans Peche Lambic,,Lambic - Fruit ,3.00,Belgium,,12
+Michelob Ultra,,Pale Lager ,4.00,Belgium,,12
+Miller Lite,,Pale Lager ,4.00,US,Wisconsin,12
+Modelo Especial,,Pale Lager ,4.00,Mexico,,12
+Moosehead Lager,,Pale Lager ,5.00,Canada,,12
+Moretti,Birra Moretti,Pale Lager ,5.00,Italy,,12
+Moretti La Rossa,Birra Moretti,Doppelbock ,7.20,Italy,,12
+Moylan's Danny's Irish Red,,Red Ale - Irish,7.00,US,California,24
+Moylan's Old Blarney Barleywine,,Barleywine,10.00,US,California,24
+Moylan's White Christmas,,Lager - Winter,6.00,US,California,24
+Mythos,,Pale Lager ,5.00,Greece,,12
+Negra Modelo,,Amber Lager/Vienna ,5.00,Mexico,,12
+New Belgium 1554 Black Lager,,Schwarzbier ,6.00,US,Colorado,12
+New Belgium Abbey Ale,,Dubbel ,7.00,US,Colorado,12
+New Belgium Belgo IPA,,India Pale Ale (IPA) ,7.00,US,Colorado,12
+New Belgium Blue Paddle,,Pilsner ,5.00,US,Colorado,12
+New Belgium Fat Tire,,Amber Ale / Red Ale ,5.00,US,Colorado,12
+New Belgium Ranger IPA,,India Pale Ale (IPA) ,7.00,US,Colorado,12
+New Belgium Sunshine Wheat,,Wheat Ale ,5.00,US,Colorado,12
+New Belgium Trippel,,Tripel ,8.00,US,Colorado,12
+Newcastle Brown Ale,Tadcaster Brewery,Brown Ale ,4.70,England,,12
+North Coast Old Rasputin Russian Imperial Stout,,Imperial Stout ,9.00,US,California,12
+North Coast PranQster,,Belgian Strong Ale ,8.00,US,California,12
+North Coast Scrimshaw,,Pilsner ,5.00,US,California,12
+Orval Trappist,,Belgian Ale ,6.00,Belgium,,12
+Pacifico Clara,,Pale Lager ,5.00,Mexico,,12
+Peroni,,Pale Lager ,5.00,England,,12
+Pilsner Urquell,,Czech Pilsner ,4.00,Czech Republic,,12
+Pyramid Apricot Ale,,Fruit Beer ,5.00,US,Washington,12
+Pyramid Hefeweizen,,Wheat Ale ,5.00,US,Washington,12
+Redd’s Apple Ale,,Fruit Beer ,5.00,US,Wisconsin,12
+Red Stripe,,Pale Lager ,5.00,Jamaica,,12
+Rogue Chocolate Stout,,Sweet Stout ,6.00,US,Oregon,22
+Rogue Dead Guy,,Maibock ,7.00,US,Oregon,22
+Rogue Hazelnut Brown Nectar,,Brown Ale ,6.00,US,Oregon,22
+Rogue Kells,,,5.00,US,Oregon,22
+Rogue Shakespeare Stout,,Stout ,6.00,US,Oregon,22
+Rolling Rock,,Pale Lager ,5.00,Belgium,,12
+Sam Adams Cherry Wheat,,Wheat Ale ,5.00,US,Massachussets,12
+Sam Adams Light,,Premium Lager ,4.00,US,Massachussets,12
+Sam Adams Seasonal,,Premium Lager ,6.00,US,Massachussets,12
+Sam Smith Nut Brown,,Brown Ale ,5.00,England,,12
+Samuel Adams Boston Lager,,Amber Lager/Vienna ,5.00,US,Massachussets,12
+Samuel Smith Oatmeal Stout,,Sweet Stout ,5.00,England,,16
+Samuel Smith Pale Ale,,American Pale Ale ,5.00,England,,12
+Samuel Smith Pure Brewed Lager,,Premium Lager ,5.00,England,,12
+Samuel Smith's Imperial Stout,,Imperial Stout ,7.00,England,,12
+Samuel Smith's Winter Welcome Ale,,Winter Warmer ,6.00,England,,12
+Samuel Smith Taddy Porter,,Porter ,5.00,England,,12
+Sapporo,,Pale Lager ,5.00,Japan,,12
+Shiner Blonde,,Premium Lager ,4.00,US,Texas,12
+Shiner Bock,,Amber Lager/Vienna ,4.00,US,Texas,12
+Sierra Nevada Pale Ale,,American Pale Ale ,6.00,US,California,12
+Sierra Nevada Porter,,Porter ,6.00,US,California,12
+Sierra Nevada Stout,,Stout ,6.00,US,California,12
+Spaten Franziskaner Hefe-Weiss,,German Hefeweizen ,5.00,Germany,,16
+Spaten Optimator,,Doppelbock ,8.00,Germany,,14
+Spaten Premium Lager,,Premium Lager ,5.00,Germany,,12
+Stella Artois,,Pale Lager ,5.00,Belgium,,12
+St. Pauli Girl,,Premium Lager ,5.00,Germany,,12
+St. Pauli Girl Dark,,Dunkel ,5.00,Germany,,12
+Sudwerk Hefeweizen Bavarian Wheat,,Hefeweizen,5.00,US,California,12
+Sudwerk Lager,,Lager,5.00,US,California,12
+Sudwerk Marzen,,Marzen,5.00,US,California,12
+Sudwerk Pilsner,,Pilsner ,5.00,US,California,12
+Taj Mahal,,Pale Lager ,5.00,India,,14
+Tsingtao,,Premium Lager ,5.00,Japan,,12
+Wells & Young's Double Chocolate Stout,,Stout ,5.00,England,,14
+Xingu,,Schwarzbier ,4.00,Brazil,,12
+Boddington’s Pub Ale,Boddington’s Brewery,Brown Ale ,5.00,England,,12
+Busch,,Premium Lager ,5.00,US,,12
+Foster's Lager,Foster’s Group,Pale Lager ,5.00,Australia,,27
+Fuller's London Pride,,English Pale Ale ,5.00,England,,11
+New Belgium Shift Pale Lager,,Pale Lager ,5.00,US,Colorado,16
+Blue Mountain Woodchuck Amber Cider,,Cider ,5.00,US,Oregon,12
+Crispin Original Cider,,Cider ,5.00,US,Minnesota,12
+Woodchuck Granny Smith Cider,,Cider ,5.00,US,Oregon,12
+Woodchuck Pear Cider,,Cider ,5.00,US,Oregon,12
+Past Blue Ribbon,Pabst Brewing Company,Lager,5.00,US,,12
