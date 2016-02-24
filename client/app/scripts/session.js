@@ -89,7 +89,7 @@
 
   // Export
   angular
-    .module('starter')
+    .module('app')
     .service('session', sessionService);
 
 })(angular);

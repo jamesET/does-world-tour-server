@@ -11,7 +11,7 @@
 
   // Export
   angular
-    .module('starter')
+    .module('app')
     .run(assignServicesToRootScope);
 
 })(angular);
