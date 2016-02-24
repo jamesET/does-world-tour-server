@@ -2,11 +2,10 @@
   'use strict';
 
   angular
-      .module('app.beers',[
-        'beers.service'
-      ])
+      .module('app.beers')
       .controller('BeersController', BeersController );
 
+  BeersController.$inject = ['$scope','$ionicModal','BeerService'];
   function BeersController ($scope,$ionicModal,BeerService) {
 
     $scope.allBeers = {};
@@ -82,5 +81,6 @@
     }
 
   }
+
 
 })();
