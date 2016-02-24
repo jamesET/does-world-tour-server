@@ -2,5 +2,8 @@
     'use strict';
 
     angular
-        .module('app.beers', ['app.core','beers.service']);
+        .module('app.beers', [
+          'app.core',
+          'beers.service']);
+        
 })();

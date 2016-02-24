@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('services.user',['config','blocks.exception'])
+        .module('services.user',['app.core'])
         .factory('UserService', UserService);
 
     UserService.$inject = ['$http','ENV','logger','exception'];

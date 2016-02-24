@@ -84,7 +84,7 @@
 
   // Export
   angular
-    .module('app.auth',['config','blocks.exception'])
+    .module('app.auth',['app.core'])
     .service('auth', AuthService);
 
 })(angular);

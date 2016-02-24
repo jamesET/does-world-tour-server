@@ -3,7 +3,7 @@
 
     angular
         .module('app.users', [
-            'services.user',
-            'blocks.exception'
+            'app.core',
+            'services.user'
         ]);
 })();

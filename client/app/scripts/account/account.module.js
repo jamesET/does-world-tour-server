@@ -3,6 +3,7 @@
 
     angular
         .module('app.account', [
+            'app.core',
             'services.user'
         ]);
 })();

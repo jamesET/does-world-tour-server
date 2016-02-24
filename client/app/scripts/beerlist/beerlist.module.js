@@ -3,6 +3,7 @@
 
     angular
         .module('app.beerlists', [
+            'app.core',
             'services.beerlists'
         ]);
 })();

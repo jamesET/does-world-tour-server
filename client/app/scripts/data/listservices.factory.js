@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('services.beerlists',['config','blocks.exception'])
+        .module('services.beerlists',['app.core'])
         .factory('BeerListService', BeerListService);
 
     BeerListService.$inject = ['$http','ENV','logger','exception'];
