@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('account')
+        .module('app.account')
         .controller('AccountController', AccountController);
 
     AccountController.$inject = ['$scope','$state','$ionicModal','UserService','logger','session','auth','$cordovaDialogs'];

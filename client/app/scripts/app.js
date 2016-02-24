@@ -13,7 +13,7 @@ angular.module('starter',
   'app.verifybeer',
   'app.users',
   'app.beerlists',
-  'account'
+  'app.account'
   ])
 
 .run(function($ionicPlatform,$rootScope,$state,AUTH_EVENTS,auth) {
