@@ -12,13 +12,13 @@
     <div id="retry" ng-show="noBeers" class="row">
         <div class="col text-center">
           <h2>No Beers!</h2>
-          <button class="button button-block button-positive"
+          <button class="button button-block button-stable"
             ng-click="refresh()">Click to Retry</button>
       </div>
     </div>
 
     <ion-list>
-        <ion-item class="item-text-wrap item-stable" ng-repeat="beer in allBeers">
+        <ion-item class="item-text-wrap item-dark" ng-repeat="beer in allBeers">
           <div class="row">
               <div class="col col-50">
                 <b>{{beer.name}}</b><br>
