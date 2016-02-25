@@ -1,5 +1,5 @@
 <ion-view view-title="Beer Browser">
-  <ion-content>
+  <ion-content class="horn-bg">
 
     <div id="addBeer" ng-show="auth.isAdmin()" class="row">
       <div class="col text-right">
@@ -18,7 +18,7 @@
     </div>
 
     <ion-list>
-        <ion-item class="item-text-wrap item-dark" ng-repeat="beer in allBeers">
+        <ion-item class="item-text-wrap item-stable" ng-repeat="beer in allBeers">
           <div class="row">
               <div class="col col-50">
                 <b>{{beer.name}}</b><br>

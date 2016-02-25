@@ -18,5 +18,14 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+$cardinal:                   #C41E3A !default;
+
+$horn-bg:                     '../img/DrinkingHorn.jpg';
+
+.scroll-bg {
+  background: url($horn-bg) repeat center center fixed;
+  background-size: cover;
+}
+
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";

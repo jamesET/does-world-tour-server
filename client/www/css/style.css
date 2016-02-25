@@ -1,12 +1,15 @@
 /* Empty. Add your own CSS if you like */
 
 .grad-bg {
-    background: red; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(red, yellow); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(red, yellow); /* Standard syntax */
+    background: linear-gradient( white, #B30000, black, #B30000, gray);
 }
+
+.cardinal-bg {
+    background: #C41E3A;
+
+}
+
+
 
 .icon-bg {
     font-size: 120px;
