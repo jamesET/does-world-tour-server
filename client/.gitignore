@@ -1,12 +1,6 @@
-node_modules
-.idea
-.temp
+node_modules/
+platforms/
+plugins/
+.DS_Store
 .sass-cache
-app/bower_components
-coverage
-platforms
-plugins
-*.swp
-*.swo
-*.log
-*.DS_Store
+.temp
