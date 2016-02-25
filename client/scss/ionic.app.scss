@@ -27,10 +27,5 @@ $horn-bg:                     '../img/DrinkingHorn.jpg';
 }
 
 
-.scroll-bg {
-  background: url($horn-bg) repeat center center fixed;
-  background-size: cover;
-}
-
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
