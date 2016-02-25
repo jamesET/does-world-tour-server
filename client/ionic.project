@@ -1,4 +1,12 @@
 {
-  "name": "beerApp",
-  "app_id": ""
+  "name": "myApp",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
