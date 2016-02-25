@@ -1,9 +1,9 @@
 <ion-view view-title="Beer Browser">
-  <ion-content class="horn-bg">
+  <ion-content class="main-bg">
 
     <div id="addBeer" ng-show="auth.isAdmin()" class="row">
-      <div class="col text-right">
-      <button class="button button-block button-positive ion-plus-round" ng-click="openModal()">
+      <div class="col text-right main-bg">
+      <button class="button button-block button-positive" ng-click="openModal()">
         Add Beer
       </button>
       </div>
@@ -12,7 +12,7 @@
     <div id="retry" ng-show="noBeers" class="row">
         <div class="col text-center">
           <h2>No Beers!</h2>
-          <button class="button button-block button-stable"
+          <button class="button button-block button-stable rounded"
             ng-click="refresh()">Click to Retry</button>
       </div>
     </div>

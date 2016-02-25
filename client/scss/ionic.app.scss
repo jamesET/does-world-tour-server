@@ -22,6 +22,11 @@ $cardinal:                   #C41E3A !default;
 
 $horn-bg:                     '../img/DrinkingHorn.jpg';
 
+.main-bg {
+  background-color: #444;
+}
+
+
 .scroll-bg {
   background: url($horn-bg) repeat center center fixed;
   background-size: cover;
