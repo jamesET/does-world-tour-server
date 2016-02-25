@@ -9,10 +9,6 @@
       </div>
     </div>
 
-    <div class="row">
-        <div class="col text-center">{{errorMessage}}</div>
-    </div>
-
     <div id="retry" ng-show="noBeers" class="row">
         <div class="col text-center">
           <h2>No Beers!</h2>
@@ -22,7 +18,7 @@
     </div>
 
     <ion-list>
-        <ion-item class="item-text-wrap" ng-repeat="beer in allBeers">
+        <ion-item class="item-text-wrap item-dark" ng-repeat="beer in allBeers">
           <div class="row">
               <div class="col col-50">
                 <b>{{beer.name}}</b><br>
