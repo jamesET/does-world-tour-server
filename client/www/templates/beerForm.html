@@ -6,40 +6,40 @@
 
   <ion-content>
     <div class="list">
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">Beer</span>
       <input type="text" ng-model="beer.name" required=true>
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">Brewery</span>
       <input type="text" ng-model="beer.brewery">
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">Country</span>
       <input type="text" ng-model="beer.country">
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">Region</span>
       <input type="text" ng-model="beer.region">
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">Style</span>
       <input type="text" ng-model="beer.style">
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">ABV</span>
       <input type="number" ng-model="beer.abv">
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input ">
       <span class="input-label">oz</span>
       <input type="number" ng-model="beer.oz">
     </label>
-    <ion-checkbox ng-model="beer.discontinued">Discontinued</ion-checkbox>
-    <ion-checkbox ng-model="beer.outOfStock">Out of Stock</ion-checkbox>
+    <ion-checkbox class="checkbox-balanced" ng-model="beer.discontinued">Discontinued</ion-checkbox>
+    <ion-checkbox class="checkbox-balanced" ng-model="beer.outOfStock">Out of Stock</ion-checkbox>
     </div>
 
-    <button class="button button-block button-stable" ng-click="save()">Save</button>
-    <button class="button button-block button-stable" ng-click="closeModal()">Cancel</button>
+    <button class="button button-block button-stable button-balanced" ng-click="save()">Save</button>
+    <button class="button button-block button-stable button-assertive" ng-click="closeModal()">Cancel</button>
 
   </ion-content>
 </ion-modal-view>
