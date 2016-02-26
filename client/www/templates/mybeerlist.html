@@ -1,20 +1,18 @@
 <ion-view view-title="World of Beer Tour">
-  <ion-content>
+  <ion-content class="main-bg">
 
-    <div class="text-center">
-        {{myBeerList.user.name}} (#{{myBeerList.listNumber}}) - Started {{myBeerList.startDate}}</h1>
+    <div class="col text-center">
+        <h5 class="text">{{myBeerList.user.name}} (#{{myBeerList.listNumber}}) - Started {{myBeerList.startDate}}
+        <br>Beers left to finish: {{myBeerList.numberRemaining}}</h5>
     </div>
 
     <!-- TODO add progress bar:  <progress max="100" value="80"></progress> -->
-    <div class="text-center">
-      Beers left to finish: {{myBeerList.numberRemaining}}
-    </div>
       <ion-refresher
         pulling-text="Pull to refresh..."
         on-refresh="refresh()">
       </ion-refresher>
       <ion-list can-swipe="true">
-        <ion-item class="item-text-wrap" ng-repeat="drink in myBeerList.drinkList">
+        <ion-item class="item-text-wrap item-dark" ng-repeat="drink in myBeerList.drinkList">
           <div class="row">
               <div class="col col-50">
                 <b>{{drink.beer.name}}</b><br>

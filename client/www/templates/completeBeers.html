@@ -1,8 +1,8 @@
 <ion-view view-title="Confirm Beers Drank">
-  <ion-content>
+  <ion-content class="main-bg">
 
       <ion-list can-swipe="true">
-        <ion-item ng-repeat="item in drinksToVerify">
+        <ion-item class="item-dark" ng-repeat="item in drinksToVerify">
           <div class="row">
               <div class="col">{{item.beer.orderedDate}}</div>
               <div class="col">
@@ -11,7 +11,7 @@
               </div>
           </div>
           <ion-option-button class="button-assertive button-large" ng-click="rejectBeer(item.beerListId,item.beer.id)">Reject!</ion-option-button>
-          <ion-option-button class="button-positive button-large" ng-click="verifyBeer(item.beerListId,item.beer.id)">Confirm</ion-option-button>
+          <ion-option-button class="button-balanced button-large" ng-click="verifyBeer(item.beerListId,item.beer.id)">Confirm</ion-option-button>
         </ion-item>
       </ion-list>
 
