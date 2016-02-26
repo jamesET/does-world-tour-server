@@ -38,9 +38,39 @@ angular.module('starter.controllers', ['resources','services.user','ionic.utils'
 })
 
 .controller('LoginCtrl', function($scope,$state,session,auth) {
+  var vm = this;
+  vm.activate = activate;
+  vm.clearFormData = clearFormData;
+  vm.restoreFormData = restoreFormData;
 
-  $scope.errorMessage = '';
-  $scope.loginData = {};
+  activate();
+
+  function activate() {
+    restoreFormData();
+    $scope.$on('$ionicView.enter', restoreFormData );
+  }
+
+  function clearFormData() {
+    $scope.loginData = {
+        username : '',
+        password : ''
+    };
+  }
+
+  function restoreFormData() {
+    clearFormData();
+
+    var username = session.getEmail();
+    if (username) {
+      $scope.loginData.username = username;
+    }
+
+    var password = session.getPassword();
+    if (password) {
+      $scope.loginData.password = password;
+    }
+  }
+
 
   // Let the user go back to the start page
   $scope.back = function() {
@@ -51,16 +81,15 @@ angular.module('starter.controllers', ['resources','services.user','ionic.utils'
   $scope.login = function() {
     $scope.errorMessage = '';
     auth.logIn($scope.loginData.username,$scope.loginData.password)
-      .then(function(){
-        // if login succeeds forward on to the beerlist
-        var token = session.getAccessToken();
-        if (token !== null) {
-          $state.go('app.mybeerlist');
-        }
+      .then(loginComplete);
+
+      function loginComplete() {
+          if (auth.isAuthenticated()) {
+            clearFormData();
+            $state.go('app.mybeerlist');
+          }
       }
-      //, function(response) { $scope.errorMessage = 'Service not available'; }
-    );
-  };
+  }
 
 })
 

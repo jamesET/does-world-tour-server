@@ -80,6 +80,7 @@
       this.setPassword(null);
       this.setAccessToken(null);
       this.setUserData(null);
+      this.setRole(null);
     };
 
   }
