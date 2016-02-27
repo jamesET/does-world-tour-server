@@ -18,6 +18,30 @@ $dark:                            #444 !default;
 .main-bg {
   background-color: #444; }
 
+.start-font {
+  color: #ffffb3;
+  font-size: 2.3em;
+  font-weight: bold; }
+
+.title-block {
+  color: #ffffb3;
+  font-size: 2.0em;
+  font-weight: bold;
+  margin: auto;
+  background: #C41E3A;
+  border-radius: 1.5em;
+  padding: 1.0em;
+  background-origin: content-box;
+  width: 55%; }
+
+.start-bg {
+  background: url("../img/shots.jpg") no-repeat center center fixed;
+  background-size: cover; }
+
+.icon-bg {
+  color: white;
+  font-size: 3em; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
