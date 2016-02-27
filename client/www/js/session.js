@@ -1,96 +1,113 @@
-  'use strict';
-(function (angular) {
+(function() {
+    'use strict';
 
-  function sessionService($log, $localStorage){
+    angular
+        .module('app')
+        .service('session', sessionService);
 
-    // Instantiate data when service is loaded
-    this._user = $localStorage.get('session.user',0);
-    this._email = $localStorage.get('session.email','');
-    this._password = $localStorage.get('session.password','');
-    this._accessToken = $localStorage.get('session.accessToken','');
-    this._role = $localStorage.get('session.role','');
-    this._userData = $localStorage.getObject('session.userData');
+    sessionService.$inject = ['$log','$localStorage'];
 
-    this.getUser = function(){
-      return this._user;
-    };
+    /* @ngInject */
+    function sessionService($log,$localStorage) {
+        var vm = this;
+        vm.activate = activate;
+        vm.destroy = destroy;
+        vm.getUser = getUser;
+        vm.setUser = setUser;
+        vm.setRole = setRole;
+        vm.getRole = getRole;
+        vm.getEmail = getEmail;
+        vm.setEmail = setEmail;
+        vm.getPassword = getPassword;
+        vm.setPassword = setPassword;
+        vm.getAccessToken = getAccessToken;
+        vm.setAccessToken = setAccessToken;
+        vm.getUserData = getUserData;
+        vm.setUserData = setUserData;
 
-    this.setUser = function(user){
-      this._user = user;
-      $localStorage.set('session.user', user);
-      return this;
-    };
+        activate();
 
-    this.getRole = function(){
-      return this._role;
-    };
+        function activate() {
+          // Instantiate data when service is loaded
+          vm._user = $localStorage.get('session.user',0);
+          vm._email = $localStorage.get('session.email','');
+          vm._password = $localStorage.get('session.password','');
+          vm._accessToken = $localStorage.get('session.accessToken','');
+          vm._role = $localStorage.get('session.role','');
+          vm._userData = $localStorage.getObject('session.userData');
+        }
 
-    this.setRole = function(role){
-      this._role = role;
-      $localStorage.set('session.role', role);
-      return this;
-    };
+        function getUser(){
+          return vm._user;
+        }
 
-    this.getEmail = function(){
-        return this._email;
-    };
+        function setUser(user){
+          vm._user = user;
+          $localStorage.set('session.user', user);
+          return vm;
+        }
 
-    this.setEmail = function(email){
-      this._email = email;
-      $localStorage.set('session.email', email);
-      return this;
-    };
+        function getRole(){
+          return vm._role;
+        }
 
-    this.getPassword = function(){
-        return this._password;
-    };
+        function setRole(role){
+          vm._role = role;
+          $localStorage.set('session.role', role);
+          return vm;
+        }
 
-    this.setPassword = function(password){
-      this._password = password;
-      $localStorage.set('session.password', password);
-      return this;
-    };
+        function getEmail(){
+          return vm._email;
+        }
 
-    this.getAccessToken = function(){
-      return this._accessToken;
-    };
+        function setEmail(email){
+          vm._email = email;
+          $localStorage.set('session.email', email);
+          return vm;
+        }
 
-    this.setAccessToken = function(token){
-      this._accessToken = token;
-      $localStorage.set('session.accessToken', token);
-      return this;
-    };
+        function getPassword(){
+          return vm._password;
+        }
 
-    this.getUserData = function(){
-      return this._userData;
-    };
+        function setPassword(password){
+          vm._password = password;
+          $localStorage.set('session.password', password);
+          return vm;
+        }
 
-    this.setUserData = function(userData){
-      this._userData = userData;
-      $localStorage.setObject('session.userData', userData);
-      return this;
-    };
+        function getAccessToken(){
+          return vm._accessToken;
+        }
 
+        function setAccessToken(token){
+          vm._accessToken = token;
+          $localStorage.set('session.accessToken', token);
+          return vm;
+        }
 
-    /**
-     * Destroy session
-     */
-    this.destroy = function destroy(){
-      this.setUser(null);
-      this.setPassword(null);
-      this.setAccessToken(null);
-      this.setUserData(null);
-      this.setRole(null);
-    };
+        function getUserData(){
+          return vm._userData;
+        }
 
-  }
+        function setUserData(userData){
+          vm._userData = userData;
+          $localStorage.setObject('session.userData', userData);
+          return vm;
+        }
 
-  // Inject dependencies
-  sessionService.$inject = ['$log', '$localStorage'];
+        /**
+         * Destroy session
+         */
+        function destroy(){
+          vm.setUser(null);
+          vm.setPassword(null);
+          vm.setAccessToken(null);
+          vm.setUserData(null);
+          vm.setRole(null);
+        }
 
-  // Export
-  angular
-    .module('app')
-    .service('session', sessionService);
+    }
 
-})(angular);
+})();
