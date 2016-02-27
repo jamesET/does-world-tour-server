@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('starter.controllers', ['resources','services.user','ionic.utils'])
+angular.module('starter.controllers', ['resources','services.user','app.core'])
 
 .controller('AppCtrl', function($scope, $timeout, $http, $state, $interval, auth, session) {
 

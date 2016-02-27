@@ -11,7 +11,6 @@
     function AuthService($http, $q, session, ENV, logger, exception) {
         this.logIn = logIn;
         this.logOut = logOut;
-        this.isLoggedIn = isLoggedIn;
         this.isAuthenticated = isAuthenticated;
         this.isAdmin = isAdmin;
 
@@ -19,14 +18,6 @@
         var loginUrl = baseUrl + '/login/';
         var logoutUrl =  baseUrl + '/logout/';
         var isAuthenticated = false;
-
-        /**
-        * Check whether the user is logged in
-        * @returns boolean
-        */
-        function isLoggedIn() {
-            return session.getUser() !== null;
-        }
 
         /**
         * Log in

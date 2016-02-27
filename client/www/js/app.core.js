@@ -4,7 +4,7 @@
     angular
         .module('app.core', [
             'ionic',
-            'ionic.utils',
+            'blocks.storage',
             'blocks.exception',
             'blocks.logger',
             'config'
