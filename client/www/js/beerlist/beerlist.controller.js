@@ -56,7 +56,7 @@
                     $scope.refresh();
                   });
             } else {
-              logger.info('You must be at Doe\'s to drink','','Not at Doe\'s');
+              logger.info('You must be at Doe\'s Bentonville to drink','','Not at Doe\'s');
             }
           }
 
