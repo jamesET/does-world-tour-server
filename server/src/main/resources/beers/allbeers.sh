@@ -1,6 +1,12 @@
 # script to generate the SQL inserts from allbeers.csv
-cat allbeers.csv | awk -F"," '
 
+INPUT_FILE=allbeers.csv
+OUTPUT_FILE=allbeers.sql
+
+cat $INPUT_FILE | awk -F"," '
+
+## This function substitues the proper escqpe 
+## sequences for any strings that contain a single quote
 function fixquote(str1)
 {
 	gsub("'\''","'\'''\''",str1);
@@ -16,9 +22,9 @@ function fixquote(str1)
  region=fixquote($6);
  ounces=$7;
 
- printf("INSERT INTO BEER ");
+ printf("INSERT INTO beer ");
  printf("(name,brewery,country,region,abv,ibu,oz,style,discontinued,oos) VALUES ");
  printf("('\''%s'\'','\''%s'\'','\''%s'\'','\''%s'\'',%0.2f,null,%0.2f,'\''%s'\'',false,false);\n",
  	beer, brewery, country, region, abv, ounces, bstyle);
 
-}'
+}' > $OUTPUT_FILE

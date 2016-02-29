@@ -1,0 +1,157 @@
+Beer,Brewery,Style,abv,Country,Region,Ounces
+Foster's Lager (Oil Can),Foster’s Group,Pale Lager ,4,Australia,,27
+Affligem Tripel,Affligem Brouwerij,Tripel ,9,Belgium,,25
+Chimay Bleue (Blue),Bières de Chimay ,Belgian Strong Ale ,9,Belgium,,11
+Chimay Cinq Cents (White),Bières de Chimay ,Tripel ,8,Belgium,,11
+Chimay Premiere (Red),Bières de Chimay ,Dubbel ,7,Belgium,,11
+Hoegaarden White,Brouwerij van Hoegaarden,Witbier ,5,Belgium,,12
+Lambic Framboise (Raspberry),Brouwerij Lindemans,Lambic - Fruit ,2.5,Belgium,,12
+Lambic Pêche (Peach),Brouwerij Lindemans,Lambic - Fruit ,2.5,Belgium,,12
+Orval Trappist,Brasserie d'Orval,Pale Ale - Belgian,6,Belgium,,12
+Stella Artois,Stella Artois,Lager - Euro,5.2,Belgium,,12
+Xingu,Heineken Brasil,Lager - Black,4.6,Brazil,,12
+Labatt Blue,Labatt Brewing Company,Lager - North American Adjunct,5,Canada,,12
+Moosehead Lager,Moosehead Breweries Limited,Lager - North American Adjunct,5,Canada,,12
+Tsingtao,Tsingtao Brewery,Lager - Pale,4.7,China,,12
+Pilsner Urquell,Plzeňský Prazdroj,Pilsner - Czech ,4.4,Czech Republic,,12
+Boddington’s Pub Ale,Boddington’s Brewery,Brown Ale ,5,England,,12
+Fuller's London Pride,"Fuller, Smith & Turner",English Pale Ale ,4.1,England,,11
+Monty Python's Holy Grail Ale,Black Sheep Brewery,English Pale Ale ,4.7,England,,12
+Newcastle Brown Ale,Tadcaster Brewery,Brown Ale ,4.7,England,,12
+Sam Smith Nut Brown,Samuel Smith's Old Brewery,Brown Ale ,5,England,,12
+Samuel Smith Oatmeal Stout,Samuel Smith's Old Brewery,Sweet Stout ,5,England,,16
+Samuel Smith Pale Ale,Samuel Smith's Old Brewery,American Pale Ale ,5,England,,12
+Samuel Smith Pure Brewed Lager,Samuel Smith's Old Brewery,Premium Lager ,5,England,,12
+Samuel Smith Taddy Porter,Samuel Smith's Old Brewery,Porter ,5,England,,12
+Samuel Smith's Imperial Stout,Samuel Smith's Old Brewery,Imperial Stout ,7,England,,12
+Samuel Smith's Winter Welcome Ale,Samuel Smith's Old Brewery,Winter Warmer ,6,England,,12
+Wells & Young's Double Chocolate Stout,Charles Wells Brewery,Sweet Stout,5.2,England,,14
+Becks,Brauerei Beck,Pilsner - German,4.9,Germany,,12
+Bitburger,Bitburger Braugruppe,Pilsner ,4.8,Germany,,12
+Celebrator Doppelbock,Brauerei Aying,Doppelbock ,6.7,Germany,,12
+Erdinger Crystal Hefe,Erdinger Weissbräu,Hefeweizen,5.3,Germany,,12
+Franziskaner Hefe-Weissbier,Spaten-Franziskaner-Löwenbräu-Gruppe,German Hefeweizen ,5,Germany,,16
+Konig Ludwig Weiss,König Ludwig Schlossbrauerei Kaltenberg,German Hefeweizen ,5.5,Germany,,12
+Köstritzer Schwarzbier,Köstritzer Schwarzbierbrauerei,Schwarzbier ,4.8,Germany,,14
+Leibinger Seeradler Clasik,Brauerei Max Leibinger,Radler,2.8,Germany,,12
+Leibinger Zepplin,Brauerei Max Leibinger,Kellerbier / Zwickelbier,5.2,Germany,,12
+Spaten Optimator,Spaten-Franziskaner-Löwenbräu-Gruppe,Doppelbock ,7.6,Germany,,14
+Spaten Premium Lager,Spaten-Franziskaner-Löwenbräu-Gruppe,Premium Lager ,5.2,Germany,,12
+St. Pauli Girl,Brauerei Beck,Premium Lager ,4.9,Germany,,12
+Warsteiner Dunkel,Warsteiner,Lager - Dunkel Munich,4.8,Germany,,12
+Warsteiner Premium ,Warsteiner,Pilsner - German,4.8,Germany,,12
+Amstel Light,Amstel Bier,Pale Lager ,3.5,Holland,,12
+Grolsch,Koninklijke Grolsch,Premium Lager ,5,Holland,,14
+Heineken,Heineken,Lager - Euro,5,Holland,,12
+Heineken Light,Heineken,Lager - Euro,3.2,Holland,,12
+Taj Mahal,United Breweries (India),Lager - Pale,4.5,India,,14
+Guinness,Guiness,Stout - Irish Dry,4.3,Ireland,,12
+Harp Lager,Guinness,Lager - Euro,5,Ireland,,12
+Murphy’s Irish Stout,Heineken Brewery Ireland,Stout - Irish Dry,4,Ireland,,12
+Moretti,Birra Moretti,Pale Lager ,5,Italy,,12
+Moretti La Rossa,Birra Moretti,Doppelbock ,7.2,Italy,,12
+Peroni,Birra Peroni,Lager - Euro,5.1,Italy,,12
+Red Stripe,Desnoes & Geddes,Lager - North American Adjunct,4.7,Jamaica,,12
+Kirin,Kirin Brewery Company,Lager - Pale,4.95,Japan,,12
+Sapporo Premium,Sapporo Breweries,Lager - Japanese Rice,4.7,Japan,,12
+Carta Blanca,Cervecería Cuauhtémoc Moctezuma S.A. de C.V.,Lager - North American Adjunct,4.5,Mexico,,12
+Corona Extra,Grupo Modelo S.A. de C.V.,Lager - North American Adjunct,4.6,Mexico,,12
+Corona Light,Grupo Modelo S.A. de C.V.,Lager - North American Light,4,Mexico,,12
+Dos Equis XX Amber,Cervecería Cuauhtémoc Moctezuma S.A. de C.V.,Lager - Vienna / Amber,4.7,Mexico,,12
+Dos Equis XX Special Lager,Cervecería Cuauhtémoc Moctezuma S.A. de C.V.,Lager - North American Adjunct,4.45,Mexico,,12
+Modelo Especial,Grupo Modelo S.A. de C.V.,Lager - North American Light,4.5,Mexico,,12
+Negra Modelo,Grupo Modelo S.A. de C.V.,Lager - Vienna / Amber,5.3,Mexico,,12
+Pacifico Clara,Grupo Modelo S.A. de C.V.,Lager - North American Adjunct,4.5,Mexico,,12
+Tecate,Cervecería Cuauhtémoc Moctezuma S.A. de C.V.,Lager - North American Adjunct,4.5,Mexico,,12
+Belhaven Scottish Ale,Belhaven Brewery,Scottish Ale ,5.2,Scotland,,12
+Estrella Damm,Grupo Damm,Lager - North American Adjunct,5.4,Spain,,12
+Abita Amber,Abita Brewing Company,Amber Lager/Vienna ,5,US,Louisiana,12
+Abita Purple Haze,Abita Brewing Company,Fruit Beer ,4,US,Louisiana,12
+Abita Turbodog,Abita Brewing Company,Brown Ale ,6,US,Louisiana,12
+Anchor Liberty Ale,Anchor Brewing Company,IPA - American,5.9,US,California,12
+Anchor Porter,Anchor Brewing Company,Porter - American,5.6,US,California,12
+Anchor Steam,Anchor Brewing Company,California Common ,5,US,California,12
+Arkansas Red,Core Brewery,Red Ale,5.2,US,Arkansas,12
+Atlas IPA,Marshall Brewing Company,IPA - American,6.5,US,Oklahoma,12
+Bayou Teche Black Ale,Bayou Teche Brewing,Schwarzbier ,5.25,US,Louisiana,12
+Bayou Teche Smoked Wheat Ale,Bayou Teche Brewing,Smoke Beer,,US,Louisiana,12
+Blue Moon Belgian White Ale,Blue Moon Brewing Company,Witbier ,5.4,US,Colorado,12
+Bentonville Porter,Bentonville Brewing Co.,Porter - Other,5.6,US,Arkansas,
+Boulevard Single Wide IPA,Boulevard Brewing Co.,IPA - American,5.7,US,Missouri,24
+Brotherhood Wheat,,,,US,,
+Bud Light,Anheuser-Busch,Lager - American Light,4.2,US,Missouri,12
+Budweiser,Anheuser-Busch,Lager - North American Adjunct,5,US,Missouri,12
+Busch Can,Anheuser-Busch,Lager - North American Adjunct,4.3,US,Missouri,12
+Coors Light,Coors Brewing Co.,Lager - American Light,4.2,US,Colorado,12
+Crispin Original Cider,Crispin Cider Co.,Cider ,5,US,California,12
+Dale’s Pale Ale,Oskar Blues Brewery,Pale Ale - American,6.5,US,Colorado,12
+Diamond Bear Irish Red,Diamond Bear Brewing Co.,Irish Red Ale ,4.6,US,Arkansas,12
+Diamond Bear Pale Ale,Diamond Bear Brewing Co.,English Pale Ale ,6,US,Arkansas,0
+Diamond Bear Paradise Porter,Diamond Bear Brewing Co.,Porter - American,4.95,US,Arkansas,12
+Diamond Bear Presidential IPA,Diamond Bear Brewing Co.,India Pale Ale (IPA) ,6,US,Arkansas,16
+Diamond Bear Seasonal,Diamond Bear Brewing Co.,(ask),,US,Arkansas,
+Diamond Bear Southern Blonde,Diamond Bear Brewing Co.,Pilsner - German,4.14,US,Arkansas,12
+Diamond Bear Two Term Double IPA,Diamond Bear Brewing Co.,Imperial/Double IPA ,10,US,Arkansas,12
+Dundee's Honey Brown,Dundee Ales & Lagers,Lager - American Amber / Red,4.5,US,New York,12
+ESB,Core Brewery,English Pale Ale ,6,US,Arkansas,12
+Founder's All Day IPA (Can),Founder’s Brewing Co.,IPA - Session,4.7,US,Michigan,12
+Founder's Centennial IPA,Founder’s Brewing Co.,IPA - American,7.2,US,Michigan,12
+Founder’s Dirty Bastard,Founder’s Brewing Co.,Scottish Ale / Wee Heavy,8.5,US,Michigan,12
+Half Wit Wheat,Charleville Brewing Co.,Witbier ,4.5,US,Missouri,12
+Hoptimistic IPA,Charleville Brewing Co.,IPA - American,6.5,US,Missouri,12
+Lagunitas DayTime Fractional IPA,Lagunitas Brewing Company,,4.65,US,California,12
+Lagunitas IPA,Lagunitas Brewing Company,,6.2,US,California,12
+Lagunitas Pilsner,Lagunitas Brewing Company,Pilsner - Czech ,6,US,California,12
+Lazy Magnolia Jefferson Stout,Lazy Magnolia Brewing Company,Stout - Milk / Sweet,4.65,US,Mississippi,12
+Lazy Magnolia Pecan Brown Ale,Lazy Magnolia Brewing Company,Brown Ale - English,4.5,US,Mississippi,12
+Leghound Lager,Core Brewery,Märzen,5.5,US,Arkansas,0
+McNellie's Pub Ale,Marshall Brewing Company,English Bitter,5,US,Oklahoma,12
+Michelob ULTRA,Anheuser-Busch,Pale Lager ,4.2,US,Missouri,12
+Miller Lite,Miller Brewing Co.,Lager - American Light,4.17,US,Wisconsin,12
+Mother's Three Blind Mice,Mother’s Brewing Co.,Brown Ale - American,5.5,US,Missouri,12
+Mother’s Little Helper IPA,Mother’s Brewing Co.,IPA - American,7,US,Missouri,12
+Moylan's Danny's Irish Red,Moylan’s Brewery,Red Ale - Irish,6.5,US,California,24
+Moylan's Old Blarney Barleywine,Moylan’s Brewery,Barleywine - American,10,US,California,24
+Moylan's White Christmas,Moylan’s Brewery,Lager - Winter,6,US,California,24
+New Belgium 1554 Black Lager,New Belgium Brewing Company,Lager - Black,5.6,US,Colorado,12
+New Belgium Abbey Ale,New Belgium Brewing Company,Belgian Dubbel,7,US,Colorado,12
+New Belgium Blue Paddle,New Belgium Brewing Company,Pilsner - Czech ,4.8,US,Colorado,12
+New Belgium Fat Tire,New Belgium Brewing Company,Red Ale - American Amber / Red ,5.2,US,Colorado,12
+New Belgium Ranger IPA,New Belgium Brewing Company,IPA - American,6.5,US,Colorado,12
+New Belgium Seasonal,New Belgium Brewing Company,(ask),,US,Colorado,12
+New Belgium Shift Pale Lager,New Belgium Brewing Company,Lager - Pale,5,US,Colorado,16
+New Belgium Sunshine Wheat,New Belgium Brewing Company,Pale Wheat Ale - American,4.8,US,Colorado,12
+New Belgium Trippel,New Belgium Brewing Company,Belgian Tripel ,8.5,US,Colorado,12
+Old Rasputin Russian Imperial Stout,North Coast Brewing Company,Imperial Stout ,9,US,California,12
+Pranqster,North Coast Brewing Company,Blonde Ale - Belgian Blonde / Golden,7.6,US,California,12
+Scrimshaw,North Coast Brewing Company,Pilsner ,4.7,US,California,12
+Oatmeal Stout,Core Brewery,Stout - Oatmeal,6,US,Arkansas,12
+Old Chub Scotch Ale,Oskar Blues Brewery,Scottish Ale / Wee Heavy,8,US,Colorado,12
+Past Blue Ribbon,Pabst Brewing Company,Lager - North American Adjunct,5,US,Illinois,12
+Pyramid Apricot Ale,Pyramid Breweries,Fruit Beer ,5.1,US,Washington,12
+Pyramid Hefeweizen,Pyramid Breweries,Hefeweizen,5.2,US,Washington,12
+Redd’s Apple Ale,Redd’s Brewing Co.,Fruit Beer ,5,US,Wisconsin,12
+Rogue Chocolate Stout,Rogue Ales & Spirits,Stout - American,5.8,US,Oregon,22
+Rogue Dead Guy,Rogue Ales & Spirits,Maibock/Helles Bock,6.5,US,Oregon,22
+Rogue Hazelnut Brown Nectar,Rogue Ales & Spirits,Brown Ale - American,6.2,US,Oregon,22
+Rogue Irish Style Lager,Rogue Ales & Spirits,Lager - Pale,4.6,US,Oregon,22
+Rogue OREgasmic Ale,Rogue Ales & Spirits,Pale Ale - American,6.6,US,Oregon,22
+Rogue Shakespeare Oatmeal Stout,Rogue Ales & Spirits,Stout - Oatmeal,5.7,US,Oregon,22
+Rolling Rock,Latrobe Brewing Co.,Pale Lager,5,US,Missouri,12
+Sam Adams Cherry Wheat,Boston Beer Company ,Fruit Beer ,5.3,US,Massachussets,12
+Sam Adams Light,Boston Beer Company ,Lager - American Light,4.3,US,Massachussets,12
+Sam Adams Seasonal,Boston Beer Company ,(ask),,US,Massachussets,12
+Samuel Adams Boston Lager,Boston Beer Company ,Lager - Vienna / Amber,4.9,US,Massachussets,12
+Schlafly Dry Hopped APA,Schlafly - The Saint Louis Brewery,IPA - American,7.2,US,Missouri,12
+Schlafly Kölsch,Schlafly - The Saint Louis Brewery,Kölsch,4.8,US,Missouri,12
+Shiner Bock,Spoetzl Brewery,Bock,4.4,US,Texas,12
+Shiner Premium,Spoetzl Brewery,Lager - Pale,4.5,US,Texas,12
+Sierra Nevada Pale Ale,Sierra Nevada Brewing Co.,Pale Ale - American,5.6,US,California,12
+Sierra Nevada Porter,Sierra Nevada Brewing Co.,Porter - American,5.6,US,California,12
+Sierra Nevada Stout,Sierra Nevada Brewing Co.,Stout - American,5.8,US,California,12
+Sierra Nevada Torpedo IPA,Sierra Nevada Brewing Co.,,,US,California,12
+Unfiltered Wheat Beer,Boulevard Brewing Co.,Wheat Ale ,4,US,Misourri,16
+Waterfall Hoppy Wheat,Core Brewery,Wheat/Pilsner,5.8,US,Arkansas,12
+Woodchuck Amber Cider,Woodchuck Cidery,Cider ,5,US,Oregon,12
+Woodchuck Granny Smith Cider,Woodchuck Cidery,Cider ,5,US,Oregon,12
+Woodchuck Pear Cider,Woodchuck Cidery,Cider ,4,US,Oregon,12
