@@ -5,11 +5,10 @@
       .module('app.beers')
       .controller('BeersController', BeersController );
 
-  BeersController.$inject = ['$scope','$ionicModal','BeerService'];
-  function BeersController ($scope,$ionicModal,BeerService) {
+  BeersController.$inject = ['$scope','$ionicModal','BeerService','beersPrepService'];
+  function BeersController ($scope,$ionicModal,BeerService,beersPrepService) {
 
-    $scope.allBeers = {};
-    $scope.noBeers = true;
+    $scope.allBeers = beersPrepService.data.beers;
     $scope.beer = {};
 
     $scope.closeModal = closeModal;
@@ -20,9 +19,6 @@
     activate();
 
     function activate() {
-      $scope.$on('$ionicView.enter', function(e) {
-        $scope.refresh();
-      });
 
       $ionicModal.fromTemplateUrl('templates/beerForm.html', {
         scope: $scope,
@@ -40,12 +36,13 @@
         BeerService.getBeers()
           .then(function(response){
             if (response && response.data) {
-              $scope.noBeers = false;
               $scope.allBeers = response.data.beers;
             } else {
-              $scope.noBeers = true;
               $scope.allBeers = {};
             }
+          })
+          .finally(function(){
+                $scope.$broadcast('scroll.refreshComplete');
           });
     }
 

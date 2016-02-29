@@ -59,7 +59,8 @@
             views: {
               'menuContent': {
                 templateUrl: 'templates/beers.html',
-                controller: 'BeersController'
+                controller: 'BeersController',
+                resolve: { beersPrepService : beersPrepService }
               }
             }
         })
@@ -87,6 +88,10 @@
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/start');
+    }
+
+    function beersPrepService(BeerService) {
+      return BeerService.getBeers();
     }
 
 
