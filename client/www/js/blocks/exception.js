@@ -28,6 +28,7 @@
                   message = 'Sorry! The service is unavailable, please try later.';
               }
               logger.error(message, data, title);
+              return $q.reject(reason);
             };
         }
     }
