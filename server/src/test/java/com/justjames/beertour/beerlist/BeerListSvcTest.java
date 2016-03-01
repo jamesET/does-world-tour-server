@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.security.ActiveUser;
 import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
@@ -70,7 +71,8 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional
 	public void getOneList() {
-		User user = addTestUser("getOneList");
+		User testUser = addTestUser("getOneList");
+		ActiveUser user = new ActiveUser(testUser);
 		BeerList list = listSvc.startList(user);
 		BeerList foundList = listSvc.getBeerList(list.getId());
 		Assert.assertTrue(list == foundList);
@@ -79,8 +81,10 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional()
 	public void getAllLists() {
-		User user1 = addTestUser("getOneList1");
-		User user2 = addTestUser("getOneList2");
+		User testUser1 = addTestUser("getOneList1");
+		User testUser2 = addTestUser("getOneList2");
+		ActiveUser user1 = new ActiveUser(testUser1);
+		ActiveUser user2 = new ActiveUser(testUser2);
 		listSvc.startList(user1);
 		listSvc.startList(user2);
 		Collection<BeerList> allLists = listSvc.findAll();
@@ -90,7 +94,8 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional
 	public void findCustomerBeerList() {
-		User user = addTestUser("findCustomerBeerList");
+		User testUser = addTestUser("findCustomerBeerList");
+		ActiveUser user = new ActiveUser(testUser);
 		listSvc.startList(user);
 		BeerList myBeerList = listSvc.findActiveBeerListByEmail(user.getEmail());
 		Assert.assertNotNull(myBeerList);
@@ -100,7 +105,8 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional
 	public void testStartList() {
-		User user = addTestUser("testStartList");
+		User testUser = addTestUser("testStartList");
+		ActiveUser user = new ActiveUser(testUser);
 		BeerList newList = listSvc.startList(user);
 		Assert.assertNotNull(newList);
 	}
@@ -111,7 +117,8 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test(expected=Brewception.class)
 	@Transactional
 	public void startDuplicateEmailListFails() {
-		User user = addTestUser("oneListRule");
+		User testUser = addTestUser("oneListRule");
+		ActiveUser user = new ActiveUser(testUser);
 		listSvc.startList(user);
 		listSvc.startList(user);
 	}
@@ -148,9 +155,9 @@ public class BeerListSvcTest extends AbstractShiroTest {
 		Integer afterRemaining = myList.getNumberRemaining();
 		Integer afterOrdered = myList.getNumberOrderedOnList();
 		Integer afterCompleted = myList.getNumberCompletedOnList();
-		Assert.assertTrue(afterRemaining == beforeRemaining);
-		Assert.assertTrue(afterOrdered == beforeOrdered+1);
-		Assert.assertTrue(afterCompleted == beforeCompleted);
+		Assert.assertTrue(afterRemaining.equals(beforeRemaining));
+		Assert.assertTrue(afterOrdered.equals(beforeOrdered+1));
+		Assert.assertTrue(afterCompleted.equals(beforeCompleted));
 	}
 	
 	
@@ -159,7 +166,8 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	public void onlyAdminCanCrossOffOther() {
 		// Only a user with the admin role should be able to work on someone else's list.
 		
-		User customer = addTestUser("testStartList1");
+		User testCustomer = addTestUser("testStartList1");
+		ActiveUser customer = new ActiveUser(testCustomer);
 		BeerList customersList = listSvc.startList(customer);
 
 		User hacker = addTestUser("testStartList2");
@@ -172,7 +180,8 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional
 	public void addminCrossesOffOther() {
-		User customer = addTestUser("authCheckPassesOnCrossoff");
+		User testCustomer = addTestUser("authCheckPassesOnCrossoff");
+		ActiveUser customer = new ActiveUser(testCustomer);
 		BeerList customersList = listSvc.startList(customer);
 
 		loginSvc.login("james@just-james.com","admin");
@@ -236,9 +245,10 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Transactional
 	public void onlyAdminCanComplete() {
 		// Only an admin can mark beers complete 
-		User customer = addTestUser("onlyAdminCanComplete");
+		User testCustomer = addTestUser("onlyAdminCanComplete");
+		ActiveUser customer = new ActiveUser(testCustomer);
 		BeerList customersList = listSvc.startList(customer);
-		loginSvc.login(customer.getEmail(), customer.getPassword());
+		loginSvc.login(customer.getEmail(), testCustomer.getPassword());
 
 		BeerOnList beer = customersList.getBeerOnList().iterator().next();
 		listSvc.completeBeer(customersList.getId(),beer.getId());
@@ -248,8 +258,10 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	@Transactional
 	public void adminRetrievesListToComplete() {
 		// Setup a couiple of lists
-		User user1 = addTestUser("adminRetrievesListToComplete1");
-		User user2 = addTestUser("adminRetrievesListToComplete2");
+		User testUser1 = addTestUser("adminRetrievesListToComplete1");
+		User testUser2 = addTestUser("adminRetrievesListToComplete2");
+		ActiveUser user1 = new ActiveUser(testUser1);
+		ActiveUser user2 = new ActiveUser(testUser2);
 		loginSvc.login("james@just-james.com","admin");
 		BeerList listUser1 = listSvc.startList(user1);
 		BeerList listUser2 = listSvc.startList(user2);

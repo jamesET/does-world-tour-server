@@ -9,8 +9,6 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +16,7 @@ import com.justjames.beertour.Brewception;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.security.ActiveUser;
-import com.justjames.beertour.security.Role;
+import com.justjames.beertour.security.UserUtils;
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
 
@@ -50,14 +48,14 @@ public class BeerListSvc {
 	 * @return
 	 */
 	@Transactional
-	public BeerList startList(User u) {
+	public BeerList startList(ActiveUser u) {
 		
 		// There should only be one active list per user 
 		if ( findActiveBeerListByEmail(u.getEmail()) != null) {
 			throw new Brewception("Person already has an active list.");
 		}
 		
-		User user = userSvc.getUser(u.getId());
+		User user = userSvc.getUser(u.getUserId());
 		
 		// Add all the beers to the list 
 		BeerList newList = new BeerList();
@@ -122,9 +120,9 @@ public class BeerListSvc {
 	 * @return Beerlist for the logged in user
 	 */
 	public BeerList getMyBeerList() {
-		User currentUser = getLoggedInUser();
+		ActiveUser currentUser = UserUtils.getActiveUser();
 		
-		BeerList myList = listRepo.findByUserIdAndFinishDateIsNull(currentUser.getId());
+		BeerList myList = listRepo.findByUserIdAndFinishDateIsNull(currentUser.getUserId());
 		
 		// Every user should have a list
 		if (myList == null) {
@@ -147,10 +145,11 @@ public class BeerListSvc {
 	@Transactional
 	public void crossOffMyBeer(Integer listId,Integer beerOnListId) {
 		log.debug("crossOffMyBeer listId="+listId+" beerOnListId="+beerOnListId);
+
 		// Get the targeted list
 		BeerList beerList = getBeerList(listId);
 		User listUser = beerList.getUser();
-		User loggedInUser = getLoggedInUser();
+		ActiveUser loggedInUser = UserUtils.getActiveUser();
 		
 		// Only admin's can modify someone else's list
 		if (!canChangeList(loggedInUser,beerList)) {
@@ -158,27 +157,22 @@ public class BeerListSvc {
 			log.warn(msg);
 			throw new Brewception(msg);
 		}
-
+		
 		// Find the beer and show it as having been ordered 
 		BeerOnList foundBeer = null;
-		for (BeerOnList b : beerList.getBeerOnList()) {
-			if (b.getId() == beerOnListId) {
-				b.setOrdered(true);
-				b.setOrderedDate(LocalDate.now().toString());
-				foundBeer = b;
-			}
-		}
-		
-		// Throw an error if the beer wasn't found
-		if (foundBeer==null) {
+		try {
+			foundBeer = beerOnListRepo.getOne(beerOnListId);
+			foundBeer.setOrdered(true);
+			foundBeer.setOrderedDate(LocalDate.now().toString());
+			beerOnListRepo.saveAndFlush(foundBeer);
+		} catch (EntityNotFoundException e) {
+			foundBeer = null;
 			String msg = String.format("Beer (%d) not found in list for '%s'", 
 					beerOnListId, listUser.getEmail());
 			log.error(msg);
+			// Throw an error if the beer wasn't found
 			throw new Brewception(msg);
 		}
-		
-		// Save the change
-		listRepo.saveAndFlush(beerList);
 		
 		String msg = String.format("Ordered:  Beer '%s' for '%s' ordered by '%s'",
 				foundBeer.getBeer().getName(), listUser.getEmail(), loggedInUser.getEmail());
@@ -193,10 +187,10 @@ public class BeerListSvc {
 	@Transactional
 	public void completeBeer(Integer listId,Integer beerOnListId) {
 		log.debug("verifyBeerCompleted listId="+listId+" beerOnListId="+beerOnListId);
-		User loggedInUser = getLoggedInUser();
+		ActiveUser loggedInUser = UserUtils.getActiveUser();
 		
 		// Only the admin role can do completion
-		if (!isAdmin()) {
+		if (!UserUtils.isAdmin()) {
 			String msg = String.format("User '%s' is not authorized",loggedInUser.getEmail());
 			throw new Brewception(msg);
 		}
@@ -240,10 +234,10 @@ public class BeerListSvc {
 	@Transactional
 	public void rejectBeer(Integer listId,Integer beerOnListId) {
 		log.debug("uncompleteBeer listId="+listId+" beerOnListId="+beerOnListId);
-		User loggedInUser = getLoggedInUser();
+		ActiveUser loggedInUser = UserUtils.getActiveUser();
 		
 		// Only the admin role can do un-completion
-		if (!isAdmin()) {
+		if (!UserUtils.isAdmin()) {
 			String msg = String.format("User '%s' is not authorized",loggedInUser.getEmail());
 			throw new Brewception(msg);
 		}
@@ -290,28 +284,14 @@ public class BeerListSvc {
 	}
 	
 	/**
-	 * @return User object for the current logged-in user
-	 */
-	private User getLoggedInUser() {
-		Subject subject = SecurityUtils.getSubject();
-		if (!subject.isAuthenticated()) {
-			throw new Brewception("User is not logged in!");
-		} 
-
-		Collection<ActiveUser> users = subject.getPrincipals().byType(ActiveUser.class);
-		ActiveUser activeUser = users.iterator().next(); 
-		return userSvc.getUser(activeUser.getUserId());
-	}
-	
-	/**
 	 * @param u
 	 * @param list
 	 * @return true if the current user is allowed to edit/update list
 	 */
-	private boolean canChangeList(User loggedInUser, BeerList beerList) {
+	private boolean canChangeList(ActiveUser loggedInUser, BeerList beerList) {
 		boolean canChange = false;
 		User listUser = beerList.getUser();
-		if (!isAdmin() && !listUser.equals(loggedInUser)) {
+		if (!UserUtils.isAdmin() && !listUser.equals(loggedInUser)) {
 			// You can't modify if it's not yours and you're not an admin
 			canChange = false;
 		} else {
@@ -321,24 +301,12 @@ public class BeerListSvc {
 	}
 	
 	/**
-	 * 
-	 * @return true if the current logged-in user is an Admin
-	 */
-	private boolean isAdmin() {
-		Subject subject = SecurityUtils.getSubject();
-		if (subject == null) {
-			throw new Brewception("User is not logged in!");
-		}
-		return subject.hasRole(Role.ADMIN.toString());
-	}
-	
-	/**
 	 * @return The list of the beers that have been ordered by customers.  An administrator needs to review the list and complete each one
 	 */
 	public Collection<BeerToComplete> getBeersToComplete() {
-		User loggedInUser = getLoggedInUser();
+		ActiveUser loggedInUser = UserUtils.getActiveUser();
 		
-		if (!isAdmin()) {
+		if (!UserUtils.isAdmin()) {
 			String msg = String.format("User '%s' not authorized to complete.", loggedInUser.getEmail());
 			log.warn(msg);
 			throw new Brewception(msg);
