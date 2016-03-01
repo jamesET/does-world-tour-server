@@ -22,7 +22,7 @@
         function getBeerList() {
             return $http.get(ENV.apiEndpoint + 'beerlists/getMyBeerList/')
             .then(getBeerListCompleted)
-            .catch(exception.catcher);
+            .catch(exception.catcher('Failed to get list.'));
 
             function getBeerListCompleted(data) {
                 return data;
@@ -33,7 +33,7 @@
           var drinkUrl = ENV.apiEndpoint + '/beerlists/' + listId + '/beers/' + beerOnListId + '/crossoff';
           return $http.post(drinkUrl)
             .then(drinkBeerComplete)
-            .catch(exception.catcher);
+            .catch(exception.catcher('Oops! Please try again.'));
 
           function drinkBeerComplete(data) {
             return data;
@@ -44,7 +44,7 @@
           var drinkUrl = ENV.apiEndpoint + '/beerlists/' + listId + '/beers/' + beerOnListId + '/complete';
           return $http.post(drinkUrl)
             .then(verifyBeerComplete)
-            .catch(exception.catcher);
+            .catch(exception.catcher('Oops! Please try again.'));
 
           function verifyBeerComplete(data) {
             return data;
@@ -55,7 +55,7 @@
           var drinkUrl = ENV.apiEndpoint + '/beerlists/' + listId + '/beers/' + beerOnListId + '/reject';
           return $http.post(drinkUrl)
             .then(rejectBeerComplete)
-            .catch(exception.catcher);
+            .catch(exception.catcher('Oops! Please try again.'));
 
           function rejectBeerComplete(data) {
             return data;
@@ -65,7 +65,7 @@
         function getDrinksToVerify() {
           return $http.get(ENV.apiEndpoint + 'beerlists/getListToComplete/')
           .then(getDrinksToVerifyComplete)
-          .catch(exception.catcher);
+          .catch(exception.catcher('Oops! Please try again.'));
 
           function getDrinksToVerifyComplete(data) {
             return data;
