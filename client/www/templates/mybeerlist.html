@@ -24,7 +24,11 @@
                 {{drink.beer.oz}} oz
               </div>
           </div>
-          <ion-option-button class="button-positive button-large" ng-click="drinkBeer(myBeerList.id,drink.id)">Drink!</ion-option-button>
+          <ion-option-button
+            class="button-positive button-large"
+            ng-click="drinkBeer(myBeerList.id,drink.id)">
+            Drink<i class="icon ion-beer padding"></i>
+            </ion-option-button>
         </ion-item>
       </ion-list>
 
