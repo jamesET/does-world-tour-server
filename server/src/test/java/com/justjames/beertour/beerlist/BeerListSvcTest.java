@@ -140,7 +140,7 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	
 	@Test
 	@Transactional
-	public void validCrossOff() {
+	public void validAdminCrossOff() {
 		loginSvc.login("james@just-james.com", "admin");
 		BeerList myList = listSvc.getMyBeerList();
 		Integer beforeRemaining = myList.getNumberRemaining();
@@ -148,6 +148,34 @@ public class BeerListSvcTest extends AbstractShiroTest {
 		Integer beforeCompleted = myList.getNumberCompletedOnList();
 
 		// Cross off first beer
+		BeerOnList beer = myList.getBeerOnList().iterator().next();
+		listSvc.crossOffMyBeer(myList.getId(),beer.getId());
+
+		myList = listSvc.getMyBeerList();
+		Integer afterRemaining = myList.getNumberRemaining();
+		Integer afterOrdered = myList.getNumberOrderedOnList();
+		Integer afterCompleted = myList.getNumberCompletedOnList();
+		Assert.assertTrue(afterRemaining.equals(beforeRemaining));
+		Assert.assertTrue(afterOrdered.equals(beforeOrdered+1));
+		Assert.assertTrue(afterCompleted.equals(beforeCompleted));
+	}
+
+	@Test
+	@Transactional
+	public void validCustomerCrossOff() {
+		
+		User testCustomer = addTestUser("validCustomerCrossOff");
+		ActiveUser customer = new ActiveUser(testCustomer);
+		listSvc.startList(customer);
+
+		loginSvc.login(testCustomer.getEmail(), testCustomer.getPassword());
+		BeerList myList = listSvc.getMyBeerList();
+
+		Integer beforeRemaining = myList.getNumberRemaining();
+		Integer beforeOrdered = myList.getNumberOrderedOnList();
+		Integer beforeCompleted = myList.getNumberCompletedOnList();
+
+		// Cross off the first beer
 		BeerOnList beer = myList.getBeerOnList().iterator().next();
 		listSvc.crossOffMyBeer(myList.getId(),beer.getId());
 
