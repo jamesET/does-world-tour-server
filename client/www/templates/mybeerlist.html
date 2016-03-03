@@ -12,24 +12,30 @@
         on-refresh="refresh()">
       </ion-refresher>
       <ion-list can-swipe="true">
-        <ion-item class="item-text-wrap item-dark" ng-repeat="drink in myBeerList.drinkList">
+        <div ng-repeat="group in groupedList">
+        <ion-item class="item-text-wrap item-dark" ng-click=toggleGroup(group) ng-class="{active: isGroupShown(group)}">
+          <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'">&nbsp</i>
+          {{group.country}}
+        </ion-item>
+        <ion-item ng-show="isGroupShown(group)" class="item-dark" ng-repeat="listBeer in group.beers">
           <div class="row">
               <div class="col col-66">
-                <b>{{drink.beer.name}}</b><br>
-                {{drink.beer.brewery}}<br>
-                {{drink.beer.country}} {{drink.beer.region}}
+                <b>{{listBeer.beer.name}}</b><br>
+                {{listBeer.beer.brewery}}<br>
+                {{listBeer.beer.country}} {{listBeer.beer.region}}
               </div>
-              <div class="col col-33">{{drink.beer.style}}<br>
-                {{drink.beer.abv}}% abv<br>
-                {{drink.beer.oz}} oz
+              <div class="col col-33">{{listBeer.beer.style}}<br>
+                {{listBeer.beer.abv}}% abv<br>
+                {{listBeer.beer.oz}} oz
               </div>
           </div>
           <ion-option-button
             class="button-positive button-large"
-            ng-click="drinkBeer(myBeerList.id,drink.id)">
+            ng-click="drinkBeer(myBeerList.id,listBeer.id)">
             Drink<i class="icon ion-beer padding"></i>
             </ion-option-button>
-        </ion-item>
+      </ion-item>
+      </div>
       </ion-list>
 
 

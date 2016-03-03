@@ -11,8 +11,12 @@
     function BeerListController($scope,BeerListService,logger,$cordovaGeolocation) {
         var vm = this;
         $scope.myBeerList = {};
+        $scope.groupedList = {};
         $scope.refresh = refresh;
         $scope.drinkBeer = drinkBeer;
+        $scope.toggleGroup = toggleGroup;
+        $scope.isGroupShown = isGroupShown;
+        $scope.getGroupedBeerList = getGroupedBeerList;
         vm.ifInRangeOfDoes = ifInRangeOfDoes;
         vm.isAtDoes = false;
 
@@ -38,6 +42,8 @@
             BeerListService.getBeerList()
               .then(function(beerlist){
                 $scope.myBeerList = beerlist.data;
+                $scope.groupedList = null;
+                $scope.groupedList = getGroupedBeerList($scope.myBeerList.drinkList);
               })
               .finally(function(){
                     $scope.$broadcast('scroll.refreshComplete');
@@ -50,6 +56,7 @@
             .then(processDrink,locationUnavailable);
 
           function processDrink() {
+            // vm.isAtDoes = true;  // just for testing
             if (vm.isAtDoes) {
               BeerListService.drinkBeer(listId,beerOnListId)
                 .then(function() {
@@ -112,6 +119,40 @@
           var d = R * c;
           return d;
         }
+
+        function onlyUnique(value, index, self) {
+          return self.indexOf(value) === index;
+        }
+
+        // Take beerlist and group them by country for view
+        function getGroupedBeerList(drinkList) {
+          var groupedBeerList = {};
+          for (var id in drinkList) {
+              var country = drinkList[id].beer.country;
+              var beer = drinkList[id].beer;
+
+              var countryGroup = groupedBeerList[country];
+              if (!countryGroup) {
+                  countryGroup = {
+                      country : country,
+                      beers : [],
+                      show : false
+                  };
+              }
+              countryGroup.beers.push(drinkList[id]);
+              groupedBeerList[country] = countryGroup;
+          }
+          return groupedBeerList;
+        }
+
+        function toggleGroup(group) {
+          group.show = !group.show;
+        }
+
+        function isGroupShown(group) {
+          return group.show;
+        }
+
 
     }
 })();
