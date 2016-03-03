@@ -290,7 +290,7 @@ public class BeerListSvc {
 	 */
 	private boolean canChangeList(ActiveUser loggedInUser, BeerList beerList) {
 		boolean canChange = false;
-		User listUser = beerList.getUser();
+		ActiveUser listUser = new ActiveUser(beerList.getUser());
 		if (!UserUtils.isAdmin() && !listUser.equals(loggedInUser)) {
 			// You can't modify if it's not yours and you're not an admin
 			canChange = false;
