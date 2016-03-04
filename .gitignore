@@ -1,5 +1,5 @@
 target
-.settings/*
+.settings
 .temp
 *.swp
 *.swo
