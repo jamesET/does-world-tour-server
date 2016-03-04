@@ -1,15 +1,10 @@
 server/target
-client/node_modules/
-client/platforms/
-client/plugins/
-client/.DS_Store
-client/.sass-cache
 .temp
 *.swp
 *.swo
 *.log
 *.DS_Store
-
-client/app/scripts/configuration.js
+*.log
+*.log.?
 
 server/beerSrv.log.1
