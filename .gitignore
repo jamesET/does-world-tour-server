@@ -6,5 +6,3 @@ target
 *.DS_Store
 *.log
 *.log.?
-
-server/beerSrv.log.1
