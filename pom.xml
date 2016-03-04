@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.justjames</groupId>
-	<artifactId>beer-list</artifactId>
+	<artifactId>does-world-tour-server</artifactId>
 	<version>0.0.32-SNAPSHOT</version>
 
 	<name>Beer Tour</name>
