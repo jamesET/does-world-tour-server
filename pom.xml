@@ -9,6 +9,10 @@
 
 	<name>Beer Tour</name>
 	<description>Beer Tour POC</description>
+	
+	<scm>
+    	<developerConnection>scm:git:https://github.com/jamesET/does-world-tour-server.git</developerConnection>
+  	</scm>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -206,6 +210,12 @@
         			</excludes>
     			</configuration>
 			</plugin>
+		
+		    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+        		<version>2.5.3</version>
+      		</plugin>
 			
 		</plugins>
 	</build>
