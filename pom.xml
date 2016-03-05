@@ -4,7 +4,7 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>does-world-tour-server</artifactId>
-	<version>0.0.33-SNAPSHOT</version>
+	<version>1.0</version>
 
 	<name>Doe's World of Beer Tour</name>
 	<description>Server backend for the Doe's World Tour of Beer mobile app for the patrons of Doe's Bentonville.</description>
