@@ -7,11 +7,15 @@ import java.util.Map;
 
 import javax.servlet.Filter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authz.SslFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
@@ -27,7 +31,12 @@ import com.justjames.beertour.security.UserRealm;
 
 @SpringBootApplication(exclude=JerseyAutoConfiguration.class)
 public class BeerTourApplication extends SpringBootServletInitializer {
-
+	
+	private Log log = LogFactory.getLog(BeerTourApplication.class);
+	
+	@Value("${sslEnabled}")
+	private String sslEnabledStr;
+	
     public static void main(String[] args) {
         SpringApplication.run(BeerTourApplication.class, args);
     }
@@ -53,23 +62,29 @@ public class BeerTourApplication extends SpringBootServletInitializer {
         shiroFilter.setSecurityManager(securityManager());
         
         Map<String, String> filterChainDefinitionMapping = new LinkedHashMap<String, String>();
-        filterChainDefinitionMapping.put("/login?", "token");
-        filterChainDefinitionMapping.put("/logout?", "token");
-        filterChainDefinitionMapping.put("/users/*/adminEdit*", "token");
-        filterChainDefinitionMapping.put("/users/signup?", "public");
-        filterChainDefinitionMapping.put("/users/", "token");
-        filterChainDefinitionMapping.put("/users?", "token");
-        filterChainDefinitionMapping.put("/beers?", "token");
-        filterChainDefinitionMapping.put("/beers/", "token");
-        filterChainDefinitionMapping.put("/beerlists/**/*", "token");
+        filterChainDefinitionMapping.put("/login?", "ssl, token");
+        filterChainDefinitionMapping.put("/logout?", "ssl, token");
+        filterChainDefinitionMapping.put("/users/*/adminEdit*", "ssl, token");
+        filterChainDefinitionMapping.put("/users/signup?", "ssl, public");
+        filterChainDefinitionMapping.put("/users/", "ssl, token");
+        filterChainDefinitionMapping.put("/users?", "ssl, token");
+        filterChainDefinitionMapping.put("/beers?", "ssl, token");
+        filterChainDefinitionMapping.put("/beers/", "ssl, token");
+        filterChainDefinitionMapping.put("/beerlists/**/*", "ssl, token");
         filterChainDefinitionMapping.put("/beers/browse?", "public");
         filterChainDefinitionMapping.put("/health?", "public");
         filterChainDefinitionMapping.put("/*", "public");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
 
         Map<String, Filter> filters = new LinkedHashMap<String,Filter>();
+        
+        SslFilter ssl = new SslFilter();
+        ssl.setEnabled(enableSSL());
+        log.info("HTTPS port=" + ssl.getPort() + ", SSL filter enabled=" + ssl.isEnabled());
+        
         filters.put("token", new SecurityFilter());
         filters.put("public", new PublicFilter());
+        filters.put("ssl", ssl);
         shiroFilter.setFilters(filters);
 
         return shiroFilter;
@@ -99,6 +114,15 @@ public class BeerTourApplication extends SpringBootServletInitializer {
         TokenRealm tokenRealm = new TokenRealm();
         tokenRealm.init();
         return tokenRealm;
+    }
+    
+    private boolean enableSSL() {
+    	log.debug("sslEnabledStr=" + sslEnabledStr);
+    	if (sslEnabledStr.equalsIgnoreCase("true")) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
 
