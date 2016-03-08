@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<variable name="msg_pattern" value="%-4relative [%thread] %-5level %logger{35} - %msg%n"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  	  <encoder>
+  	    <pattern>${msg_pattern}</pattern>
+  	  </encoder>
+  	</appender>
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>./target/beer-list.log</file>
+		<springProfile name="prod">
+			<file>/var/log/tomcat8/beer-list.log</file>
+		</springProfile>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>beer-list.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+			<!-- keep XX days' worth of history -->
+			<maxHistory>1</maxHistory>
+			<springProfile name="prod">
+				<maxHistory>15</maxHistory>
+			</springProfile>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${msg_pattern}
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<!--  <logger name="org.springframework.web" level="DEBUG"/> -->
+	<!--  <logger name="org.hibernate" level="DEBUG"/> -->
+	<!--  <logger name="org.apache.shiro" level="DEBUG"/> -->
+	
+	<logger name="com.justjames" level="INFO" />
+	<springProfile name="!prod">
+		<logger name="com.justjames" level="DEBUG" />
+	</springProfile>
+
+	<root level="WARN">
+		<appender-ref ref="FILE" />
+		<springProfile name="!prod">
+			<appender-ref ref="STDOUT" />
+		</springProfile>
+	</root>
+</configuration>
