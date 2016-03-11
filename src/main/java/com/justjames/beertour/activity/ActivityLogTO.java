@@ -1,11 +1,10 @@
 package com.justjames.beertour.activity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.justjames.beertour.Utils;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.user.User;
 
@@ -21,11 +20,9 @@ public class ActivityLogTO implements Serializable {
 	private Integer listNbr;
 	private Float listProgressPct;
 	
-	static final private SimpleDateFormat dt = new SimpleDateFormat("EEE, MMM d, yyyy");
-	
 	public ActivityLogTO(ActivityLog al,User u,Beer b) {
 		setId(al.getId());
-		setTime(dt.format(al.getTime()));
+		setTime(Utils.dt.format(al.getTime()));
 		setName(u.getDisplayName());
 		setBeer(b);
 		setListNbr(al.getListNbr());

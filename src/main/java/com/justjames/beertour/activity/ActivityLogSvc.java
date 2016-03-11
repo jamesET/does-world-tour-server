@@ -1,10 +1,6 @@
 package com.justjames.beertour.activity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -16,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.Utils;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.beerlist.BeerList;
@@ -48,7 +45,7 @@ public class ActivityLogSvc {
 		ActivityLog activity = new ActivityLog();
 		activity.setId(null);
 		activity.setUserId(u.getId());
-		activity.setTime(now());
+		activity.setTime(Utils.now());
 		activity.setBeerId(beer.getId());
 		activity.setListNbr(list.getListNumber());
 		activity.setListProgressPct(list.getListProgressPct());
@@ -117,10 +114,6 @@ public class ActivityLogSvc {
 		return feed;
 	}
 	
-	static final private Date now() {
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("CT"));
-		return cal.getTime();
-	}
 
 	
 	

@@ -1,6 +1,5 @@
 package com.justjames.beertour.beer;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.Utils;
 import com.justjames.beertour.security.UserUtils;
 
 @Component
@@ -30,7 +30,7 @@ public class BeerSvc {
 
 	@Transactional
 	public Beer add(Beer newBeer) {
-		newBeer.setCreateDate(LocalDate.now());
+		newBeer.setCreateDate(Utils.now());
 		
 		if (!UserUtils.isAdmin()) {
 			log.warn("User not authorized to add beer.");

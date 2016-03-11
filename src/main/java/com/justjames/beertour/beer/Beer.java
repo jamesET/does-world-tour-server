@@ -1,7 +1,7 @@
 package com.justjames.beertour.beer;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,7 +45,7 @@ public class Beer implements Serializable {
 	
 	@Column(name="oos") private boolean outOfStock;
 	
-	@Column private LocalDate createDate;
+	@Column private Date createDate;
 
 	public Integer getId() {
 		return id;
@@ -135,11 +135,11 @@ public class Beer implements Serializable {
 		this.style = style;
 	}
 
-	public LocalDate getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDate createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 

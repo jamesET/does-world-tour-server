@@ -1,6 +1,5 @@
 package com.justjames.beertour.beerlist;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.Utils;
 import com.justjames.beertour.activity.ActivityLogSvc;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
@@ -64,7 +64,7 @@ public class BeerListSvc {
 		// Add all the beers to the list 
 		BeerList newList = new BeerList();
 		newList.setUser(user);
-		newList.setStartDate(LocalDate.now().toString());
+		newList.setStartDate(Utils.dt.format(Utils.now()));
 		newList.setFinishDate(null);
 		newList.setListNumber(user.getNumListsCompleted() + 1); 
 		Integer beerCount = 0;
@@ -167,7 +167,7 @@ public class BeerListSvc {
 		try {
 			foundBeer = beerOnListRepo.getOne(beerOnListId);
 			foundBeer.setOrdered(true);
-			foundBeer.setOrderedDate(LocalDate.now().toString());
+			foundBeer.setOrderedDate(Utils.dttm.format(Utils.now()));
 
 			activitySvc.logBeer(beerList, foundBeer.getBeer());
 			
@@ -212,7 +212,7 @@ public class BeerListSvc {
 		try {
 			foundBeer = beerOnListRepo.getOne(beerOnListId);
 			foundBeer.setCompleted(true);
-			foundBeer.setCompletedDate(LocalDate.now().toString());
+			foundBeer.setCompletedDate(Utils.dttm.format(Utils.now()));
 			foundBeer.setCompletedBy(loggedInUser.getEmail());
 			beerOnListRepo.saveAndFlush(foundBeer);
 		} catch (EntityNotFoundException e) {
@@ -283,7 +283,7 @@ public class BeerListSvc {
 	@Transactional
 	private BeerList completeList(BeerList list) {
 		userSvc.addToListFinished(list.getUser());
-		list.setFinishDate(LocalDate.now().toString());
+		list.setFinishDate(Utils.dt.format(Utils.now()));
 		listRepo.saveAndFlush(list);
 		String msg = String.format("COMPLETED: '%s' finished list #%d", list
 				.getUser().getEmail(), list.getListNumber());
