@@ -25,6 +25,7 @@ public class MyBeerListResponse extends BaseResponse {
 	private Integer numberCompletedOnList;
 	private Integer numberRemaining;
 	private Float	listProgressPct;
+	private Integer numberNotConfirmed;
 	private Collection<BeerOnList> drinkList = new ArrayList<BeerOnList>();
 	private Collection<BeerOnList> orderedList = new ArrayList<BeerOnList>();
 	private Collection<BeerOnList> completedList = new ArrayList<BeerOnList>();
@@ -42,6 +43,7 @@ public class MyBeerListResponse extends BaseResponse {
 		this.setNumberCompletedOnList(beerList.getNumberCompletedOnList());
 		this.setNumberRemaining(beerList.getNumberRemaining());
 		this.setListProgressPct(beerList.getListProgressPct());
+		this.setNumberNotConfirmed(beerList.getNumberNotConfirmed());
 		
 		for (BeerOnList beer : beerList.getBeerOnList()) {
 			if (beer.isCompleted()) {
@@ -143,6 +145,15 @@ public class MyBeerListResponse extends BaseResponse {
 	
 	public void setListProgressPct(Float listProgressPct) {
 		this.listProgressPct = listProgressPct;
+	}
+	
+	@XmlElement
+	public Integer getNumberNotConfirmed() {
+		return this.numberNotConfirmed;
+	}
+	
+	public void setNumberNotConfirmed(Integer numberNotConfirmed) {
+		this.numberNotConfirmed = numberNotConfirmed;
 	}
 
 	@XmlElementWrapper(name="drinkList")

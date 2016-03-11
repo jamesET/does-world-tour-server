@@ -143,6 +143,17 @@ public class BeerList implements Serializable {
 	}
 	
 	@Transient
+	public Integer getNumberNotConfirmed() {
+		Integer numberNotConfirmed = 0;
+		for (BeerOnList b : getBeerOnList()) {
+			if (b.isOrdered() && !b.isCompleted()) {
+				numberNotConfirmed++;
+			}
+		}
+		return numberNotConfirmed;
+	}
+	
+	@Transient
 	public Integer getNumberRemaining() {
 		return this.getTotalBeersOnList() - getNumberCompletedOnList();
 	}
