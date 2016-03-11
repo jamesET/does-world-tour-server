@@ -86,6 +86,10 @@ public class BeerSvc {
 		
 		return savedBeer;
 	}
+
+	public Beer getBeer(Integer beerId) {
+		return beerRepo.findOne(beerId);
+	}
 	
 
 }

@@ -10,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.util.StringUtils;
 
 import com.justjames.beertour.security.Role;
 
@@ -130,6 +133,19 @@ public class User implements Serializable {
 		return String
 				.format("User [id=%s, email=%s, name=%s, nickName=%s, role=%s, numListsCompleted=%s]",
 						id, email, name, nickName, role, numListsCompleted);
+	}
+	
+	/**
+	 * Returns Nickname if set or Name otherwise
+	 * @return
+	 */
+	@Transient
+	public String getDisplayName() {
+		if  (StringUtils.hasLength( getNickName() )) {
+			return getNickName();
+		} else {
+			return getName();
+		}
 	}
 	
 

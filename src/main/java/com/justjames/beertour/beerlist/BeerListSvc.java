@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.activity.ActivityLogSvc;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.security.ActiveUser;
@@ -40,6 +41,9 @@ public class BeerListSvc {
 	
 	@Autowired
 	private UserSvc userSvc;
+	
+	@Autowired
+	ActivityLogSvc activitySvc;
 
 	BeerListCompleteSpec beerListCompleteSpec = new BeerListCompleteSpec();
 
@@ -164,7 +168,11 @@ public class BeerListSvc {
 			foundBeer = beerOnListRepo.getOne(beerOnListId);
 			foundBeer.setOrdered(true);
 			foundBeer.setOrderedDate(LocalDate.now().toString());
+
+			activitySvc.logBeer(beerList, foundBeer.getBeer());
+			
 			beerOnListRepo.saveAndFlush(foundBeer);
+
 		} catch (EntityNotFoundException e) {
 			foundBeer = null;
 			String msg = String.format("Beer (%d) not found in list for '%s'", 

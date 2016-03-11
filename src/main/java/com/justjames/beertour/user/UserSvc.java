@@ -45,7 +45,13 @@ public class UserSvc {
 	 * @return
 	 */
 	public User getUser(Integer id) {
-		return userRepo.getOne(id);
+		User user = null;
+		try {
+			user = userRepo.findOne(id);
+		} catch (EntityNotFoundException enf) {
+			log.info("No user found for id=" + id);
+		}
+		return user;
 	}
 	
 	/**
@@ -74,6 +80,7 @@ public class UserSvc {
 		if (!UserUtils.isAdmin() && loggedInUser.getUserId() != user.getId() ) {
 			throw new Brewception("Only admin or user can update account.");
 		}
+
 		
 		User currentUser = null;
 		currentUser = userRepo.findByEmail(user.getEmail());
@@ -109,6 +116,13 @@ public class UserSvc {
 			currentUser = userRepo.getOne(userId);
 			if (currentUser == null) {
 				throw new Brewception("User does not exist:" + editedUser);
+			}
+			
+			if (currentUser.getRole() != editedUser.getRole()) {
+				log.info(String.format("%s assigned to role '%s' by %s",
+					currentUser.getName(),
+					editedUser.getRole(),
+					loggedInUser.getUserTO().getName()));
 			}
 			
 			// These are the only attributes that the user can actually update

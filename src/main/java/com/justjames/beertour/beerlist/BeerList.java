@@ -147,6 +147,18 @@ public class BeerList implements Serializable {
 		return this.getTotalBeersOnList() - getNumberCompletedOnList();
 	}
 	
+	@Transient
+	public Float getListProgressPct() {
+		Float listProgress;
+		try {
+			listProgress = (float) 
+					getNumberOrderedOnList() / getTotalBeersOnList() * 100;
+		} catch (ArithmeticException e) {
+			listProgress = 0f;
+		}
+		return listProgress;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

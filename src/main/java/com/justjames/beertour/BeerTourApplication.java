@@ -71,6 +71,7 @@ public class BeerTourApplication extends SpringBootServletInitializer {
         filterChainDefinitionMapping.put("/beers?", "ssl, token");
         filterChainDefinitionMapping.put("/beers/", "ssl, token");
         filterChainDefinitionMapping.put("/beerlists/**/*", "ssl, token");
+        filterChainDefinitionMapping.put("/activities*", "ssl, token");
         filterChainDefinitionMapping.put("/beers/browse?", "public");
         filterChainDefinitionMapping.put("/health?", "public");
         filterChainDefinitionMapping.put("/*", "public");

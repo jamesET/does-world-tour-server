@@ -33,7 +33,7 @@
 	</appender>
 	
 	<!--  <logger name="org.springframework.web" level="DEBUG"/> -->
-	<!--  <logger name="org.hibernate" level="DEBUG"/> -->
+	<!--  <logger name="org.hibernate" level="DEBUG"/>  -->
 	<!--  <logger name="org.apache.shiro" level="DEBUG"/> -->
 	
 	<logger name="com.justjames" level="INFO" />
