@@ -24,6 +24,7 @@ public class MyBeerListResponse extends BaseResponse {
 	private Integer numberOrderedOnList;
 	private Integer numberCompletedOnList;
 	private Integer numberRemaining;
+	private Float	listProgressPct;
 	private Collection<BeerOnList> drinkList = new ArrayList<BeerOnList>();
 	private Collection<BeerOnList> orderedList = new ArrayList<BeerOnList>();
 	private Collection<BeerOnList> completedList = new ArrayList<BeerOnList>();
@@ -40,6 +41,7 @@ public class MyBeerListResponse extends BaseResponse {
 		this.setNumberOrderedOnList(beerList.getNumberOrderedOnList());
 		this.setNumberCompletedOnList(beerList.getNumberCompletedOnList());
 		this.setNumberRemaining(beerList.getNumberRemaining());
+		this.setListProgressPct(beerList.getListProgressPct());
 		
 		for (BeerOnList beer : beerList.getBeerOnList()) {
 			if (beer.isCompleted()) {
@@ -132,6 +134,15 @@ public class MyBeerListResponse extends BaseResponse {
 
 	public void setNumberRemaining(Integer numberRemaining) {
 		this.numberRemaining = numberRemaining;
+	}
+	
+	@XmlElement
+	public Float getListProgressPct() {
+		return listProgressPct;
+	}
+	
+	public void setListProgressPct(Float listProgressPct) {
+		this.listProgressPct = listProgressPct;
 	}
 
 	@XmlElementWrapper(name="drinkList")
