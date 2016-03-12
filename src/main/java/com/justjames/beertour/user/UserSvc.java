@@ -156,7 +156,6 @@ public class UserSvc {
 	@Transactional
 	public User loginSignup(User newUser) {
 		newUser.setRole(Role.CUSTOMER);
-		newUser.setNumListsCompleted(0);
 		log.info("Adding new user " + newUser);
 		
 		if (emailExists(newUser.getEmail())) {
