@@ -45,7 +45,7 @@ public class ActivityLogSvc {
 		ActivityLog activity = new ActivityLog();
 		activity.setId(null);
 		activity.setUserId(u.getId());
-		activity.setTime(Utils.now());
+		activity.setTime(Utils.utcNow());
 		activity.setBeerId(beer.getId());
 		activity.setListNbr(list.getListNumber());
 		activity.setListProgressPct(list.getListProgressPct());

@@ -30,7 +30,7 @@ public class BeerSvc {
 
 	@Transactional
 	public Beer add(Beer newBeer) {
-		newBeer.setCreateDate(Utils.now());
+		newBeer.setCreateDate(Utils.utcNow());
 		
 		if (!UserUtils.isAdmin()) {
 			log.warn("User not authorized to add beer.");

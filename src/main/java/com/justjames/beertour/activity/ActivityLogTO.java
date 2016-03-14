@@ -22,7 +22,7 @@ public class ActivityLogTO implements Serializable {
 	
 	public ActivityLogTO(ActivityLog al,User u,Beer b) {
 		setId(al.getId());
-		setTime(Utils.dttm.format(al.getTime()));
+		setTime(Utils.utcDateStr(al.getTime()));
 		setName(u.getDisplayName());
 		setBeer(b);
 		setListNbr(al.getListNbr());

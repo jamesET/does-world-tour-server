@@ -64,7 +64,7 @@ public class BeerListSvc {
 		// Add all the beers to the list 
 		BeerList newList = new BeerList();
 		newList.setUser(user);
-		newList.setStartDate(Utils.dt.format(Utils.now()));
+		newList.setStartDate(Utils.getUTC());
 		newList.setFinishDate(null);
 		newList.setListNumber(user.getNumListsCompleted() + 1); 
 		Integer beerCount = 0;
@@ -167,7 +167,7 @@ public class BeerListSvc {
 		try {
 			foundBeer = beerOnListRepo.getOne(beerOnListId);
 			foundBeer.setOrdered(true);
-			foundBeer.setOrderedDate(Utils.dttm.format(Utils.now()));
+			foundBeer.setOrderedDate(Utils.getUTC());
 
 			activitySvc.logBeer(beerList, foundBeer.getBeer());
 			
@@ -212,7 +212,7 @@ public class BeerListSvc {
 		try {
 			foundBeer = beerOnListRepo.getOne(beerOnListId);
 			foundBeer.setCompleted(true);
-			foundBeer.setCompletedDate(Utils.dttm.format(Utils.now()));
+			foundBeer.setCompletedDate(Utils.getUTC());
 			foundBeer.setCompletedBy(loggedInUser.getEmail());
 			beerOnListRepo.saveAndFlush(foundBeer);
 		} catch (EntityNotFoundException e) {
@@ -283,7 +283,7 @@ public class BeerListSvc {
 	@Transactional
 	private BeerList completeList(BeerList list) {
 		userSvc.addToListFinished(list.getUser());
-		list.setFinishDate(Utils.dt.format(Utils.now()));
+		list.setFinishDate(Utils.getUTC());
 		listRepo.saveAndFlush(list);
 		String msg = String.format("COMPLETED: '%s' finished list #%d", list
 				.getUser().getEmail(), list.getListNumber());
