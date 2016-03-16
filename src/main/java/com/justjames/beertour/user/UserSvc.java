@@ -161,7 +161,7 @@ public class UserSvc {
 		log.info("Adding new user " + newUser);
 		
 		if (emailExists(newUser.getEmail())) {
-			String msg = String.format("'%s' already exists, please login.",newUser.getEmail());
+			String msg = String.format("'%s' already exists",newUser.getEmail());
 			log.warn(msg);
 			throw new UserExistsException(msg);
 		}
