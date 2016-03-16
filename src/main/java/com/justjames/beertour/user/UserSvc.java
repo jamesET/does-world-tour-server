@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.InvalidPostDataException;
+import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.beerlist.BeerListSvc;
 import com.justjames.beertour.security.ActiveUser;
 import com.justjames.beertour.security.LoginSvc;
@@ -35,7 +37,7 @@ public class UserSvc {
 	
 	public Collection<User> getAll() {
 		if (!UserUtils.isAdmin()) {
-		 throw new Brewception("Only Admin can list all users:" + UserUtils.getActiveUser());	
+		 throw new NotAuthorizedException("Only Admin can list all users:" + UserUtils.getActiveUser());	
 		} 
 		return userRepo.findAllByOrderByNameAsc();
 	}
@@ -78,14 +80,14 @@ public class UserSvc {
 
 		ActiveUser loggedInUser = UserUtils.getActiveUser();
 		if (!UserUtils.isAdmin() && loggedInUser.getUserId() != user.getId() ) {
-			throw new Brewception("Only admin or user can update account.");
+			throw new NotAuthorizedException("Only admin or user can update account.");
 		}
 
 		
 		User currentUser = null;
 		currentUser = userRepo.findByEmail(user.getEmail());
 		if (currentUser == null) {
-			throw new Brewception("User does not exist:" + user);
+			throw new InvalidPostDataException("User does not exist:" + user);
 		}
 		
 		// These are the only attributes that the user can actually update
@@ -107,7 +109,7 @@ public class UserSvc {
 
 		ActiveUser loggedInUser = UserUtils.getActiveUser();
 		if (!UserUtils.isAdmin() && loggedInUser.getUserId() != userId ) {
-			throw new Brewception("Only admin or user can update account.");
+			throw new NotAuthorizedException("Only admin or user can update account.");
 		}
 		
 		User currentUser = null;
@@ -115,7 +117,7 @@ public class UserSvc {
 		try {
 			currentUser = userRepo.getOne(userId);
 			if (currentUser == null) {
-				throw new Brewception("User does not exist:" + editedUser);
+				throw new InvalidPostDataException("User does not exist:" + editedUser);
 			}
 			
 			if (currentUser.getRole() != editedUser.getRole()) {
@@ -131,7 +133,7 @@ public class UserSvc {
 			updatedUser = userRepo.saveAndFlush(currentUser);
 			
 		} catch (EntityNotFoundException enf) {
-			throw new Brewception("User not found");
+			throw new InvalidPostDataException("User not found");
 		} catch (PersistenceException pe) {
 			throw new Brewception("Error, can't update user");
 		}
@@ -161,7 +163,7 @@ public class UserSvc {
 		if (emailExists(newUser.getEmail())) {
 			String msg = String.format("'%s' already exists, please login.",newUser.getEmail());
 			log.warn(msg);
-			throw new Brewception(msg);
+			throw new UserExistsException(msg);
 		}
 
 		User savedUser = addUser(newUser);
@@ -184,25 +186,28 @@ public class UserSvc {
 	}
 
 	public boolean emailExists(String email) {
+		if (StringUtils.isEmpty(email)) {
+			return false;
+		}
 		User user = findByEmail(email.trim());
 		return user != null ? true : false;
 	}
 	
 	private boolean validateUser(User user) {
 		if (user == null) {
-			throw new Brewception("User can't be null.");
+			throw new InvalidPostDataException("User can't be null.");
 		}
 		
 		if (StringUtils.isBlank(user.getEmail())) {
-			throw new Brewception("Email is required!");
+			throw new InvalidPostDataException("Email is required!");
 		}
 
 		if (StringUtils.isBlank(user.getName())) {
-			throw new Brewception("Name is required!");
+			throw new InvalidPostDataException("Name is required!");
 		}
 
 		if (StringUtils.isBlank(user.getPassword())) {
-			throw new Brewception("Password is required!");
+			throw new InvalidPostDataException("Password is required!");
 		}
 
 		return true;

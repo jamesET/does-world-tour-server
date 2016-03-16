@@ -17,7 +17,8 @@ import org.apache.shiro.mgt.SecurityManager;
 
 import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
-import com.justjames.beertour.Brewception;
+import com.justjames.beertour.InvalidPostDataException;
+import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
@@ -74,7 +75,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		Assert.assertNotNull(allUsers);
 	}
 
-	@Test(expected=Brewception.class)
+	@Test(expected=NotAuthorizedException.class)
 	@Transactional
 	public void getAllUsersAsOther() {
 		addTestUser("getAllUsersAsOther",Role.CUSTOMER);
@@ -92,7 +93,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		Assert.assertNotNull(savedUser);
 	}
 
-	@Test(expected=Brewception.class)
+	@Test(expected=InvalidPostDataException.class)
 	public void testAddUserWithoutEmail() {
 		User u = new User();
 		u.setEmail(null);
@@ -102,7 +103,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		Assert.assertNull(savedUser);
 	}
 
-	@Test(expected=Brewception.class)
+	@Test(expected=InvalidPostDataException.class)
 	public void testAddUserWithoutPassword() {
 		User u = new User();
 		u.setEmail("testAddUserWithoutPassword@just-james.com");
@@ -112,7 +113,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		Assert.assertNull(savedUser);
 	}
 
-	@Test(expected=Brewception.class)
+	@Test(expected=InvalidPostDataException.class)
 	public void testAddUserWithoutName() {
 		User u = new User();
 		u.setEmail("testAddUserWithoutName@just-james.com");
@@ -133,7 +134,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		Assert.assertTrue(newUser.getRole() == Role.CUSTOMER);
 	}
 	
-	@Test(expected=Brewception.class)
+	@Test(expected=UserExistsException.class)
 	public void testDuplicateEmailSignupFails() {
 		User u = new User();
 		u.setEmail("james@just-james.com");
@@ -167,7 +168,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		Assert.assertTrue(updatedUser.getNumListsCompleted()==997);
 	}
 
-	@Test(expected=Brewception.class)
+	@Test(expected=NotAuthorizedException.class)
 	@Transactional
 	public void testUpdateUserAsOther() {
 		addTestUser("testUpdateUserAsOther",Role.CUSTOMER);
@@ -175,7 +176,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		userSvc.selfUpdate(owner);
 	}
 
-	@Test(expected=Brewception.class)
+	@Test(expected=InvalidPostDataException.class)
 	@Transactional
 	public void testUpdateInvalidUser() {
 		addTestUser("testUpdateInvalidUser",Role.ADMIN);
