@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.Utils;
 import com.justjames.beertour.activity.ActivityLogSvc;
 import com.justjames.beertour.beer.Beer;
@@ -200,7 +201,7 @@ public class BeerListSvc {
 		// Only the admin role can do completion
 		if (!UserUtils.isAdmin()) {
 			String msg = String.format("User '%s' is not authorized",loggedInUser.getEmail());
-			throw new Brewception(msg);
+			throw new NotAuthorizedException(msg);
 		}
 		
 		// Get the targeted list
@@ -247,7 +248,7 @@ public class BeerListSvc {
 		// Only the admin role can do un-completion
 		if (!UserUtils.isAdmin()) {
 			String msg = String.format("User '%s' is not authorized",loggedInUser.getEmail());
-			throw new Brewception(msg);
+			throw new NotAuthorizedException(msg);
 		}
 		
 		// Get the targeted list
@@ -316,12 +317,12 @@ public class BeerListSvc {
 		
 		if (!UserUtils.isAdmin()) {
 			String msg = String.format("User '%s' not authorized to complete.", loggedInUser.getEmail());
-			log.warn(msg);
-			throw new Brewception(msg);
+			throw new NotAuthorizedException(msg);
 		}
 		
 		Collection<BeerToComplete> completeList = new ArrayList<BeerToComplete>();
 		
+		//TODO This should be a custom query rather than for-loops
 		Collection<BeerList> beerLists = listRepo.findByFinishDateIsNull();
 		for (BeerList beerList : beerLists) {
 			for (BeerOnList beer : beerList.getBeerOnList()) {
@@ -334,6 +335,25 @@ public class BeerListSvc {
 		}		
 		
 		return completeList;
+	}
+
+	/**
+	 * This method will auto-complete all beers showing ordered but not confirmed as complete. 
+	 */
+	public void completeAllOutstanding() {
+		
+		ActiveUser loggedInUser = UserUtils.getActiveUser();
+
+		if (!UserUtils.isAdmin()) {
+			String msg = String.format("User '%s' not authorized to complete.", loggedInUser.getEmail());
+			throw new NotAuthorizedException(msg);
+		}
+		
+		Collection<BeerToComplete> beersToComplete = getBeersToComplete();
+		for (BeerToComplete entry : beersToComplete) {
+			completeBeer(entry.getBeerListId(),entry.getBeer().getId());
+		}
+		
 	}
 	
 

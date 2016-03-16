@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.Brewception;
+import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.security.ActiveUser;
 import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
@@ -269,7 +270,7 @@ public class BeerListSvcTest extends AbstractShiroTest {
 		listSvc.completeBeer(myList.getId(),-1);
 	}
 	
-	@Test(expected=Brewception.class)
+	@Test(expected=NotAuthorizedException.class)
 	@Transactional
 	public void onlyAdminCanComplete() {
 		// Only an admin can mark beers complete 

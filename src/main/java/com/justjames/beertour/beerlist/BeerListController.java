@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,6 +78,12 @@ public class BeerListController {
 	public CompleteListResponse getCompleteList() {
 		Collection<BeerToComplete> beers = listSvc.getBeersToComplete(); 
 		return new CompleteListResponse(beers);
+	}
+	
+	@RequestMapping(value="completeAll", method=RequestMethod.POST)
+	public ResponseEntity<String> completeAllOutstanding() {
+		listSvc.completeAllOutstanding();
+		return ResponseEntity.ok().body("{ \"message\" : \"OK\"}");
 	}
 
 
