@@ -12,9 +12,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.justjames.beertour.Brewception;
 import com.justjames.beertour.InvalidPostDataException;
 import com.justjames.beertour.NotAuthorizedException;
+import com.justjames.beertour.ResourceException;
 import com.justjames.beertour.beerlist.BeerListSvc;
 import com.justjames.beertour.security.ActiveUser;
 import com.justjames.beertour.security.LoginSvc;
@@ -135,7 +135,7 @@ public class UserSvc {
 		} catch (EntityNotFoundException enf) {
 			throw new InvalidPostDataException("User not found");
 		} catch (PersistenceException pe) {
-			throw new Brewception("Error, can't update user");
+			throw new ResourceException("Error, can't update user");
 		}
 	
 		return updatedUser; 
