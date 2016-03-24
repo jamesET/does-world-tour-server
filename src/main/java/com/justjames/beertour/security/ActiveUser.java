@@ -57,7 +57,7 @@ public class ActiveUser implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("ActiveUser [userId=%s, token=%s]", userId, token);
+		return String.format("ActiveUser [userId=%s, email=%s, token=%s]", userId, email, token);
 	}
 
 	@Override

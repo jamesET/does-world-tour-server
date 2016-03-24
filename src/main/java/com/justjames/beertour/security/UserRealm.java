@@ -73,7 +73,6 @@ public class UserRealm extends AuthorizingRealm {
 		}
 	
 		ActiveUser activeUser = new ActiveUser(user); 
-		tokenRealm.addActiveUser(activeUser);
 		log.debug("User found " + activeUser);
 		
 		return new SimpleAuthenticationInfo(activeUser, user.getPassword(), getName());

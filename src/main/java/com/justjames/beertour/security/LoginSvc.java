@@ -4,14 +4,19 @@ package com.justjames.beertour.security;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LoginSvc {
 	
 	private Log log = LogFactory.getLog(LoginSvc.class);
+	
+	@Autowired
+	TokenRealm tokenRealm;
 	
 	/**
 	 * Return the matching user entity if the password matches
@@ -26,10 +31,16 @@ public class LoginSvc {
 		up.setRememberMe(true);
 		Subject currentUser = SecurityUtils.getSubject();
 		
-		currentUser.login(up);
-		activeUser = (ActiveUser) currentUser.getPrincipal();
-		log.info("Login: " + activeUser);
-		return activeUser;
+		try {
+			currentUser.login(up);
+			activeUser = (ActiveUser) currentUser.getPrincipal();
+			tokenRealm.addActiveUser(activeUser);
+			log.info("Login: " + activeUser);
+			return activeUser;
+		} catch (AuthenticationException ae) {
+			log.info(String.format("Failed login attempt for '%s'",username));
+			throw new NotAuthenticatedException("Invalid login attempt");
+		}
 	}
 	
 	public void logout() {
