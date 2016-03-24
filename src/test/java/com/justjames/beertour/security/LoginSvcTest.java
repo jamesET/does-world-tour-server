@@ -1,7 +1,6 @@
 package com.justjames.beertour.security;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
@@ -43,12 +42,12 @@ public class LoginSvcTest extends AbstractShiroTest {
 	}
 
 	
-	@Test(expected = AuthenticationException.class)
+	@Test(expected = NotAuthenticatedException.class)
 	public void loginInvalidUserId() {
 		loginSvc.login("brent@just-james.com", "admin");
 	}
 
-	@Test(expected = AuthenticationException.class)
+	@Test(expected = NotAuthenticatedException.class)
 	public void loginInvalidPassword() {
 		loginSvc.login("james@just-james.com", "invalidpassword");
 	}
