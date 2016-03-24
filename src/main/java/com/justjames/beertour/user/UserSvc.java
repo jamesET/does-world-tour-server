@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.InvalidPostDataException;
-import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.ResourceException;
 import com.justjames.beertour.beerlist.BeerListSvc;
 import com.justjames.beertour.security.ActiveUser;
 import com.justjames.beertour.security.LoginSvc;
+import com.justjames.beertour.security.NotAuthorizedException;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserUtils;
 

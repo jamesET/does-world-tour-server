@@ -22,6 +22,7 @@ import com.justjames.beertour.Brewception;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.security.LoginSvc;
+import com.justjames.beertour.security.NotAuthorizedException;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
 import com.justjames.beertour.shiro.AbstractShiroTest;
@@ -106,7 +107,7 @@ public class BeerSvcTest extends AbstractShiroTest {
 			Assert.assertTrue(updatedBeer.isOutOfStock());
 		}
 		
-		@Test(expected=Brewception.class)
+		@Test(expected=NotAuthorizedException.class)
 		@Transactional
 		public void updateExistingBeerAsCustomer() {
 			addTestUser("updateExistingBeerAsCustomer",Role.CUSTOMER);

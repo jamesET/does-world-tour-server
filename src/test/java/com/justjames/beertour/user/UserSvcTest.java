@@ -18,8 +18,8 @@ import org.apache.shiro.mgt.SecurityManager;
 import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.InvalidPostDataException;
-import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.security.LoginSvc;
+import com.justjames.beertour.security.NotAuthorizedException;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
 

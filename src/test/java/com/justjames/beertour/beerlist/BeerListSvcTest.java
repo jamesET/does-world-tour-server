@@ -20,9 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.BeerTourApplication;
 import com.justjames.beertour.Brewception;
-import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.security.ActiveUser;
 import com.justjames.beertour.security.LoginSvc;
+import com.justjames.beertour.security.NotAuthorizedException;
 import com.justjames.beertour.security.Role;
 import com.justjames.beertour.security.UserRealm;
 import com.justjames.beertour.user.User;
@@ -190,7 +190,7 @@ public class BeerListSvcTest extends AbstractShiroTest {
 	}
 	
 	
-	@Test(expected=Brewception.class)
+	@Test(expected=NotAuthorizedException.class)
 	@Transactional
 	public void onlyAdminCanCrossOffOther() {
 		// Only a user with the admin role should be able to work on someone else's list.

@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
-import com.justjames.beertour.NotAuthorizedException;
 import com.justjames.beertour.Utils;
 import com.justjames.beertour.activity.ActivityLogSvc;
 import com.justjames.beertour.beer.Beer;
 import com.justjames.beertour.beer.BeerSvc;
 import com.justjames.beertour.security.ActiveUser;
+import com.justjames.beertour.security.NotAuthorizedException;
 import com.justjames.beertour.security.UserUtils;
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
@@ -134,11 +134,6 @@ public class BeerListSvc {
 			myList = startList(currentUser);
 		} 
 
-		// If the list is complete finish it off
-		//if (beerListCompleteSpec.IsSatisfiedBy(myList)) {
-		//	myList = completeList(myList);
-		//}
-
 		log.debug("Fetched beer list for " + currentUser.getEmail());
 		return myList;
 	}
@@ -160,7 +155,7 @@ public class BeerListSvc {
 		if (!canChangeList(loggedInUser,beerList)) {
 			String msg = String.format("User not authorized to edit list for '%s'", listUser.getEmail());
 			log.warn(msg);
-			throw new Brewception(msg);
+			throw new NotAuthorizedException(msg);
 		}
 		
 		// Find the beer and show it as having been ordered 

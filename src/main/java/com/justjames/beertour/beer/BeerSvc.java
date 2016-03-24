@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.justjames.beertour.Brewception;
 import com.justjames.beertour.Utils;
+import com.justjames.beertour.security.NotAuthorizedException;
 import com.justjames.beertour.security.UserUtils;
 
 @Component
@@ -52,7 +53,7 @@ public class BeerSvc {
 		log.info("Updating beer: " + updatedBeer);
 
 		if (!UserUtils.isAdmin()) {
-			throw new Brewception("Only admin users can udpate beer.");
+			throw new NotAuthorizedException("Only admin users can udpate beer.");
 		}
 		
 		Beer beer = null;
