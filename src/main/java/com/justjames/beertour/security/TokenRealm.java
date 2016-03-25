@@ -34,7 +34,7 @@ public class TokenRealm extends AuthorizingRealm {
 	private Cache<String,ActiveUser> tokenCache = 
 			CacheBuilder.newBuilder()
 				.maximumSize(100)
-				.expireAfterAccess(60,TimeUnit.MINUTES) // tokens will expire after not being used for 60 minutes
+				.expireAfterAccess(8,TimeUnit.HOURS)
 				.build();
 	
 	/**
