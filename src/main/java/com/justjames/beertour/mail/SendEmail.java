@@ -25,11 +25,11 @@ public class SendEmail {
     
     // SMTP host name
     @Value("${smtp.host}")
-    private String smtpHost = "email-smtp.us-west-2.amazonaws.com";    
+    private String smtpHost;
     
     //  SMTP port
     @Value("${smtp.port}")
-    private Integer smtpPort = 25;
+    private Integer smtpPort = 0;
     
     @Value("${system.email}")
     private String smtpFromAddress;
@@ -39,7 +39,17 @@ public class SendEmail {
     
     private boolean mailEnabled = true;
     
-    public SendEmail() {
+    private void initSession() {
+    	
+    	// Verify everything is setup
+    	if (!isValidSMTPConfiguration()) {
+    		return;
+    	}
+    	
+    	// Only need to define session once
+    	if (session != null) {
+    		return;
+    	}
     	
         // Create a Properties object to contain connection configuration information.
      	Properties props = System.getProperties();
@@ -61,9 +71,13 @@ public class SendEmail {
     public void sendMail(String to, String subject,String body) {
     	Transport transport = null;
     	
-    	if (!isMailEnabled()) {
+    	initSession();
+    	
+    	if (!isValidSMTPConfiguration()) {
     		log.info("mail is disabled, no mail sent to " + to);
     		return;
+    	} else {
+    		log.info(String.format("Sending email to '%s' ...",to));
     	}
 
     	try {
@@ -85,6 +99,8 @@ public class SendEmail {
 
     	}
     	catch (Exception ex) {
+    		log.error(String.format("smtpHost='%s', smtpPort=%d smtpUserName='%s'",
+    				smtpHost, smtpPort, smtpUsername));
     		log.error(String.format("Error sending email from '%s' to '%s' ... %s => %s",
     				smtpFromAddress, to, ex.getClass().getName(),ex.getMessage()));
     	}
@@ -102,40 +118,35 @@ public class SendEmail {
     	
     }
 
-	private boolean isMailEnabled() {
+	private boolean isValidSMTPConfiguration() {
 		
     	if (StringUtils.isBlank(smtpUsername)) {
-    		setMailEnabled(false);
+    		mailEnabled = false;
     		log.info("smtp.username is not set, email disabled");
     	}
 
     	if (StringUtils.isBlank(smtpPassword)) {
-    		setMailEnabled(false);
+    		mailEnabled = false;
     		log.info("smtp.password is not set, email disabled");
     	}
 
     	if (StringUtils.isBlank(smtpHost)) {
-    		setMailEnabled(false);
+    		mailEnabled = false;
     		log.info("smtp.host is not set, email disabled");
     	}
 
     	if (StringUtils.isBlank(smtpFromAddress)) {
-    		setMailEnabled(false);
+    		mailEnabled = false;
     		log.info("system.email is not set, email disabled");
     	}
     	
     	if (smtpPort <= 0) {
-    		setMailEnabled(false);
+    		mailEnabled = false;
     		log.info("smtp.port must be > 0, email disabled");
     	}
 		
 		return mailEnabled;
 	}
-
-	private void setMailEnabled(boolean mailEnabled) {
-		this.mailEnabled = mailEnabled;
-	}
-    
     
  
 }
