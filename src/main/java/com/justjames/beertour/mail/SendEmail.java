@@ -62,6 +62,8 @@ public class SendEmail {
      	props.put("mail.smtp.auth", "true");
      	props.put("mail.smtp.starttls.enable", "true");
      	props.put("mail.smtp.starttls.required", "true");
+     	props.put("mail.smtp.connectiontimeout", 15000);
+
 
          // Create a Session object to represent a mail session with the specified properties. 
      	session = Session.getDefaultInstance(props);
@@ -103,6 +105,7 @@ public class SendEmail {
     				smtpHost, smtpPort, smtpUsername));
     		log.error(String.format("Error sending email from '%s' to '%s' ... %s => %s",
     				smtpFromAddress, to, ex.getClass().getName(),ex.getMessage()));
+    		throw new MailException("Unable to send mail");
     	}
     	finally {
     		
@@ -146,6 +149,15 @@ public class SendEmail {
     	}
 		
 		return mailEnabled;
+	}
+	
+	
+	public void safeSendMail(String to, String subject,String body) {
+		try {
+			sendMail(to,subject,body);
+		} catch (Exception e) {
+			// do nothing
+		}
 	}
     
  

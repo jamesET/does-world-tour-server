@@ -4,6 +4,7 @@ package com.justjames.beertour.security;
 import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/sendpass",method=RequestMethod.POST) 
-	public void sendPassword(@RequestParam("email") String email) {
+	public ResponseEntity<String> sendPassword(@RequestParam("email") String email) {
 		loginSvc.sendPassword(email);
+		return ResponseEntity.ok().body("{ \"message\" : \"Mail sent\"}");
 	}
 	
 	// Convert a predefined exception to an HTTP Status code
