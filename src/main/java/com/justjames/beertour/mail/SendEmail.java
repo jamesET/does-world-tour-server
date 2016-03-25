@@ -31,6 +31,9 @@ public class SendEmail {
     @Value("${smtp.port}")
     private Integer smtpPort = 25;
     
+    @Value("${system.email}")
+    private String smtpFromAddress;
+    
     // Mail session
     private Session session;
     
@@ -55,7 +58,7 @@ public class SendEmail {
     	
     }
     
-    public void sendMail(String from,String to, String subject,String body) {
+    public void sendMail(String to, String subject,String body) {
     	Transport transport = null;
     	
     	if (!isMailEnabled()) {
@@ -66,7 +69,7 @@ public class SendEmail {
     	try {
     		// Create a message with the specified information. 
     		MimeMessage msg = new MimeMessage(session);
-    		msg.setFrom(new InternetAddress(from));
+    		msg.setFrom(new InternetAddress(smtpFromAddress));
     		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
     		msg.setSubject(subject);
     		msg.setContent(body,"text/plain");
@@ -83,7 +86,7 @@ public class SendEmail {
     	}
     	catch (Exception ex) {
     		log.error(String.format("Error sending email from '%s' to '%s' ... %s => %s",
-    				from, to, ex.getClass().getName(),ex.getMessage()));
+    				smtpFromAddress, to, ex.getClass().getName(),ex.getMessage()));
     	}
     	finally {
     		
@@ -114,6 +117,11 @@ public class SendEmail {
     	if (StringUtils.isBlank(smtpHost)) {
     		setMailEnabled(false);
     		log.info("smtp.host is not set, email disabled");
+    	}
+
+    	if (StringUtils.isBlank(smtpFromAddress)) {
+    		setMailEnabled(false);
+    		log.info("system.email is not set, email disabled");
     	}
     	
     	if (smtpPort <= 0) {

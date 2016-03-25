@@ -10,13 +10,31 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.justjames.beertour.InvalidPostDataException;
+import com.justjames.beertour.mail.SendEmail;
+import com.justjames.beertour.user.User;
+import com.justjames.beertour.user.UserSvc;
+
 @Component
 public class LoginSvc {
 	
+	private static final String resetMailSubject = 
+			"Your Beer Tour password";
+	
+	private static final String resetMailBodyFmt = 
+		"%s,\n" +
+		"\n" + 
+		"Your password is '%s'.\n" + 
+		"\n" + 
+		"   -Beer Tour";
+	
 	private Log log = LogFactory.getLog(LoginSvc.class);
 	
-	@Autowired
-	TokenRealm tokenRealm;
+	@Autowired private TokenRealm tokenRealm;
+	
+	@Autowired private UserSvc userSvc;
+	
+	@Autowired private SendEmail sender; 
 	
 	/**
 	 * Return the matching user entity if the password matches
@@ -50,6 +68,21 @@ public class LoginSvc {
 			log.info("Logout: " + activeUser);
 			currentUser.logout();
 		}
+	}
+
+	/**
+	 * @param email Email address of user wanting password
+	 */
+	public void sendPassword(String email) {
+		User u = userSvc.findByEmail(email);
+		
+		if (u == null) {
+			throw new InvalidPostDataException("There is no matching user for " + email);
+		}
+		
+		String resetMailBody = String.format(resetMailBodyFmt, u.getDisplayName(), u.getPassword());
+		
+		sender.sendMail(u.getEmail(), resetMailSubject, resetMailBody);
 	}
 
 }

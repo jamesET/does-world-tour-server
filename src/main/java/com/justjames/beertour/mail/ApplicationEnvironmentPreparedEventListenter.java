@@ -24,7 +24,7 @@ public class ApplicationEnvironmentPreparedEventListenter {
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (StringUtils.isNotBlank(notifyEmail)) {
 			log.info("Sending startup notification to " + notifyEmail);
-			sender.sendMail("BeerTour@mondoes.club", notifyEmail, "Beer Tour Started", "Ay buddy, the Beer Tour Application started!");
+			sender.sendMail(notifyEmail, "Beer Tour Started", "Ay buddy, the Beer Tour Application started!");
 		} else {
 			log.info("Not sending notification, 'notify.email' property is not set");
 		}

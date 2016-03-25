@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,10 @@ public class LoginController {
 		return loginSvc.login(request.getUsername(),request.getPassword());
 	}
 	
+	@RequestMapping(value="/sendpass",method=RequestMethod.POST) 
+	public void sendPassword(@RequestParam("email") String email) {
+		loginSvc.sendPassword(email);
+	}
 	
 	// Convert a predefined exception to an HTTP Status code
 	@ResponseStatus(value=HttpStatus.UNAUTHORIZED, reason="Not Authorized")  // 401
