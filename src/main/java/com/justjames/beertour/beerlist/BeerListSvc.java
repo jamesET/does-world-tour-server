@@ -70,6 +70,10 @@ public class BeerListSvc {
 		newList.setListNumber(user.getNumListsCompleted() + 1); 
 		Integer beerCount = 0;
 		for (Beer beer : beerSvc.getAll() ) {
+			if (beer.isDiscontinued()) {
+				// Discontinued beers don't go on the list
+				continue;
+			}
 			BeerOnList listBeer= new BeerOnList(beer);
 			listBeer.setOrdered(false);
 			listBeer.setOrderedDate(null);
