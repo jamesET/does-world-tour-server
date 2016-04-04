@@ -9,6 +9,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.subject.Subject;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +27,9 @@ import com.justjames.beertour.beerlist.BeerList;
 import com.justjames.beertour.beerlist.BeerListSvc;
 import com.justjames.beertour.beerlist.BeerOnList;
 import com.justjames.beertour.security.ActiveUser;
+import com.justjames.beertour.security.LoginSvc;
 import com.justjames.beertour.security.Role;
+import com.justjames.beertour.security.UserRealm;
 import com.justjames.beertour.shiro.AbstractShiroTest;
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
@@ -37,6 +45,27 @@ public class ActivityLogSvcTest extends AbstractShiroTest {
 	
 	@Autowired private BeerListSvc beerListSvc;
 	
+	@Autowired UserRealm userRealm;
+	
+	@Autowired LoginSvc loginSvc;
+	
+	SecurityManager securityManager = null;
+	
+	@Before
+	public void setUp() {
+		if (securityManager == null) {
+			securityManager =  new DefaultSecurityManager(userRealm);
+			setSecurityManager(securityManager);
+		}
+	}
+	
+	@After
+	public void tearDownSubject() {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		clearSubject();
+	}
+	
 	@Test
 	@Transactional
 	public void getGlobalMostRecent() {
@@ -51,7 +80,7 @@ public class ActivityLogSvcTest extends AbstractShiroTest {
 		Beer u2Beer1 = getBeerFromList(u1List,1);
 		activityLog.logBeer(u2List, u2Beer1);
 
-		ActivityFeed feed =  activityLog.getActivityFeed(null,1);
+		ActivityFeed feed =  activityLog.getBeerFeed(null,1);
 		assertNotNull("feed should not be null", feed);
 		List<ActivityLogTO> activities = feed.getActivities();
 		assertTrue("There should be three activities in feed",activities.size() == 2);
@@ -77,7 +106,7 @@ public class ActivityLogSvcTest extends AbstractShiroTest {
 		activityLog.logBeer(u2List, u2Beer1);
 		
 		// only user 1's beer should show in this feed 
-		ActivityFeed feed = activityLog.getActivityFeed(u1.getId(),1);
+		ActivityFeed feed = activityLog.getBeerFeed(u1.getId(),1);
 		List<ActivityLogTO> activities =  feed.getActivities();
 		Iterator<ActivityLogTO> iterator = activities.iterator();
 		ActivityLogTO activity1 = iterator.next(); 
@@ -91,7 +120,7 @@ public class ActivityLogSvcTest extends AbstractShiroTest {
 	public void getEmptyUserFeed() {
 		User u1 = getUser("u1",Role.CUSTOMER);
 
-		ActivityFeed feed = activityLog.getActivityFeed(u1.getId(),1);
+		ActivityFeed feed = activityLog.getBeerFeed(u1.getId(),1);
 		assertNotNull("Feed should be empty, not null.",feed);
 		assertTrue("Feed should be empty!",feed.getActivities().size() == 0);
 	}
@@ -99,14 +128,14 @@ public class ActivityLogSvcTest extends AbstractShiroTest {
 	@Test
 	@Transactional
 	public void getEmptyGlobalFeed() {
-		ActivityFeed feed = activityLog.getActivityFeed(null,1);
+		ActivityFeed feed = activityLog.getBeerFeed(null,1);
 		assertNotNull("Feed should be empty, not null.",feed);
 		assertTrue("Feed should be empty!",feed.getActivities().size() == 0);
 	}
 	
 	@Transactional
 	public void getInvalidIdUserFeed() {
-		ActivityFeed feed = activityLog.getActivityFeed(-1,1);
+		ActivityFeed feed = activityLog.getBeerFeed(-1,1);
 		assertNotNull(feed);
 		assertTrue(feed.getActivities().size() == 0);
 	}
@@ -119,6 +148,31 @@ public class ActivityLogSvcTest extends AbstractShiroTest {
 	@Test
 	public void getInvalidPageGlobalFeed() {
 		//TODO
+	}
+	
+	@Test
+	@Transactional
+	public void logValidListComplete() {
+		User u1 = getUser("u1",Role.CUSTOMER);
+		BeerList u1List = getList(u1);
+		
+		ActivityLog activity = activityLog.logListComplete(u1List);
+		assertNotNull("activity should not be null",activity);
+		
+		ActivityFeed feed =  activityLog.getBeerFeed(null,1);
+		assertNotNull("feed should not be null", feed);
+	}
+	
+	@Test
+	@Transactional
+	public void logValidNews() {
+		User u1 = getUser("u1",Role.CUSTOMER);
+		loginSvc.login(u1.getEmail(), u1.getPassword());
+		
+		activityLog.logNews("Hello Beer!");
+
+		ActivityFeed feed =  activityLog.getActivityFeed(null,true, 1);
+		assertNotNull("feed should not be null", feed);
 	}
 
 	

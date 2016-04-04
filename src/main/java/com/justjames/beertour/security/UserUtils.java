@@ -12,7 +12,7 @@ public abstract class UserUtils {
 	public static boolean isAdmin() {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject == null) {
-			throw new Brewception("User is not logged in!");
+			throw new NotAuthenticatedException("User is not logged in!");
 		}
 		return subject.hasRole(Role.ADMIN.toString());
 	}

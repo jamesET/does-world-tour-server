@@ -41,6 +41,12 @@ public class ActivityLog implements Serializable {
 	
 	@Column
 	private Float listProgressPct;
+	
+	@Column
+	private ActivityType activityType;
+	
+	@Column
+	private String messageHtml;
 
 	public Long getId() {
 		return id;
@@ -88,6 +94,21 @@ public class ActivityLog implements Serializable {
 
 	public void setListProgressPct(Float listProgressPct) {
 		this.listProgressPct = listProgressPct;
+	}
+	public ActivityType getActivityType() {
+		return activityType;
+	}
+
+	public void setActivityType(ActivityType activityType) {
+		this.activityType = activityType;
+	}
+
+	public String getMessageHtml() {
+		return messageHtml;
+	}
+
+	public void setMessageHtml(String messageHtml) {
+		this.messageHtml = messageHtml;
 	}
 
 	@Override

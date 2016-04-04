@@ -285,6 +285,7 @@ public class BeerListSvc {
 		userSvc.addToListFinished(list.getUser());
 		list.setFinishDate(Utils.getUTC());
 		listRepo.saveAndFlush(list);
+		activitySvc.logListComplete(list);
 		String msg = String.format("COMPLETED: '%s' finished list #%d", list
 				.getUser().getEmail(), list.getListNumber());
 		log.info(msg);
