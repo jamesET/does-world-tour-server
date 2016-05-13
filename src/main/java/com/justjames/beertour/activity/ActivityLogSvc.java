@@ -1,8 +1,6 @@
 package com.justjames.beertour.activity;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
