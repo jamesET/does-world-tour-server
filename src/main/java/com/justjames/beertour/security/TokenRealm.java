@@ -33,8 +33,8 @@ public class TokenRealm extends AuthorizingRealm {
 	
 	private Cache<String,ActiveUser> tokenCache = 
 			CacheBuilder.newBuilder()
-				.maximumSize(100)
-				.expireAfterAccess(8,TimeUnit.HOURS)
+				.maximumSize(200)
+				.expireAfterAccess(15,TimeUnit.DAYS)
 				.build();
 	
 	/**
