@@ -2,8 +2,6 @@ package com.justjames.beertour.security;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserTO;
 
@@ -19,8 +17,8 @@ public class ActiveUser implements Serializable {
 	public ActiveUser(User user) {
 		this.userId = user.getId();
 		this.email = user.getEmail();
+		this.token =  user.getToken();
 		this.setUserTO(new UserTO(user));
-		this.token = RandomStringUtils.randomAlphanumeric(32);
 	}
 
 	public String getToken() {

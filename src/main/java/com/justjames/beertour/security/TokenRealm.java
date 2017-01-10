@@ -3,6 +3,7 @@ package com.justjames.beertour.security;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
@@ -19,32 +20,46 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.justjames.beertour.user.User;
 import com.justjames.beertour.user.UserSvc;
 
 @Component
 public class TokenRealm extends AuthorizingRealm {
 	
-	@Autowired UserSvc userSvc;
+	@Autowired
+	UserSvc userSvc;
 	
 	private Log log = LogFactory.getLog(TokenRealm.class);
 	
-	private Cache<String,ActiveUser> tokenCache = 
+	private LoadingCache<String,ActiveUser> tokenCache = 
 			CacheBuilder.newBuilder()
 				.maximumSize(200)
-				.expireAfterAccess(15,TimeUnit.DAYS)
-				.build();
+				.expireAfterWrite(30,TimeUnit.MINUTES)
+				.build(
+					new CacheLoader<String,ActiveUser> () {
+
+						@Override
+						public ActiveUser load(String token) throws Exception {
+							User u = userSvc.findByToken(token);
+							return new ActiveUser(u);
+						}
+					}
+						
+				);
 	
 	/**
-	 * Add new token to cache
+	 * Save new token for the user 
 	 * @param user
 	 */
-	public void addActiveUser(ActiveUser user) {
-		log.debug("Adding token to cache" + user);
-		tokenCache.put(user.getToken(), user);
-		log.debug("Token cache entries=" + tokenCache.size());
+	public ActiveUser updateActiveUser(ActiveUser user) {
+		log.debug("Saving token for " + user );
+		User u = userSvc.getUser(user.getUserId());
+		userSvc.setNewToken(u);
+		u =  userSvc.getUser(user.getUserId());
+		return new ActiveUser(u);
 	}
 	
 	@Override
@@ -77,14 +92,17 @@ public class TokenRealm extends AuthorizingRealm {
 			AuthenticationToken token) throws AuthenticationException {
 		
 		SecurityToken secToken = (SecurityToken) token;
+		String strToken = (String) secToken.getCredentials();
 		
-		log.debug("Looking for token: '" + secToken.getCredentials() + "'");
-		ActiveUser activeUser = tokenCache.getIfPresent(secToken.getCredentials());
-		
-		if (activeUser == null) {
+		log.debug("Looking for token: '" + strToken + "'");
+		ActiveUser activeUser;
+		try {
+			activeUser = tokenCache.get(strToken);
+		} catch (ExecutionException e) {
+			log.warn(e.getMessage());
 			throw new AuthenticationException(String.format("Token not valid %s", secToken.getCredentials()));
 		}
-
+		
 		log.debug("Token found " + activeUser);
 	
 		return new SimpleAuthenticationInfo(activeUser, secToken.getCredentials(), getName());
@@ -94,6 +112,5 @@ public class TokenRealm extends AuthorizingRealm {
 	public boolean supports(AuthenticationToken token) {
 		return token instanceof SecurityToken;
 	}
-
 
 }

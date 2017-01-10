@@ -30,9 +30,6 @@ public class UserRealm extends AuthorizingRealm {
 	@Autowired
 	UserSvc userSvc;
 	
-	@Autowired
-	TokenRealm tokenRealm;
-
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {

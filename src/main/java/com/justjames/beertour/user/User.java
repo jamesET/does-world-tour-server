@@ -47,6 +47,9 @@ public class User implements Serializable {
 	@Column(name="lists_completed")
 	private Integer numListsCompleted;
 	
+	@Column(name="token")
+	private String token;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -146,6 +149,14 @@ public class User implements Serializable {
 		} else {
 			return getName();
 		}
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public String getToken() {
+		return token;
 	}
 	
 

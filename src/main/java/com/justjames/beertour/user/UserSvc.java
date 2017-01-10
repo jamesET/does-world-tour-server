@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -212,6 +213,32 @@ public class UserSvc {
 
 		return true;
 	}
+
+	/**
+	 * Retrieves the login token for the given user
+	 * 
+	 * @param email
+	 * @return current login token 
+	 */
+	public User findByToken(String token) {
+		User u = userRepo.findByToken(token);
+		if (u == null) {
+			log.warn("Token not found : [" + token + "]");
+		} 
+		return u;
+	}
+
+	/**
+	 * @param u
+	 */
+	@Transactional
+	public void setNewToken(User u) {
+		String token = RandomStringUtils.randomAlphanumeric(32);
+		u.setToken(token);
+		log.debug("Token assigned " + u);
+		userRepo.save(u);
+	}
+
 	
 	
 

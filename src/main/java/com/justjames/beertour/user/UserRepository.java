@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	
 	public List<User> findAllByOrderByNameAsc();
 
+	public User findByToken(String token);
+
 }

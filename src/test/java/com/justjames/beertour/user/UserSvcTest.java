@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 
@@ -54,6 +56,7 @@ public class UserSvcTest extends AbstractShiroTest {
 		user.setName(name);
 		user.setPassword("1234");
 		user.setRole(role);
+		user.setToken(RandomStringUtils.randomAlphanumeric(32));
 		user = userSvc.addUser(user);
 		loginSvc.login(user.getEmail(), user.getPassword());
 		return user;
@@ -195,8 +198,18 @@ public class UserSvcTest extends AbstractShiroTest {
 		User updatedUser = userSvc.adminEdit(owner.getId(),userEdit);
 		Assert.assertTrue(updatedUser.getRole()==Role.CUSTOMER);
 	}
-
-
+	
+	@Test
+	@Transactional
+	public void testFindByToken() {
+		addTestUser("testFindByToken",Role.CUSTOMER);
+		User userByEmail = userSvc.findByEmail("testFindByToken@just-james.com");
+		
+		User userByToken = userSvc.findByToken(userByEmail.getToken());
+		
+		Assert.assertTrue(StringUtils.isNotEmpty(userByToken.getToken()));
+	}
+	
 	@After
 	public void tearDownSubject() {
 		clearSubject();

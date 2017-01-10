@@ -51,8 +51,8 @@ public class LoginSvc {
 		
 		try {
 			currentUser.login(up);
-			activeUser = (ActiveUser) currentUser.getPrincipal();
-			tokenRealm.addActiveUser(activeUser);
+			ActiveUser cachedUser = (ActiveUser) currentUser.getPrincipal();
+			activeUser = tokenRealm.updateActiveUser(cachedUser);
 			log.info("Login: " + activeUser);
 			return activeUser;
 		} catch (AuthenticationException ae) {
