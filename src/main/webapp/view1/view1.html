@@ -1,0 +1,27 @@
+<div ng-controller="View1Ctrl as vm">
+  <md-content >
+    <md-input-container>
+      <label>Search</label>
+      <input type="text" ng-model="searchText">
+    </md-input-container>
+    <md-list flex>
+        <md-list-item ng-click="null"
+          ng-show="!(beer.discontinued) && !beer.outOfStock"
+          ng-repeat="beer in vm.beers | filter:searchText" >
+          <md-divider></md-divider>
+          <div layout="row" flex="100" layout-padding>
+            <div layout="column" flex="50" class="md-list-item-text">
+                <div><b>{{beer.name}}</b></div>
+                <div>by {{beer.brewery}}</div>
+                <div>{{beer.country}} / {{beer.region}}</div>
+            </div>
+            <div layout="column" flex="50" class="md-list-item-text">
+                <div>{{beer.style}}</div>
+                <div>{{beer.abv}}% abv</div>
+                <div>{{beer.oz}} oz</div>
+            </div>
+          </div>
+        </md-list-item>
+    </md-list>
+  </md-content>
+</div>

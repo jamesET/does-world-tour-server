@@ -1,0 +1,41 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.app-nav-bar-icon {
+    width: auto;
+    height: auto;
+    max-height: 100;
+    max-width: 100;
+}
+
+.small-text {
+  font-size: 12px;
+}
+
+#beer-table td {
+  vertical-align: middle;
+  text-align: left;
+}
