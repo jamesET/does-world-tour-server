@@ -1,9 +1,7 @@
 <div ng-controller="View1Ctrl as vm">
-  <div layout="column" layout-align="center center">
-    <h3>Doe's Eat Place - Bentonville</h3>
-    <div>Download the Beer Tour at https://www.mondoes.club</div>
-  </div>
   <md-content>
+
+  <div class="beer-report-header">Doe's Eat Place - Bentonville</div>
 
     <div layout="column" layout-align="center center">
       <md-input-container class="hide-print">
@@ -12,19 +10,29 @@
       </md-input-container>
     </div>
 
-    <md-divider></md-divider>
+  <div class="beer-report-subtitle">Choose from {{vm.numBeers}} beers</div>
 
-    <div layout="row" layout-wrap layout-margin-sm layout-padding layout-align="center">
-        <div flex="25" ng-click="null" ng-repeat="group in vm.groupedBeers">
-          <div id="beer-group">{{group.country}}</div>
-          <div ng-repeat="beer in group.beers | filter:searchText" 
-          	ng-show="!(beer.discontinued) && !beer.outOfStock"
-          	ng-click="null" 
-          	class="small-text">
-            {{beer.name}}
-          </div>
+  <div class="beer-report">
+    <div ng-click="null" ng-repeat="group in vm.groupedBeers">
+      <div class="beer-group-heading" ng-show="!vm.inSearch()">{{group.country}}</div>
+      <div class="beer-group">
+        <div ng-click="null" ng-show="!(beer.discontinued) && !beer.outOfStock"
+          ng-repeat="beer in group.beers | filter:searchText" class="beer">
+          {{beer.name}}
         </div>
+      </div>
     </div>
+  </div>
 
-  </md-content>
+  <br><br>
+  <div class="beer-report-subtitle print-only">
+    Download the Beer Tour at https://www.mondoes.club
+  </div>
+  <br>
+  <div class="beer-report-subtitle print-only">
+    <img ng-src="assets/mondoes-qr.jpg" height="100"/>
+  </div>
+
+</md-content>
+
 </div>

@@ -35,17 +35,50 @@
   font-size: 12px;
 }
 
-#beer-group {
-    text-decoration: underline;
-    font-weight:bolder;
+.beer-report-header {
+  text-align:center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.beer-report-subtitle {
+  text-align:center;
+}
+
+.beer-group-heading {
+    font-size: 1.0em;
+    font-weight:bold;
+    border-style: hidden;
+    border-bottom-style: solid;
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.beer-group {
+  padding: 0.5em;
+}
+
+.beer {
+    font-size: 0.9em;
+    padding: 2px;
+}
+
+.beer-report {
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  column-count: 3;
+  column-gap: 10px;
+  column-span: all;
 }
 
 @media print {
     .no-print {
         display: none !important;
     }
+}
 
+@media not print {
     .print-only {
-        display: block !important;
+        display: none !important;
     }
 }

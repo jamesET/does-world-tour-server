@@ -14,12 +14,14 @@ angular.module('myApp.view1', ['ngRoute','beers.service'])
   var vm = this;
   vm.beers = { };
   vm.groupedBeers = [];
+  vm.numBeers = 0;
 
   BeerService.getBeers()
       .then(getBeersSuccess,getBeersFailed);
 
   function getBeersSuccess(beers) {
       vm.beers = beers;
+      vm.numBeers = beers.length;
       vm.groupedBeers = getGroupedBeerList(beers);
   }
 
@@ -39,6 +41,7 @@ angular.module('myApp.view1', ['ngRoute','beers.service'])
         // Find country
         var countryIndex = countries[country];
 
+        /*
         // If country has more than 30 beers make a new group
         if (countryIndex != null) {
           var blockFactor = 52;
@@ -49,6 +52,7 @@ angular.module('myApp.view1', ['ngRoute','beers.service'])
             countryIndex = countries[country];
           }
         }
+        */
 
         // Add new country if needed
         if (!countryIndex && countryIndex != 0 ) {
