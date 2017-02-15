@@ -17,7 +17,7 @@
     <div layout="row" layout-wrap layout-margin-sm layout-padding layout-align="center">
         <div flex="25" ng-click="null" ng-repeat="group in vm.groupedBeers">
           <div id="beer-group">{{group.country}}</div>
-          <div ng-click="null" ng-repeat="beer in group.beers" class="small-text">
+          <div ng-click="null" ng-repeat="beer in group.beers | filter:searchText" class="small-text">
             {{beer.name}}
           </div>
         </div>
