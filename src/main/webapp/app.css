@@ -35,7 +35,17 @@
   font-size: 12px;
 }
 
-#beer-table td {
-  vertical-align: middle;
-  text-align: left;
+#beer-group {
+    text-decoration: underline;
+    font-weight:bolder;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
 }

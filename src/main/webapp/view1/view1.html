@@ -1,27 +1,27 @@
 <div ng-controller="View1Ctrl as vm">
-  <md-content >
-    <md-input-container>
-      <label>Search</label>
-      <input type="text" ng-model="searchText">
-    </md-input-container>
-    <md-list flex>
-        <md-list-item ng-click="null"
-          ng-show="!(beer.discontinued) && !beer.outOfStock"
-          ng-repeat="beer in vm.beers | filter:searchText" >
-          <md-divider></md-divider>
-          <div layout="row" flex="100" layout-padding>
-            <div layout="column" flex="50" class="md-list-item-text">
-                <div><b>{{beer.name}}</b></div>
-                <div>by {{beer.brewery}}</div>
-                <div>{{beer.country}} / {{beer.region}}</div>
-            </div>
-            <div layout="column" flex="50" class="md-list-item-text">
-                <div>{{beer.style}}</div>
-                <div>{{beer.abv}}% abv</div>
-                <div>{{beer.oz}} oz</div>
-            </div>
+  <div layout="column" layout-align="center center">
+    <h3>Doe's Eat Place - Bentonville</h3>
+    <div>Download the Beer Tour at https://www.mondoes.club</div>
+  </div>
+  <md-content>
+
+    <div layout="column" layout-align="center center">
+      <md-input-container class="hide-print">
+        <label>Search</label>
+        <input type="text" ng-model="searchText">
+      </md-input-container>
+    </div>
+
+    <md-divider></md-divider>
+
+    <div layout="row" layout-wrap layout-margin-sm layout-padding layout-align="center">
+        <div flex="25" ng-click="null" ng-repeat="group in vm.groupedBeers">
+          <div id="beer-group">{{group.country}}</div>
+          <div ng-click="null" ng-repeat="beer in group.beers" class="small-text">
+            {{beer.name}}
           </div>
-        </md-list-item>
-    </md-list>
+        </div>
+    </div>
+
   </md-content>
 </div>
