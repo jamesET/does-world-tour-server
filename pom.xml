@@ -4,14 +4,14 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>does-world-tour-server</artifactId>
-	<version>1.0.20</version>
+	<version>1.0.21-SNAPSHOT</version>
 
 	<name>Doe's World of Beer Tour</name>
 	<description>Server backend for the Doe's World Tour of Beer mobile app for the patrons of Doe's Bentonville.</description>
 	
 	<scm>
       <developerConnection>scm:git:https://github.com/jamesET/does-world-tour-server.git</developerConnection>
-  	  <tag>does-world-tour-server-1.0.20</tag>
+  	  <tag>does-world-tour-server-1.0</tag>
   	  <url>scm:git:https://github.com/jamesET/does-world-tour-server.git</url>
 	</scm>
 	
