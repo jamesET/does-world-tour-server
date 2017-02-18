@@ -2,30 +2,37 @@
 
 angular.module('myApp.view1', ['ngRoute','beers.service'])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', function($routeProvider,$scope) {
   $routeProvider.when('/view1', {
     templateUrl: 'view1/view1.html',
     controller: 'View1Ctrl'
   });
 }])
 
-.controller('View1Ctrl', [ 'BeerService', function(BeerService) {
+.controller('View1Ctrl', [ '$scope', 'BeerService', function($scope,BeerService) {
 
   var vm = this;
-  vm.beers = { };
   vm.groupedBeers = [];
   vm.numBeers = 0;
+  vm.isPrinting = false;
+  vm.activated = false;
 
-  BeerService.getBeers()
+  activate();
+
+  function activate() {
+    vm.groupedBeers = [];
+    vm.activated = false;
+    BeerService.getBeers()
       .then(getBeersSuccess,getBeersFailed);
+  }
 
   function getBeersSuccess(beers) {
-      vm.beers = beers;
-      vm.numBeers = beers.length;
       vm.groupedBeers = getGroupedBeerList(beers);
+      vm.activated = true;
   }
 
   function getBeersFailed(reason) {
+    vm.activated = true;
     console.log(reason);
   }
 
@@ -34,25 +41,21 @@ angular.module('myApp.view1', ['ngRoute','beers.service'])
     var countries = {};
     var countryGroups = [];
 
+    vm.numBeers = 0;
+
     for (var id in drinkList) {
         var country = drinkList[id].country;
         var beer = drinkList[id];
 
+        // Discontinued beers are filtered out
+        if (beer.discontinued) {
+            continue;
+        }
+
+        vm.numBeers++;
+
         // Find country
         var countryIndex = countries[country];
-
-        /*
-        // If country has more than 30 beers make a new group
-        if (countryIndex != null) {
-          var blockFactor = 52;
-          var existingGroup = countryGroups[countryIndex];
-          if (existingGroup.beers.length >= blockFactor) {
-            var extendedCountryGroup = (existingGroup.beers.length / blockFactor)+1;
-            country = drinkList[id].country + "-" + extendedCountryGroup;
-            countryIndex = countries[country];
-          }
-        }
-        */
 
         // Add new country if needed
         if (!countryIndex && countryIndex != 0 ) {

@@ -10,14 +10,17 @@
       </md-input-container>
     </div>
 
+  <div layout="row" layout-sm="column" layout-align="center center" ng-show="!vm.activated">
+      <md-progress-circular md-mode="indeterminate" ng-disabled="!vm.activated"></md-progress-circular>
+  </div>
+
   <div class="beer-report-subtitle">Choose from {{vm.numBeers}} beers</div>
 
-  <div class="beer-report">
+  <div class="beer-report" ng-show="vm.activated">
     <div ng-click="null" ng-repeat="group in vm.groupedBeers">
       <div class="beer-group-heading" ng-show="!vm.inSearch()">{{group.country}}</div>
       <div class="beer-group">
-        <div ng-click="null" ng-show="!(beer.discontinued) && !beer.outOfStock"
-          ng-repeat="beer in group.beers | filter:searchText" class="beer">
+        <div class="beer" ng-click="null" ng-repeat="beer in group.beers | filter:searchText">
           {{beer.name}}
         </div>
       </div>
