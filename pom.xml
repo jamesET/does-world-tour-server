@@ -246,6 +246,42 @@
 				<artifactId>maven-release-plugin</artifactId>
         		<version>2.5.3</version>
       		</plugin>
+      		
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <phase>generate-sources</phase>
+                      <goals>
+                          <goal>exec</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <executable>bower</executable>
+                  <arguments>
+                      <argument>install</argument>
+                  </arguments>
+                  <workingDirectory>${basedir}</workingDirectory>
+              </configuration>
+          	</plugin>
+          
+            <plugin>
+              <artifactId>maven-clean-plugin</artifactId>
+              <configuration>
+                  <filesets>
+                      <fileset>
+                          <directory>src/main/webapp/bower_components</directory>
+                      </fileset>
+                      <fileset>
+                          <directory>node_modules</directory>
+                      </fileset>
+                  </filesets>
+              </configuration>
+          	</plugin>
+          	
+          	
 			
 		</plugins>
 	</build>

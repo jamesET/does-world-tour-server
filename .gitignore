@@ -4,9 +4,7 @@ target
 *.swp
 *.swo
 *.log
-*.DS_Store
-*.log
 *.log.?
-
-
+*.DS_Store
 .settings/org.eclipse.wst.common.component
+/node_modules/
