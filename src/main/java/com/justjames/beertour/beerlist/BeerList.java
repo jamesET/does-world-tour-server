@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.justjames.beertour.user.User;
 
 @Entity
-@Table(name="BEER_LIST")
+@Table(name="BEER_LIST",
+indexes = {@Index(name = "finish_date_idx",  columnList="finish_date", unique=false)} )
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @XmlRootElement(name="beerList")
 public class BeerList implements Serializable {
@@ -42,7 +44,7 @@ public class BeerList implements Serializable {
 	@Column(nullable=false)
 	private String startDate;
 	
-	@Column
+	@Column(name="finish_date")
 	private String finishDate;
 	
 	@Column
