@@ -24,7 +24,7 @@ public class AutoComplete {
      */
     @Scheduled(cron = "0 0 16 * * ?",zone = "America/Chicago") 
     public void autoComplete() {
-    	beerListSvc.completeAllOutstanding();
+    	beerListSvc.unSecuredCompleteAllOutstanding();
     	
     }
 }

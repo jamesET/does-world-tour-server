@@ -349,6 +349,13 @@ public class BeerListSvc {
 			throw new NotAuthorizedException(msg);
 		}
 		
+		unSecuredCompleteAllOutstanding();
+	}
+	
+	public void unSecuredCompleteAllOutstanding() {
+		
+		log.info("Completing All Outstanding Beers");
+
 		Collection<BeerToComplete> beersToComplete = getBeersToComplete();
 		for (BeerToComplete entry : beersToComplete) {
 			completeBeer(entry.getBeerListId(),entry.getBeer().getId());
