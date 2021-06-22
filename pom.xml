@@ -4,14 +4,14 @@
 
 	<groupId>com.justjames</groupId>
 	<artifactId>does-world-tour-server</artifactId>
-	<version>1.0.23</version>
+	<version>1.0.22-SNAPSHOT</version>
 
 	<name>Doe's World of Beer Tour</name>
 	<description>Server backend for the Doe's World Tour of Beer mobile app for the patrons of Doe's Bentonville.</description>
 	
 	<scm>
       <developerConnection>scm:git:https://github.com/jamesET/does-world-tour-server.git</developerConnection>
-  	  <tag>does-world-tour-server-1.0.21</tag>
+  	  <tag>does-world-tour-server-1.0</tag>
   	  <url>scm:git:https://github.com/jamesET/does-world-tour-server.git</url>
 	</scm>
 	
@@ -36,7 +36,7 @@
 		<java.version>1.8</java.version>
 		<jquery.version>2.1.1</jquery.version>
 		<bootstrap.version>3.2.0</bootstrap.version>
-		<shiro.version>1.7.1</shiro.version>
+		<shiro.version>1.3.2</shiro.version>
 		<angular.version>1.0</angular.version>
      	 <docker.image.prefix>springio</docker.image.prefix>
 	</properties>
@@ -62,10 +62,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-				<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -81,7 +77,7 @@
 		<dependency>
 			<groupId>net.bull.javamelody</groupId>
 			<artifactId>javamelody-core</artifactId>
-			<version>1.61.0</version>
+			<version>1.74.0</version>
 		</dependency>
 	
 		<dependency>
@@ -116,7 +112,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>30.1.1-jre</version>
+			<version>19.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.easymock</groupId>
@@ -138,6 +134,11 @@
 			<artifactId>javax.interceptor-api</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -149,7 +150,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
+				<version>0.8.4</version>
 				
 			    <executions>
     			    <!--
@@ -240,7 +241,47 @@
     			</configuration>
 			</plugin>
 		
-
+		    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+        		<version>2.5.3</version>
+      		</plugin>
+      		
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <phase>generate-sources</phase>
+                      <goals>
+                          <goal>exec</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <executable>bower</executable>
+                  <arguments>
+                      <argument>install</argument>
+                  </arguments>
+                  <workingDirectory>${basedir}</workingDirectory>
+              </configuration>
+          	</plugin>
+          
+            <plugin>
+              <artifactId>maven-clean-plugin</artifactId>
+              <configuration>
+                  <filesets>
+                      <fileset>
+                          <directory>src/main/webapp/bower_components</directory>
+                      </fileset>
+                      <fileset>
+                          <directory>node_modules</directory>
+                      </fileset>
+                  </filesets>
+              </configuration>
+          	</plugin>
+          	
+          	
 			
 		</plugins>
 	</build>

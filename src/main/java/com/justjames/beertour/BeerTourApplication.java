@@ -22,6 +22,7 @@ import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.justjames.beertour.security.PublicFilter;
 import com.justjames.beertour.security.SecurityFilter;
@@ -30,6 +31,7 @@ import com.justjames.beertour.security.TokenRealm;
 import com.justjames.beertour.security.UserRealm;
 
 @SpringBootApplication(exclude=JerseyAutoConfiguration.class)
+@EnableScheduling
 public class BeerTourApplication extends SpringBootServletInitializer {
 	
 	private Log log = LogFactory.getLog(BeerTourApplication.class);
